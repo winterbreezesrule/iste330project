@@ -1,10 +1,8 @@
 public class Affiliations {
-
-    /**
-      *
-      * TABLE ATTRIBUTES GO HERE
-      *
-      */
+    
+    // table attributes
+    int affiliationId;
+    String affiliationName;
       
     /**
       *

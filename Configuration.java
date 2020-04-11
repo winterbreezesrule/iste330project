@@ -1,10 +1,16 @@
-public class Configuration {
+import java.util.*;
 
-    /**
-      *
-      * TABLE ATTRIBUTES GO HERE
-      *
-      */
+public class Configuration {
+      
+    // table attributes
+    Date submissionOpen;
+    Date submissionClose;
+    String PCEmail;
+    String PCName;
+    String PC2Email;
+    String PC2Name;
+    String shortName;
+    String logoFile;
       
     /**
       *

@@ -1,10 +1,14 @@
 public class Users {
 
-    /**
-      *
-      * TABLE ATTRIBUTES GO HERE
-      *
-      */
+    // table attributes
+    int userId;
+    String lastName;
+    String firstName;
+    String email;
+    String pswd;
+    String expiration;
+    int isAdmin;
+    int affiliationId;
       
     /**
       *

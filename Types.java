@@ -1,10 +1,8 @@
 public class Types {
 
-    /**
-      *
-      * TABLE ATTRIBUTES GO HERE
-      *
-      */
+    // table attributes
+    int typeId;
+    String typeName;
       
     /**
       *

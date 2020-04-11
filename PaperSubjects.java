@@ -1,10 +1,8 @@
 public class PaperSubjects {
 
-    /**
-      *
-      * TABLE ATTRIBUTES GO HERE
-      *
-      */
+    // attributes
+    int paperId;
+    int subjectId;
       
     /**
       *

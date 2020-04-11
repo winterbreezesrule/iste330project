@@ -1,10 +1,9 @@
 public class PaperAuthors {
 
-    /**
-      *
-      * TABLE ATTRIBUTES GO HERE
-      *
-      */
+    // table attributes
+    int paperId;
+    int userId;
+    int displayOrder;
       
     /**
       *
