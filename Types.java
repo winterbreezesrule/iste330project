@@ -1,8 +1,8 @@
 public class Types {
 
     // table attributes
-    int typeId;
-    String typeName;
+    private int typeId;
+    private String typeName;
       
     /**
       *

@@ -1,17 +1,17 @@
 public class Papers {
 
     // table attributes
-    int paperId;
-    String title;
+    private int paperId;
+    private String title;
     // abstract is a reserved word in java--corresponds
     // to abstract MEDIUMTEXT
-    String paperAbstract;
-    String track;
-    String status;
-    int submissionType;
-    int submitterId;
-    String fileId;
-    String tenativeStatus;
+    private String paperAbstract;
+    private String track;
+    private String status;
+    private int submissionType;
+    private int submitterId;
+    private String fileId;
+    private String tenativeStatus;
       
     /**
       *

@@ -1,9 +1,9 @@
 public class PaperAuthors {
 
     // table attributes
-    int paperId;
-    int userId;
-    int displayOrder;
+    private int paperId;
+    private int userId;
+    private int displayOrder;
       
     /**
       *

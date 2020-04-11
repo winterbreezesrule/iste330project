@@ -1,14 +1,14 @@
 public class Users {
 
     // table attributes
-    int userId;
-    String lastName;
-    String firstName;
-    String email;
-    String pswd;
-    String expiration;
-    int isAdmin;
-    int affiliationId;
+    private int userId;
+    private String lastName;
+    private String firstName;
+    private String email;
+    private String pswd;
+    private String expiration;
+    private int isAdmin;
+    private int affiliationId;
       
     /**
       *

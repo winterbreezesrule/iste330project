@@ -1,8 +1,8 @@
 public class PaperSubjects {
 
     // attributes
-    int paperId;
-    int subjectId;
+    private int paperId;
+    private int subjectId;
       
     /**
       *

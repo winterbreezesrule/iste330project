@@ -3,14 +3,14 @@ import java.util.*;
 public class Configuration {
       
     // table attributes
-    Date submissionOpen;
-    Date submissionClose;
-    String PCEmail;
-    String PCName;
-    String PC2Email;
-    String PC2Name;
-    String shortName;
-    String logoFile;
+    private Date submissionOpen;
+    private Date submissionClose;
+    private String PCEmail;
+    private String PCName;
+    private String PC2Email;
+    private String PC2Name;
+    private String shortName;
+    private String logoFile;
       
     /**
       *

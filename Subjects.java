@@ -1,8 +1,8 @@
 public class Subjects {
 
     // table attributes
-    int subjectId;
-    String subjectName;
+    private int subjectId;
+    private String subjectName;
       
     /**
       *
