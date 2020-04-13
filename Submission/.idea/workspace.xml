@@ -2,10 +2,22 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="49db53b0-575f-48f7-a886-72757291b319" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Submission.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Affiliations.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Affiliations.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MainTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MainTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/group.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/group/Affiliations.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/group/Configuration.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/group/DLException.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/group/MainTest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/group/MySQLDatabase.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/group/PaperAuthors.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/group/PaperSubjects.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/group/Papers.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/group/Subjects.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/group/Types.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/group/Users.class" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
