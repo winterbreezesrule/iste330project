@@ -106,11 +106,29 @@ public class Papers {
       *
       * Returns all information for the specified paper, excluding filename.
      *
+     * @param _paperId is the ID to get information for
+     * @return a string holding the info about the paper
+     *
       *
       */
 
-    public Papers getPaper(int _paperId) {
-        return this;
+    public String getPaper(int _paperId) throws DLException {
+        String paperInfo = "";
+        setPaperId(_paperId);
+        try {
+            fetch();
+            paperInfo += "Paper title: " + getTitle();
+            paperInfo += "\nPaper abstract: " + getPaperAbstract();
+            paperInfo += "\nPaper track: " + getTrack();
+            paperInfo += "\nPaper status: " + getStatus();
+            paperInfo += "\nPaper submission type: " + getSubmissionType();
+            paperInfo += "\nPaper submitter ID: " + getSubmitterId();
+            paperInfo += "\nPaper tenative status: " + getTenativeStatus();
+        } catch (Exception e) {
+            // I hate my life.
+        }
+
+        return paperInfo;
     }
 
 
