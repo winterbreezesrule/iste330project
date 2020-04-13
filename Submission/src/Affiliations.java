@@ -4,8 +4,6 @@ public class Affiliations {
     private int affiliationId;
     private String affiliationName;
 
-
-    
     /**
       *
       * ACCESSORS AND MUTATORS GO HERE
