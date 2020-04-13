@@ -116,14 +116,19 @@ public class Papers {
         String paperInfo = "";
         setPaperId(_paperId);
         try {
-            fetch();
+            MySQLDatabase mysqld = new MySQLDatabase("root", "USO800rubysky#1!");
+
+            // NEED TO GET:
+            // PAPER TITLE
+            // PAPER ABSTRACT
+            // PAPER SUBMISSION TYPE
+            // PAPER SUBJECT(S)
+            // PAPER AUTHORS (FIRST AND LAST NAMES)
+
             paperInfo += "Paper title: " + getTitle();
             paperInfo += "\nPaper abstract: " + getPaperAbstract();
-            paperInfo += "\nPaper track: " + getTrack();
-            paperInfo += "\nPaper status: " + getStatus();
             paperInfo += "\nPaper submission type: " + getSubmissionType();
-            paperInfo += "\nPaper submitter ID: " + getSubmitterId();
-            paperInfo += "\nPaper tenative status: " + getTenativeStatus();
+            paperInfo += "\nPaper authors: ";
         } catch (Exception e) {
             // I hate my life.
         }
