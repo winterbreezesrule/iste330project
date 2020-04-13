@@ -31,7 +31,7 @@ public class MySQLDatabase {
     public MySQLDatabase(String _user, String _pass) {
         user = _user;
         pass = _pass;
-        database = "jdbc:mysql://localhost/travel?useSSL=false";
+        database = "jdbc:mysql://localhost/csm?useSSL=false";
     } // end constructor
     
     /**
