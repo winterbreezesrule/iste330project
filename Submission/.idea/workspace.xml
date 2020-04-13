@@ -21,8 +21,6 @@
   <component name="ChangeListManager">
     <list default="true" id="49db53b0-575f-48f7-a886-72757291b319" name="Default Changelist" comment="Added skeletons of CRUD to methods so I can write methods I need to write">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Submission/Papers.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Submission/Papers.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Papers.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Papers.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Users.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Users.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />

@@ -1,5 +1,6 @@
 import java.util.*;
 
+@SuppressWarnings({"unused", "UnnecessaryLocalVariable", "RedundantThrows", "SpellCheckingInspection", "DanglingJavadoc"})
 public class Users {
 
     // table attributes
@@ -128,15 +129,18 @@ public class Users {
         String sql = "select _affiliations.affiliationName from users inner " +
                 "join _affiliations on users.affiliationId = _affiliations." +
                 "affiliationId AND userId = ?;";
-        ArrayList<String> values = new ArrayList<String>();
+        ArrayList<String> values = new ArrayList<>();
 
         values.add(Integer.toString(getUserId()));
 
         MySQLDatabase mysqld = new MySQLDatabase("root", "USO800rubysky#1!");
         try {
-            ArrayList<ArrayList<String>> fullResults = mysqld.getData(sql, values);
-            ArrayList<String> results = fullResults.get(2);
-            userInfo += results.get(0);
+            if (mysqld.connect()) {
+                ArrayList<ArrayList<String>> fullResults = mysqld.getData(sql, values);
+                ArrayList<String> results = fullResults.get(2);
+                userInfo += results.get(0);
+                mysqld.close();
+            }
         } catch (Exception e) {
             userInfo += "Affiliation could not be properly retrieved.";
         }
@@ -146,11 +150,111 @@ public class Users {
       
     /**
       *
-      * setUser() GOES HERE
+      * Sets the current user to the information provided. If a userId is not currently
+     * set, a new user is created and added to the database. If a userId is set, the
+     * information about the user is updated.
+     *
+     * @param _lastName is the user's last name
+     * @param _firstName is the user's first name
+     * @param _email is the email of the user
+     * @param affiliation is the institute the user is affiliated with
       *
       */
 
+    public void setUser(String _lastName, String _firstName, String _email,
+                        String affiliation) {
 
+        MySQLDatabase mysqld = new MySQLDatabase("root", "USO800rubysky#1!");
+
+        // get ID associated with affiliation
+        try {
+            if (mysqld.connect()) {
+                String sql = "select affiliationId FROM _affiliations WHERE affiliationName = ?;";
+                ArrayList<String> values = new ArrayList<>();
+                values.add(affiliation);
+                ArrayList<ArrayList<String>> fullResults = mysqld.getData(sql, values);
+                // affiliation does not exist in _affiliations, must be added
+                if (fullResults.isEmpty()) {
+                    String sql2 = "select MAX(affiliationId) from _affiliations";
+                    ArrayList<String> values2 = new ArrayList<>();
+                    ArrayList<ArrayList<String>> fullResults2 = mysqld.getData(sql2, values2);
+                    ArrayList<String> results = fullResults2.get(2);
+                    int affid = Integer.parseInt(results.get(0));
+
+                    Affiliations newAff = new Affiliations();
+
+                    newAff.setAffiliationId(affid);
+                    newAff.setAffiliationName(affiliation);
+
+                    newAff.post();
+
+                    setAffiliationId(affid);
+
+                } else { // affiliation already exists, can get ID
+                    ArrayList<String> results = fullResults.get(2);
+                    int affid = Integer.parseInt(results.get(0));
+                    setAffiliationId(affid);
+                }
+                mysqld.close();
+            }
+        } catch (Exception e) {
+            System.out.println("Could not retrieve ID associated with the user's affiliation.");
+        }
+
+        if (getUserId() == 0) { // creates new user entry
+            try {
+                if (mysqld.connect()) {
+                    System.out.println("Creating new user.");
+                    String sql1 = "INSERT INTO users (userId, lastName, firstName, " +
+                            "email, affiliationId) VALUES (?, ?, ?, ?, ?)";
+                    String sql2 = "SELECT MAX(userId) from users";
+                    ArrayList<String> values1 = new ArrayList<>();
+                    ArrayList<String> values2 = new ArrayList<>();
+
+                    ArrayList<ArrayList<String>> fullResults2 = mysqld.getData(sql2, values2);
+                    ArrayList<String> results2 = fullResults2.get(2);
+                    setUserId(Integer.parseInt(results2.get(0)));
+
+                    values1.add(Integer.toString(getUserId()));
+                    values1.add(getLastName());
+                    values1.add(getFirstName());
+                    values1.add(getEmail());
+                    values1.add(Integer.toString(getAffiliationId()));
+
+                    int recordschanged = mysqld.setData(sql1, values1);
+
+                    System.out.println(recordschanged + " records changed.");
+
+                    mysqld.close();
+                }
+            } catch (Exception e) {
+                System.out.println("New user could not be added.");
+            }
+        } else { // updates existing info for user
+            try {
+                if (mysqld.connect()) {
+                    System.out.println("Updating info on user.");
+                    String sql = "UPDATE users SET lastName = ?, firstName = ?, email = ?" +
+                            ", affiliationId = ? WHERE userId = ?";
+                    ArrayList<String> values = new ArrayList<>();
+
+                    values.add(getLastName());
+                    values.add(getFirstName());
+                    values.add(getEmail());
+                    values.add(Integer.toString(getAffiliationId()));
+                    values.add(Integer.toString(getUserId()));
+
+                    int recordschanged = mysqld.setData(sql, values);
+
+                    System.out.println(recordschanged + " records changed.");
+
+                    mysqld.close();
+                }
+            } catch (Exception e) {
+                System.out.println("Information could not be updated for current user.");
+            }
+        }
+    }
       
     /**
       *
