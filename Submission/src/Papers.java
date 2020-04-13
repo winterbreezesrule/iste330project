@@ -13,11 +13,7 @@ public class Papers {
     private String fileId;
     private String tenativeStatus;
       
-    /**
-      *
-      * ACCESSORS AND MUTATORS GO HERE
-      *
-      */
+    // accessors and mutators
     public int getPaperId() {
         return paperId;
     }
@@ -89,22 +85,44 @@ public class Papers {
     public void setTenativeStatus(String tenativeStatus) {
         this.tenativeStatus = tenativeStatus;
     }
+
+    public void fetch() throws DLException {
+
+    }
+
+    public String put() throws DLException {
+        return "Hi.";
+    }
+
+    public String post() throws DLException {
+        return "Hi.";
+    }
+
+    public String delete() throws DLException {
+        return "Hi.";
+    }
+
     /**
       *
-      * CRUD METHODS GO HERE
+      * Returns all information for the specified paper, excluding filename.
+     *
       *
       */
-      
-    /**
-      *
-      * getPaper() GOES HERE
-      *
-      */
-      
+
+    public Papers getPaper(int _paperId) {
+        return this;
+    }
+
+
     /**
       *
       * setPaper() GOES HERE
       *
       */
+    public void setPaper(int _paperId, String _title, String _paperAbstract, int _submissionType,
+                         String filename, String[] subjects, String[] coauthorsFirst, String[]
+                         coauthorsLast) {
+
+    }
 
 } // end Papers

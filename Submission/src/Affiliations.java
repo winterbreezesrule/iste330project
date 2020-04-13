@@ -4,11 +4,6 @@ public class Affiliations {
     private int affiliationId;
     private String affiliationName;
 
-    /**
-      *
-      * ACCESSORS AND MUTATORS GO HERE
-      *
-      */
     public int getAffiliationId() {
         return affiliationId;
     }
@@ -24,10 +19,21 @@ public class Affiliations {
     public void setAffiliationName(String affiliationName) {
         this.affiliationName = affiliationName;
     }
-    /**
-      *
-      * CRUD METHODS GO HERE
-      *
-      */
+
+    public void fetch() throws DLException {
+
+    }
+
+    public String put() throws DLException {
+        return "Hi.";
+    }
+
+    public String post() throws DLException {
+        return "Hi.";
+    }
+
+    public String delete() throws DLException {
+        return "Hi.";
+    }
 
 } // end Affiliations 

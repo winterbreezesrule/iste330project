@@ -5,11 +5,6 @@ public class PaperAuthors {
     private int userId;
     private int displayOrder;
       
-    /**
-      *
-      * ACCESSORS AND MUTATORS GO HERE
-      *
-      */
     public int getPaperId() {
         return paperId;
     }
@@ -33,10 +28,21 @@ public class PaperAuthors {
     public void setDisplayOrder(int displayOrder) {
         this.displayOrder = displayOrder;
     }
-    /**
-      *
-      * CRUD METHODS GO HERE
-      *
-      */
+
+    public void fetch() throws DLException {
+
+    }
+
+    public String put() throws DLException {
+        return "Hi.";
+    }
+
+    public String post() throws DLException {
+        return "Hi.";
+    }
+
+    public String delete() throws DLException {
+        return "Hi.";
+    }
 
 } // end PaperAuthors
