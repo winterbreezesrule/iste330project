@@ -104,8 +104,32 @@ public class Users {
 
     public String getPapers(int _userId) {
         String papersWritten = "";
+        MySQLDatabase mysqld = new MySQLDatabase("root", "USO800rubysky#1!");
 
+        try {
+            if (mysqld.connect()) {
 
+                String sql = "select papers.title from papers inner " +
+                        "join paperauthors on papers.paperid = " +
+                        "paperauthors.paperid inner join users " +
+                        "on paperauthors.userid = users.userid " +
+                        "and users.userid = ?;";
+                ArrayList<String> values = new ArrayList<>();
+
+                values.add(Integer.toString(_userId));
+
+                ArrayList<ArrayList<String>> fullResults = mysqld.getData(sql, values);
+                ArrayList<String> results = fullResults.get(2);
+
+                for (int i = 0; i < results.size(); i++) {
+                    papersWritten = results.get(i) + "\n";
+                }
+
+                mysqld.close();
+            }
+        } catch (Exception e) {
+            papersWritten += "Could not retrieve list of papers written by inputted user.";
+        }
 
         return papersWritten;
     }
