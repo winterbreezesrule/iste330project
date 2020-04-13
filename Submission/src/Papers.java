@@ -85,23 +85,44 @@ public class Papers {
     public void setTenativeStatus(String tenativeStatus) {
         this.tenativeStatus = tenativeStatus;
     }
+
+    public void fetch() throws DLException {
+
+    }
+
+    public String put() throws DLException {
+        return "Hi.";
+    }
+
+    public String post() throws DLException {
+        return "Hi.";
+    }
+
+    public String delete() throws DLException {
+        return "Hi.";
+    }
+
     /**
       *
-      * CRUD METHODS GO HERE
-      *
-      */
-      
-    /**
-      *
-      * getPaper() GOES HERE
+      * Returns all information for the specified paper, excluding filename.
+     *
       *
       */
 
-      
+    public Papers getPaper(int _paperId) {
+        return this;
+    }
+
+
     /**
       *
       * setPaper() GOES HERE
       *
       */
+    public void setPaper(int _paperId, String _title, String _paperAbstract, int _submissionType,
+                         String filename, String[] subjects, String[] coauthorsFirst, String[]
+                         coauthorsLast) {
+
+    }
 
 } // end Papers

@@ -10,11 +10,6 @@ public class Users {
     private int isAdmin;
     private int affiliationId;
       
-    /**
-      *
-      * ACCESSORS AND MUTATORS GO HERE
-      *
-      */
     public int getUserId() {
         return userId;
     }
@@ -78,11 +73,22 @@ public class Users {
     public void setAffiliationId(int affiliationId) {
         this.affiliationId = affiliationId;
     }
-    /**
-      *
-      * CRUD METHODS GO HERE
-      *
-      */
+
+    public void fetch() throws DLException {
+
+    }
+
+    public String put() throws DLException {
+        return "Hi.";
+    }
+
+    public String post() throws DLException {
+        return "Hi.";
+    }
+
+    public String delete() throws DLException {
+        return "Hi.";
+    }
       
     /**
       *

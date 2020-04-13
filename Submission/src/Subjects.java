@@ -4,11 +4,6 @@ public class Subjects {
     private int subjectId;
     private String subjectName;
       
-    /**
-      *
-      * ACCESSORS AND MUTATORS GO HERE
-      *
-      */
     public int getSubjectId() {
         return subjectId;
     }
@@ -24,10 +19,21 @@ public class Subjects {
     public void setSubjectName(String subjectName) {
         this.subjectName = subjectName;
     }
-    /**
-      *
-      * CRUD METHODS GO HERE
-      *
-      */
+
+    public void fetch() throws DLException {
+
+    }
+
+    public String put() throws DLException {
+        return "Hi.";
+    }
+
+    public String post() throws DLException {
+        return "Hi.";
+    }
+
+    public String delete() throws DLException {
+        return "Hi.";
+    }
 
 } // end Subjects 

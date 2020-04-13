@@ -11,12 +11,7 @@ public class Configuration {
     private String PC2Name;
     private String shortName;
     private String logoFile;
-      
-    /**
-      *
-      * ACCESSORS AND MUTATORS GO HERE
-      *
-      */
+
     public Date getSubmissionOpen() {
         return submissionOpen;
     }
@@ -80,10 +75,21 @@ public class Configuration {
     public void setLogoFile(String logoFile) {
         this.logoFile = logoFile;
     }
-    /**
-      *
-      * CRUD METHODS GO HERE
-      *
-      */
+
+    public void fetch() throws DLException {
+
+    }
+
+    public String put() throws DLException {
+        return "Hi.";
+    }
+
+    public String post() throws DLException {
+        return "Hi.";
+    }
+
+    public String delete() throws DLException {
+        return "Hi.";
+    }
 
 } // end Configuration

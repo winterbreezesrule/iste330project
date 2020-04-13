@@ -4,11 +4,6 @@ public class Types {
     private int typeId;
     private String typeName;
       
-    /**
-      *
-      * ACCESSORS AND MUTATORS GO HERE
-      *
-      */
     public int getTypeId() {
         return typeId;
     }
@@ -24,10 +19,21 @@ public class Types {
     public void setTypeName(String typeName) {
         this.typeName = typeName;
     }
-    /**
-      *
-      * CRUD METHODS GO HERE
-      *
-      */
+
+    public void fetch() throws DLException {
+
+    }
+
+    public String put() throws DLException {
+        return "Hi.";
+    }
+
+    public String post() throws DLException {
+        return "Hi.";
+    }
+
+    public String delete() throws DLException {
+        return "Hi.";
+    }
 
 } // end Types
