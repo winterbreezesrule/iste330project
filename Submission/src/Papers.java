@@ -13,11 +13,7 @@ public class Papers {
     private String fileId;
     private String tenativeStatus;
       
-    /**
-      *
-      * ACCESSORS AND MUTATORS GO HERE
-      *
-      */
+    // accessors and mutators
     public int getPaperId() {
         return paperId;
     }
@@ -100,6 +96,7 @@ public class Papers {
       * getPaper() GOES HERE
       *
       */
+
       
     /**
       *
