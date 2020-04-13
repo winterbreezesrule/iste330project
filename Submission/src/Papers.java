@@ -199,12 +199,23 @@ public class Papers {
 
     /**
       *
-      * setPaper() GOES HERE
+      * Sets the current paper to the information provided. If a paperId is not currently
+      * set, a new paper is created and added to the database. If a paperId is set, the
+      * information about the paper is updated.
       *
       */
     public void setPaper(int _paperId, String _title, String _paperAbstract, int _submissionType,
-                         String filename, String[] subjects, String[] coauthorsFirst, String[]
-                         coauthorsLast) {
+                         String filename, String[] subjects, String[] coauthorsFirstNames, String[]
+                         coauthorsLastNames) {
+        // check to see if subject(s) exist in _subjects
+        // check to see if authors exist in _users
+
+        // if paperId = 0 make new paper
+        // INSERT INTO papers (paperId, title, abstract, submissionType) VALUES (?, ?, ?, ?);
+        // otherwise update current paper
+        // UPDATE PAPERS SET title = ?, abstract = ?, submissionType = ? WHERE paperId = ?;
+
+        // need to also update paperauthors and papersubjects
 
     }
 
