@@ -2,22 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="49db53b0-575f-48f7-a886-72757291b319" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Submission.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/group.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/group/Affiliations.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/group/Configuration.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/group/DLException.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/group/MainTest.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/group/MySQLDatabase.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/group/PaperAuthors.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/group/PaperSubjects.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/group/Papers.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/group/Subjects.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/group/Types.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/group/Users.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/MainTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MainTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -36,7 +21,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-  <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../JARDrivers/mysql-connector-java-5.1.48.jar!/" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.0" />
@@ -69,6 +54,17 @@
     </task>
     <servers />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="WindowStateProjectService">
     <state x="2380" y="119" key="FileChooserDialogImpl" timestamp="1586804526880">
       <screen x="1920" y="0" width="1360" height="728" />
@@ -89,10 +85,14 @@
     <state width="1317" height="179" key="GridCell.Tab.0.right" timestamp="1586804610296">
       <screen x="1920" y="0" width="1360" height="728" />
     </state>
-<state width="1317" height="179" key="GridCell.Tab.0.right/0.0.1536.824/1920.0.1360.728@1920.0.1360.728" timestamp="1586804610296" />
+    <state width="1317" height="179" key="GridCell.Tab.0.right/0.0.1536.824/1920.0.1360.728@1920.0.1360.728" timestamp="1586804610296" />
     <state x="2080" y="0" key="SettingsEditor" timestamp="1586804529286">
       <screen x="1920" y="0" width="1360" height="728" />
     </state>
     <state x="2080" y="0" key="SettingsEditor/0.0.1536.824/1920.0.1360.728@1920.0.1360.728" timestamp="1586804529286" />
+    <state x="769" y="433" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1586805156156">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="769" y="433" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1920.1040@0.0.1920.1040" timestamp="1586805156156" />
   </component>
 </project>
