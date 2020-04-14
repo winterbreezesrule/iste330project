@@ -1,9 +1,0 @@
-2020-04-13 22:25:38.819 -04:00 [Information] Loading Messages from the Following Path(s) ["C:\Users\Hansel-G7\AppData\Roaming\Changemaker Studios\Papercut SMTP", "C:\Users\Hansel-G7\AppData\Roaming\Papercut", "F:\RIT Classes\ISTE330 - Database Connectivity\Group Project\gitSource\iste330project\SMTP Server\Incoming", "C:\ProgramData\Changemaker Studios\Papercut SMTP\Incoming"]
-2020-04-13 22:25:38.891 -04:00 [Information] Default Message Save Path is Set to "C:\Users\Hansel-G7\AppData\Roaming\Changemaker Studios\Papercut SMTP"
-2020-04-13 22:25:40.336 -04:00 [Information] Papercut Version 5.7.0+Branch.master.Sha.3553f5bc2d2bf09e53f46dfb52afd630704eb494
-2020-04-13 22:25:40.337 -04:00 [Information] Attempting to Load Rules from "F:\RIT Classes\ISTE330 - Database Connectivity\Group Project\gitSource\iste330project\SMTP Server\rules.json" on AppReady
-2020-04-13 22:25:40.855 -04:00 [Information] IPComm Server Ready: Listening for New Connections at "127.0.0.1:37402"
-2020-04-13 22:25:40.867 -04:00 [Information] Starting Smtp Server on "0.0.0.0":25...
-2020-04-13 22:26:19.269 -04:00 [Information] New SMTP connection from "0.0.0.0"
-2020-04-13 22:26:28.454 -04:00 [Information] Successfully Saved email message: "C:\Users\Hansel-G7\AppData\Roaming\Changemaker Studios\Papercut SMTP\20200413222628438 Password change request 248457.eml"
-2020-04-13 22:26:28.460 -04:00 [Information] Completed SMTP connection from "0.0.0.0"
