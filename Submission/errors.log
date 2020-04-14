@@ -1,26 +1,29 @@
 Exception info: 
-java.sql.SQLException: Access denied for user 'root'@'localhost' (using password: YES)
-	at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:965)
-	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:3933)
-	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:3869)
-	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:864)
-	at com.mysql.jdbc.MysqlIO.proceedHandshakeWithPluggableAuthentication(MysqlIO.java:1707)
-	at com.mysql.jdbc.MysqlIO.doHandshake(MysqlIO.java:1217)
-	at com.mysql.jdbc.ConnectionImpl.coreConnect(ConnectionImpl.java:2189)
-	at com.mysql.jdbc.ConnectionImpl.connectOneTryOnly(ConnectionImpl.java:2220)
-	at com.mysql.jdbc.ConnectionImpl.createNewIO(ConnectionImpl.java:2015)
-	at com.mysql.jdbc.ConnectionImpl.<init>(ConnectionImpl.java:768)
-	at com.mysql.jdbc.JDBC4Connection.<init>(JDBC4Connection.java:47)
-	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
-	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
-	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
-	at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
-	at com.mysql.jdbc.Util.handleNewInstance(Util.java:425)
-	at com.mysql.jdbc.ConnectionImpl.getInstance(ConnectionImpl.java:385)
-	at com.mysql.jdbc.NonRegisteringDriver.connect(NonRegisteringDriver.java:323)
-	at java.sql.DriverManager.getConnection(DriverManager.java:664)
-	at java.sql.DriverManager.getConnection(DriverManager.java:247)
-	at MySQLDatabase.connect(MySQLDatabase.java:46)
-	at MainTest.main(MainTest.java:6)
-Current time: 2020-04-13 15:14:49.755
+com.sun.mail.util.MailConnectException: Couldn't connect to host, port: localhost, 25; timeout -1;
+  nested exception is:
+	java.net.ConnectException: Connection refused: connect
+	at com.sun.mail.smtp.SMTPTransport.openServer(SMTPTransport.java:2209)
+	at com.sun.mail.smtp.SMTPTransport.protocolConnect(SMTPTransport.java:740)
+	at javax.mail.Service.connect(Service.java:366)
+	at javax.mail.Service.connect(Service.java:246)
+	at javax.mail.Service.connect(Service.java:195)
+	at javax.mail.Transport.send0(Transport.java:254)
+	at javax.mail.Transport.send(Transport.java:124)
+	at Users.resetPassword(Users.java:207)
+	at MainTest.main(MainTest.java:8)
+Caused by: java.net.ConnectException: Connection refused: connect
+	at java.net.DualStackPlainSocketImpl.connect0(Native Method)
+	at java.net.DualStackPlainSocketImpl.socketConnect(DualStackPlainSocketImpl.java:79)
+	at java.net.AbstractPlainSocketImpl.doConnect(AbstractPlainSocketImpl.java:350)
+	at java.net.AbstractPlainSocketImpl.connectToAddress(AbstractPlainSocketImpl.java:206)
+	at java.net.AbstractPlainSocketImpl.connect(AbstractPlainSocketImpl.java:188)
+	at java.net.PlainSocketImpl.connect(PlainSocketImpl.java:172)
+	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:392)
+	at java.net.Socket.connect(Socket.java:606)
+	at java.net.Socket.connect(Socket.java:555)
+	at com.sun.mail.util.SocketFetcher.createSocket(SocketFetcher.java:359)
+	at com.sun.mail.util.SocketFetcher.getSocket(SocketFetcher.java:238)
+	at com.sun.mail.smtp.SMTPTransport.openServer(SMTPTransport.java:2175)
+	... 8 more
+Current time: 2020-04-13 22:15:03.517
 
