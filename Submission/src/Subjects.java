@@ -1,5 +1,5 @@
 /**
- * Used to represent the Subjects table in the CSM database.
+ * Used to represent the _Subjects table in the CSM database.
  */
 public class Subjects {
 

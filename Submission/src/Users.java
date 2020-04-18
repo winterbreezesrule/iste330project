@@ -105,42 +105,82 @@ public class Users {
         this.firstName = firstName;
     }
 
+    /**
+     * Gets the email of the user.
+     * @return the
+     */
     public String getEmail() {
         return email;
     }
 
+    /**
+     * Sets the email of the user.
+     * @param email is the new email.
+     */
     public void setEmail(String email) {
         this.email = email;
     }
 
+    /**
+     * Gets the password of the user.
+     * @return the user's password.
+     */
     public String getPswd() {
         return pswd;
     }
 
+    /**
+     * Sets the password of the user.
+     * @param pswd is the new password.
+     */
     public void setPswd(String pswd) {
         this.pswd = pswd;
     }
 
+    /**
+     * Gets the expiration date for the user's password.
+     * @return the expiration date of the user's password.
+     */
     public String getExpiration() {
         return expiration;
     }
 
+    /**
+     * Sets the expiration date for the user's password.
+     * @param expiration is the new expiration date.
+     */
     public void setExpiration(String expiration) {
         this.expiration = expiration;
     }
 
+    /**
+     * Gets if the user is an admin.
+     * @return an int indicating if the user is an admin.
+     */
     public int getIsAdmin() {
         return isAdmin;
     }
 
+    /**
+     * Sets the admin status of the user.
+     * @param isAdmin is the new status of the user.
+     */
     public void setIsAdmin(int isAdmin) {
         this.isAdmin = isAdmin;
     }
 
+    /**
+     * Gets the affiliation ID of the user.
+     * @return the affiliation ID.
+     */
     public int getAffiliationId() {
         return affiliationId;
     }
 
+    /**
+     * Sets the affiliationID of the user.
+     * @param affiliationId is the new affiliation ID.
+     */
     public void setAffiliationId(int affiliationId) {
         this.affiliationId = affiliationId;
     }

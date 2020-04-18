@@ -2,17 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a83c8840-1d35-4859-b7f7-15df0c73c04a" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/out/production/Submission/MainTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Submission/MainTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Submission/PaperAuthors.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Submission/PaperAuthors.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Submission/PaperSubjects.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Submission/PaperSubjects.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Submission/Subjects.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Submission/Subjects.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Submission/Types.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Submission/Types.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Submission/Users.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Submission/Users.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DLObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DLObject.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MainTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MainTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PaperAuthors.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PaperAuthors.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PaperSubjects.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/PaperSubjects.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Papers.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Papers.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Affiliations.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Affiliations.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Configuration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Configuration.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Subjects.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Subjects.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Types.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Types.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Users.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Users.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -44,5 +40,11 @@
       <updated>1587236747397</updated>
     </task>
     <servers />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1587239570482">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1587239570482" />
   </component>
 </project>
