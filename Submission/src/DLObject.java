@@ -1,5 +1,9 @@
 import java.util.ArrayList;
 
+/**
+ * A generic class we use for CRUD methods. AARON, YOU WRITE THIS DOCUMENTATION
+ */
+
 public class DLObject {
 
     public void fetch(String tableName, String pkName, String pkData) throws DLException{

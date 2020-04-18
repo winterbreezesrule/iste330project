@@ -14,6 +14,9 @@ import java.util.*;
 
 import java.util.*;
 
+/**
+ * Used to represent the Users table in the CSM database.
+ */
 @SuppressWarnings({"unused", "UnnecessaryLocalVariable", "RedundantThrows", "SpellCheckingInspection", "DanglingJavadoc"})
 public class Users {
     //connection variables
@@ -32,8 +35,6 @@ public class Users {
     private int affiliationId;
 
     //constructors
-
-
     public Users(int userId, String lastName, String firstName, String email, String pswd, String expiration, int isAdmin, int affiliationId) {
         this.userId = userId;
         this.lastName = lastName;
@@ -56,26 +57,50 @@ public class Users {
         affiliationId = 0;
     }
 
+    /**
+     * Gets the user ID.
+     * @return the user ID.
+     */
     public int getUserId() {
         return userId;
     }
 
+    /**
+     * Sets the user ID.
+     * @param userId is the new user ID.
+     */
     public void setUserId(int userId) {
         this.userId = userId;
     }
 
+    /**
+     * Gets the last name of the user.
+     * @return the user's last name.
+     */
     public String getLastName() {
         return lastName;
     }
 
+    /**
+     * Sets the last name of the user.
+     * @param lastName is the new last name.
+     */
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
 
+    /**
+     * Gets the first name of the user.
+     * @return the user's first name.
+     */
     public String getFirstName() {
         return firstName;
     }
 
+    /**
+     * Sets the first name of the user.
+     * @param firstName is the new first name.
+     */
     public void setFirstName(String firstName) {
         this.firstName = firstName;
     }
