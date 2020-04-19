@@ -18,7 +18,7 @@ import java.util.*;
  * Used to represent the Users table in the CSM database.
  */
 @SuppressWarnings({"unused", "UnnecessaryLocalVariable", "RedundantThrows", "SpellCheckingInspection", "DanglingJavadoc"})
-public class Users {
+public class Users extends DLObject{
     //connection variables
     private final String uName = "student";
     private final String uPass = "student";
@@ -185,20 +185,99 @@ public class Users {
         this.affiliationId = affiliationId;
     }
 
+    /**
+     * fetch method for the user object. Passes info from this class
+     * to the superclass post method, where the query is created and executed.
+     *
+     * @throws DLException custom exception that logs errors in a separate file
+     */
     public void fetch() throws DLException {
+        // add primary key to ArrayList for passing into superclass method
+        ArrayList<String> pkNames = new ArrayList<>();
+        pkNames.add("userId");
 
+        // add primary key data to ArrayList for passing into superclass method
+        ArrayList<String> pkData = new ArrayList<>();
+        pkNames.add(Integer.toString(userId));
+
+        super.fetch("Users", pkNames, pkData);
     }
 
-    public String put() throws DLException {
-        return "Hi.";
+    /**
+     * put method for the user object. Passes info from this class
+     * to the superclass post method, where the query is created and executed.
+     *
+     * @return number of rows affected
+     * @throws DLException custom exception that logs errors in a separate file
+     */
+    public int put() throws DLException {
+        // putting all of the column names into an ArrayList for passing to the superclass method
+        ArrayList<String> columnNames = new ArrayList<>();
+        columnNames.add("lastName");
+        columnNames.add("firstName");
+        columnNames.add("email");
+        columnNames.add("pswd");
+        columnNames.add("expiration");
+        columnNames.add("isAdmin");
+        columnNames.add("affiliationId");
+        columnNames.add("userId");
+
+        // putting all of the object values into an ArrayList for passing to the superclass method
+        ArrayList<String> values = new ArrayList<>();
+        values.add(lastName);
+        values.add(firstName);
+        values.add(email);
+        values.add(pswd);
+        values.add(expiration);
+        values.add(Integer.toString(isAdmin));
+        values.add(Integer.toString(affiliationId));
+        values.add(Integer.toString(userId));
+
+        return super.put("Users", columnNames, values);
     }
 
-    public String post() throws DLException {
-        return "Hi.";
+    /**
+     * post method for the user object. Passes info from this class
+     * to the superclass post method, where the query is created and executed.
+     *
+     * @return number of rows affected
+     * @throws DLException custom exception that logs errors in a separate file
+     */
+    public int post() throws DLException {
+        // putting all of the column names into an ArrayList for passing to the superclass method
+        ArrayList<String> columnNames = new ArrayList<>();
+        columnNames.add("userId");
+        columnNames.add("lastName");
+        columnNames.add("firstName");
+        columnNames.add("email");
+        columnNames.add("pswd");
+        columnNames.add("expiration");
+        columnNames.add("isAdmin");
+        columnNames.add("affiliationId");
+
+        // putting all of the object values into an ArrayList for passing to the superclass method
+        ArrayList<String> values = new ArrayList<>();
+        values.add(Integer.toString(userId));
+        values.add(lastName);
+        values.add(firstName);
+        values.add(email);
+        values.add(pswd);
+        values.add(expiration);
+        values.add(Integer.toString(isAdmin));
+        values.add(Integer.toString(affiliationId));
+
+        return super.post("Users", columnNames, values);
     }
 
-    public String delete() throws DLException {
-        return "Hi.";
+    /**
+     * delete method for the user object. Passes info from this class
+     * to the superclass post method, where the query is created and executed.
+     *
+     * @return number of rows affected
+     * @throws DLException custom exception that logs errors in a separate file
+     */
+    public int delete() throws DLException {
+        return super.delete("Users", "userId", Integer.toString(userId));
     }
       
     /**

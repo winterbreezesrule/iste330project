@@ -1,8 +1,10 @@
+import java.util.ArrayList;
+
 /**
  * Used to represent the PaperAuthors table in the CSM database.
  */
 
-public class PaperAuthors {
+public class PaperAuthors extends DLObject {
 
     // table attributes
     private int paperId;
@@ -58,19 +60,36 @@ public class PaperAuthors {
     }
 
     public void fetch() throws DLException {
+        // add primary key to ArrayList for passing into superclass method
+        ArrayList<String> pkNames = new ArrayList<>();
+        pkNames.add("paperId");
+        pkNames.add("userId");
 
+        // add primary key data to ArrayList for passing into superclass method
+        ArrayList<String> pkData = new ArrayList<>();
+        pkNames.add(Integer.toString(paperId));
+        pkNames.add(Integer.toString(userId));
+
+        super.fetch("PaperAuthors", pkNames, pkData);
     }
 
-    public String put() throws DLException {
-        return "Hi.";
+    public int put() throws DLException {
+        // putting all of the column names into an ArrayList for passing to the superclass method
+        ArrayList<String> columnNames = new ArrayList<>();
+        columnNames.add("paperId");
+        // TODO fix the composite key problem with the put method
+
+        // putting all of the object values into an ArrayList for passing to the superclass method
+        ArrayList<String> values = new ArrayList<>();
+        return 1;
     }
 
-    public String post() throws DLException {
-        return "Hi.";
+    public int post() throws DLException {
+        return 1;
     }
 
-    public String delete() throws DLException {
-        return "Hi.";
+    public int delete() throws DLException {
+        return 1;
     }
 
 } // end PaperAuthors

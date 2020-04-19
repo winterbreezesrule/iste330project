@@ -3,7 +3,7 @@ import java.util.*;
  * Used to represent the Papers table in the CSM database.
  */
 
-public class Papers {
+public class Papers extends DLObject{
 
     // table attributes
     private int paperId;
@@ -162,20 +162,103 @@ public class Papers {
         this.tenativeStatus = tenativeStatus;
     }
 
+    /**
+     * fetch method for the paper object. Passes info from this class
+     * to the superclass post method, where the query is created and executed.
+     *
+     * @throws DLException custom exception that logs errors in a separate file
+     */
     public void fetch() throws DLException {
+        // add primary key to ArrayList for passing into superclass method
+        ArrayList<String> pkNames = new ArrayList<>();
+        pkNames.add("paperId");
 
+        // add primary key data to ArrayList for passing into superclass method
+        ArrayList<String> pkData = new ArrayList<>();
+        pkNames.add(Integer.toString(paperId));
+
+        super.fetch("Users", pkNames, pkData);
     }
 
-    public String put() throws DLException {
-        return "Hi.";
+    /**
+     * put method for the paper object. Passes info from this class
+     * to the superclass post method, where the query is created and executed.
+     *
+     * @return number of rows affected
+     * @throws DLException custom exception that logs errors in a separate file
+     */
+    public int put() throws DLException {
+        // putting all of the column names into an ArrayList for passing to the superclass method
+        ArrayList<String> columnNames = new ArrayList<>();
+        columnNames.add("title");
+        columnNames.add("abstract");
+        columnNames.add("track");
+        columnNames.add("status");
+        columnNames.add("submissionType");
+        columnNames.add("submitterId");
+        columnNames.add("fileId");
+        columnNames.add("tentativeStatus");
+        columnNames.add("paperId");
+
+        // putting all of the object values into an ArrayList for passing to the superclass method
+        ArrayList<String> values = new ArrayList<>();
+        values.add(title);
+        values.add(paperAbstract);
+        values.add(track);
+        values.add(status);
+        values.add(Integer.toString(submissionType));
+        values.add(Integer.toString(submitterId));
+        values.add(fileId);
+        values.add(tenativeStatus);
+        values.add(Integer.toString(paperId));
+
+        return super.put("Users", columnNames, values);
     }
 
-    public String post() throws DLException {
-        return "Hi.";
+    /**
+     * post method for the paper object. Passes info from this class
+     * to the superclass post method, where the query is created and executed.
+     *
+     * @return number of rows affected
+     * @throws DLException custom exception that logs errors in a separate file
+     */
+    public int post() throws DLException {
+        // putting all of the column names into an ArrayList for passing to the superclass method
+        ArrayList<String> columnNames = new ArrayList<>();
+        columnNames.add("paperId");
+        columnNames.add("title");
+        columnNames.add("abstract");
+        columnNames.add("track");
+        columnNames.add("status");
+        columnNames.add("submissionType");
+        columnNames.add("submitterId");
+        columnNames.add("fileId");
+        columnNames.add("tentativeStatus");
+
+        // putting all of the object values into an ArrayList for passing to the superclass method
+        ArrayList<String> values = new ArrayList<>();
+        values.add(Integer.toString(paperId));
+        values.add(title);
+        values.add(paperAbstract);
+        values.add(track);
+        values.add(status);
+        values.add(Integer.toString(submissionType));
+        values.add(Integer.toString(submitterId));
+        values.add(fileId);
+        values.add(tenativeStatus);
+
+        return super.post("Users", columnNames, values);
     }
 
-    public String delete() throws DLException {
-        return "Hi.";
+    /**
+     * delete method for the paper object. Passes info from this class
+     * to the superclass post method, where the query is created and executed.
+     *
+     * @return number of rows affected
+     * @throws DLException custom exception that logs errors in a separate file
+     */
+    public int delete() throws DLException {
+        return super.delete("Papers", "paperId", Integer.toString(paperId));
     }
 
     /**
