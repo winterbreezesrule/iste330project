@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
+    <list default="true" id="a83c8840-1d35-4859-b7f7-15df0c73c04a" name="Default Changelist" comment="" />
     <list default="true" id="3b1da219-8e82-4b73-9dca-b6f4d29e8f1d" name="Default Changelist" comment="">
       <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/out/production/Submission/DLObject.class" afterDir="false" />
@@ -20,6 +21,14 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
+  <component name="ProjectId" id="1aj6cyVuRsDoxAsYwpdUiE1P55o" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
   <component name="ProjectId" id="1ajBuvyJv3B7WNs9UhrthQnFrmm" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <OptionsSetting value="false" id="Update" />
@@ -62,6 +71,19 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
+      <changelist id="a83c8840-1d35-4859-b7f7-15df0c73c04a" name="Default Changelist" comment="" />
+      <created>1587236747397</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1587236747397</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1587239570482">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1587239570482" />
       <changelist id="3b1da219-8e82-4b73-9dca-b6f4d29e8f1d" name="Default Changelist" comment="" />
       <created>1587239350199</created>
       <option name="number" value="Default" />
