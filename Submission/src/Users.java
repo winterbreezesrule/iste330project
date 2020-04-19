@@ -1,5 +1,13 @@
 import BCrypt.BCrypt;
 
+import io.jsonwebtoken.*;
+import io.jsonwebtoken.io.Encoders;
+import io.jsonwebtoken.security.Keys;
+import java.security.Key;
+
+
+import javax.crypto.SecretKey;
+import javax.crypto.spec.SecretKeySpec;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.Session;
@@ -7,19 +15,26 @@ import javax.mail.Transport;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import javax.xml.bind.DatatypeConverter;
 import java.sql.PreparedStatement;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+
+
+
 
 
 import java.util.*;
 
 @SuppressWarnings({"unused", "UnnecessaryLocalVariable", "RedundantThrows", "SpellCheckingInspection", "DanglingJavadoc"})
-public class Users {
+public class Users extends DLObject {
     //connection variables
     private final String uName = "student";
     private final String uPass = "student";
 
+    //secret encryption key
+    public static String SECRET_KEY;
 
     // table attributes
     private int userId;
@@ -30,6 +45,8 @@ public class Users {
     private String expiration;
     private int isAdmin;
     private int affiliationId;
+    private boolean loggedIn = false;
+    private String loginToken;
 
     //constructors
 
@@ -43,6 +60,8 @@ public class Users {
         this.expiration = expiration;
         this.isAdmin = isAdmin;
         this.affiliationId = affiliationId;
+        SECRET_KEY = genKey();
+        loginToken = "";
     }
 
     public Users() {
@@ -54,6 +73,8 @@ public class Users {
         expiration = "";
         isAdmin = 0;
         affiliationId = 0;
+        SECRET_KEY = genKey();
+        loginToken = "";
     }
 
     public int getUserId() {
@@ -135,7 +156,7 @@ public class Users {
     public String delete() throws DLException {
         return "Hi.";
     }
-      
+
     /**
       *
       * Gets all of the papers for the specified user.
@@ -322,7 +343,7 @@ public class Users {
             }
         }
     }
-      
+
     /**
       *
       * resetPassword() GOES HERE
@@ -440,7 +461,15 @@ public class Users {
       * setPassword() GOES HERE
       *
       */
-      
+    //set password --
+        //checks if user is logged in
+        //-accepts a string of text
+        //-creates a hash of it
+        //-stores hash in password field users table
+    public void setPassword(String pass){
+
+    }
+
     /**
       *
       * login() GOES HERE
@@ -448,6 +477,51 @@ public class Users {
       */
       //check expiration when user logs in
       //expire after a long time in the future
+    public String login(String email, String pass) throws DLException {
+        String tokenString = "";
+        //check if password is expired
+        MySQLDatabase newDB = new MySQLDatabase(uName, uPass);
+        try {
+            if(newDB.connect()){ //connect to DB
+                //prepare a statement to return DB values for this user
+                String sqlString = "SELECT * FROM users WHERE email = ?";
+                ArrayList<String> valList = new ArrayList<String>();
+                valList.add(email);
+                ArrayList<ArrayList<String>> returnVals = newDB.getData(sqlString,valList);
+                //if password is not expired
+                if(!isExpired(returnVals.get(2).get(6))){
+                    //if password matches
+                    if(BCrypt.checkpw(pass, returnVals.get(2).get(4))){
+                        System.out.println("Password Matches!");
+                        //create a token to send back
+                            //token variables
+                                //-userID, lastName, firstName, isAdmin, expiration
+                        tokenString = createToken(returnVals.get(2).get(0),
+                                returnVals.get(2).get(1),
+                                returnVals.get(2).get(2),
+                                returnVals.get(2).get(7),
+                                returnVals.get(2).get(6));
+
+                        loginToken = tokenString;
+
+                    }else{//password doesn't match
+                        System.out.println("doesn't match");//testing
+                    }
+
+                }else{ //password is expired
+                    System.out.println("Expired");//testing
+                }
+
+            }
+        }catch (DLException err){
+            System.out.println("Error occurred when logging in.");
+            newDB.close();
+            throw new DLException(err);
+        }
+
+        return tokenString;
+
+    }
     /**
       *
       * hash() GOES HERE
@@ -456,6 +530,89 @@ public class Users {
     private String hash(String passwd){
         String returnHash = BCrypt.hashpw(passwd, BCrypt.gensalt(12));
         return returnHash;
+    }
+    //checks if timestamp is expired, returns true or false
+    private boolean isExpired(String timestamp) throws DLException {
+        boolean returnVal = true;//assume it is expired for security
+        //parse string into date
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
+        try {
+            Date timeStampDate = dateFormat.parse(timestamp);
+            Date rightNow = new Date();
+            //compare two dates
+            if(rightNow.compareTo(timeStampDate) > 0){
+                // do nothing - return value already true
+            } else {
+                returnVal = false; // set value to false because pass is not expired
+            }
+
+        } catch (ParseException err){
+            System.out.println("There was an error checking if password is expired.");
+            throw new DLException(err);
+        }
+
+        return returnVal;
+    }
+
+    //create a token
+    //userID, lastName, firstName, isAdmin, expiration
+    //(https://developer.okta.com/blog/2018/10/31/jwts-with-java) -- instructions followed
+    public String createToken(String uID, String lastName, String firstName, String isAdmin, String expiration){
+        //choose signature algorithm
+        SignatureAlgorithm sigAl = SignatureAlgorithm.HS256;
+
+        long nowMillis = System.currentTimeMillis();
+        Date now = new Date(nowMillis);
+
+
+        //need a a secret key to sign the token
+        byte[] apiKeySecretBytes = DatatypeConverter.parseBase64Binary(SECRET_KEY);
+        Key signingKey = new SecretKeySpec(apiKeySecretBytes, sigAl.getJcaName());
+
+        //Set the JWT claims
+        JwtBuilder builder = Jwts.builder();
+        builder.claim("UserID", uID);
+        builder.claim("FirstName", firstName);
+        builder.claim("LastName", lastName);
+        builder.claim("IsAdmin", isAdmin);
+        builder.claim("Expiration", expiration);
+        builder.signWith(signingKey, sigAl);
+        builder.setExpiration(newTokenExpiration());
+        //create token string
+        String jwtString = builder.compact();
+
+        return jwtString;
+    }
+
+    private String genKey(){
+        Key newKey = Keys.secretKeyFor(SignatureAlgorithm.HS256);
+        String returnVal = Encoders.BASE64.encode(newKey.getEncoded());
+        return returnVal;
+    }
+
+    private Date newTokenExpiration(){
+        Date now = new Date();
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(now);
+        cal.add(Calendar.MINUTE, 30);
+        Date thirtyMinutesLater = cal.getTime();
+        return thirtyMinutesLater;
+
+    }
+
+    public Jws<Claims> decodeToken(String jwtString) throws DLException {
+        Jws<Claims> newJWS;
+        try {
+            newJWS = Jwts.parserBuilder()
+                    .setSigningKey(SECRET_KEY)
+                    .build()
+                    .parseClaimsJws(jwtString);
+        } catch (JwtException err){
+            System.out.println("Error occurred when decoding token");
+            throw new DLException(err);
+        }
+
+        return newJWS;
     }
 
 } // end Users
