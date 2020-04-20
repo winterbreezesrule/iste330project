@@ -175,7 +175,7 @@ public class Papers extends DLObject{
 
         // add primary key data to ArrayList for passing into superclass method
         ArrayList<String> pkData = new ArrayList<>();
-        pkNames.add(Integer.toString(paperId));
+        pkData.add(Integer.toString(paperId));
 
         super.fetch("Users", pkNames, pkData);
     }

@@ -219,7 +219,7 @@ public class Users extends DLObject{
 
         // add primary key data to ArrayList for passing into superclass method
         ArrayList<String> pkData = new ArrayList<>();
-        pkNames.add(Integer.toString(userId));
+        pkData.add(Integer.toString(userId));
 
         super.fetch("Users", pkNames, pkData);
     }
