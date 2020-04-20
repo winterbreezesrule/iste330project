@@ -273,8 +273,6 @@ public class Papers extends DLObject{
 
     public String getPaper(int _paperId) throws DLException {
         String paperInfo = "";
-        // QUESTION: are we setting this paper object to be the paper passed in, or are we getting info
-        // about an unrelated paper?
         try {
             MySQLDatabase mysqld = new MySQLDatabase("root", "USO800rubysky#1!");
 
@@ -368,6 +366,7 @@ public class Papers extends DLObject{
         // UPDATE PAPERS SET title = ?, abstract = ?, submissionType = ? WHERE paperId = ?;
 
         // need to also update paperauthors and papersubjects
+        // IS THIS A TRANSACTION?
 
     }
 

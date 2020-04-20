@@ -20,13 +20,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a83c8840-1d35-4859-b7f7-15df0c73c04a" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Submission/DLObject.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Submission/DLObject.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Submission/MainTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Submission/MainTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Submission/PaperAuthors.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Submission/PaperAuthors.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Submission/Papers.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Submission/Papers.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Submission/Users.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Submission/Users.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Papers.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Papers.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Users.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Users.java" afterDir="false" />
     </list>
@@ -196,6 +190,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state width="1493" height="261" key="GridCell.Tab.1.right/0.0.1536.824/1920.0.1360.728@0.0.1536.824" timestamp="1586981993041" />
+    <state x="1020" y="266" key="IDE.errors.dialog" timestamp="1587411738479">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="1020" y="266" key="IDE.errors.dialog/0.0.1920.1040@0.0.1920.1040" timestamp="1587411738479" />
     <state x="369" y="134" key="RollbackChangesDialog" timestamp="1587338613104">
       <screen x="0" y="0" width="1536" height="824" />
     </state>

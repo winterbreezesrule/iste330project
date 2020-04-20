@@ -396,6 +396,7 @@ public class Users extends DLObject{
     public void setUser(String _lastName, String _firstName, String _email,
                         String affiliation) {
 
+        // MAKE THIS INTO A TRANSACTION?
         MySQLDatabase mysqld = new MySQLDatabase("root", "USO800rubysky#1!");
 
         // get ID associated with affiliation
@@ -514,7 +515,7 @@ public class Users extends DLObject{
             if (newDB.connect()){//connect to DB
                 //create SQL string and values for update
                 String sqlString = "UPDATE users SET pswd = ?, expiration = ? WHERE email = ?";
-                ArrayList<String> valList = new ArrayList<String>();
+                ArrayList<String> valList = new ArrayList<>();
                 valList.add(randomPassHash);
                 valList.add(fiveMinutesLater);
                 valList.add(email);
