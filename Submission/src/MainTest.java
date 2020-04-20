@@ -16,17 +16,23 @@ public class MainTest {
      */
     public static void main(String[] args) {
 
-
         try {
             //test login
-            Users testUser = new Users();
+            // Users testUser = new Users();
             //testUser.resetPassword("hl4442@rit.edu");
-            String newToken = testUser.login("hl4442@rit.edu", "4hrA1t59");
-            System.out.println("Token:" + newToken);
+            // String newToken = testUser.login("hl4442@rit.edu", "4hrA1t59");
+            // System.out.println("Token:" + newToken);
 
-            Jws<Claims> tokenValues = testUser.decodeToken(newToken);
+            // Jws<Claims> tokenValues = testUser.decodeToken(newToken);
 
-            System.out.println(tokenValues);
+            // System.out.println(tokenValues);
+
+            PaperAuthors test = new PaperAuthors();
+            test.setPaperId(1);
+            test.setUserId(558);
+            test.fetch();
+
+
 
         } catch (Exception e) {
             e.printStackTrace();

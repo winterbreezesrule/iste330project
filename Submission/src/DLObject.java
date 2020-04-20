@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class DLObject {
 
     public void fetch(String tableName, ArrayList<String> pkNames, ArrayList<String> pkData) throws DLException{
-        MySQLDatabase db = new MySQLDatabase("username", "password");
+        MySQLDatabase db = new MySQLDatabase("root", "USO800rubysky#1!");
         if(db.connect()) {
             StringBuilder sql = new StringBuilder("SELECT * FROM " + tableName + " WHERE ");
             for (int i = 0; i < pkNames.size(); i++){

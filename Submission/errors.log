@@ -1,29 +1,18 @@
 Exception info: 
-com.sun.mail.util.MailConnectException: Couldn't connect to host, port: localhost, 25; timeout -1;
-  nested exception is:
-	java.net.ConnectException: Connection refused: connect
-	at com.sun.mail.smtp.SMTPTransport.openServer(SMTPTransport.java:2209)
-	at com.sun.mail.smtp.SMTPTransport.protocolConnect(SMTPTransport.java:740)
-	at javax.mail.Service.connect(Service.java:366)
-	at javax.mail.Service.connect(Service.java:246)
-	at javax.mail.Service.connect(Service.java:195)
-	at javax.mail.Transport.send0(Transport.java:254)
-	at javax.mail.Transport.send(Transport.java:124)
-	at Users.resetPassword(Users.java:207)
-	at MainTest.main(MainTest.java:8)
-Caused by: java.net.ConnectException: Connection refused: connect
-	at java.net.DualStackPlainSocketImpl.connect0(Native Method)
-	at java.net.DualStackPlainSocketImpl.socketConnect(DualStackPlainSocketImpl.java:79)
-	at java.net.AbstractPlainSocketImpl.doConnect(AbstractPlainSocketImpl.java:350)
-	at java.net.AbstractPlainSocketImpl.connectToAddress(AbstractPlainSocketImpl.java:206)
-	at java.net.AbstractPlainSocketImpl.connect(AbstractPlainSocketImpl.java:188)
-	at java.net.PlainSocketImpl.connect(PlainSocketImpl.java:172)
-	at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:392)
-	at java.net.Socket.connect(Socket.java:606)
-	at java.net.Socket.connect(Socket.java:555)
-	at com.sun.mail.util.SocketFetcher.createSocket(SocketFetcher.java:359)
-	at com.sun.mail.util.SocketFetcher.getSocket(SocketFetcher.java:238)
-	at com.sun.mail.smtp.SMTPTransport.openServer(SMTPTransport.java:2175)
-	... 8 more
-Current time: 2020-04-13 22:15:03.517
+java.sql.SQLException: No value specified for parameter 1
+	at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:965)
+	at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:898)
+	at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:887)
+	at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:861)
+	at com.mysql.jdbc.PreparedStatement.checkAllParametersSet(PreparedStatement.java:2265)
+	at com.mysql.jdbc.PreparedStatement.fillSendPacket(PreparedStatement.java:2245)
+	at com.mysql.jdbc.PreparedStatement.fillSendPacket(PreparedStatement.java:2175)
+	at com.mysql.jdbc.PreparedStatement.executeQuery(PreparedStatement.java:1995)
+	at MySQLDatabase.getData(MySQLDatabase.java:122)
+	at DLObject.fetch(DLObject.java:23)
+	at PaperAuthors.fetch(PaperAuthors.java:73)
+	at MainTest.main(MainTest.java:33)
+[SQL Query:, SELECT * FROM PaperAuthors WHERE paperId = ? AND userId = ? AND 1 = ? AND 558 = ?;]
+[Values to be bound:]
+Current time: 2020-04-20 18:53:41.225
 
