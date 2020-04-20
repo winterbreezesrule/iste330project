@@ -329,8 +329,8 @@ public class Users extends DLObject{
                 ArrayList<ArrayList<String>> fullResults = mysqld.getData(sql, values);
                 ArrayList<String> results = fullResults.get(2);
 
-                for (int i = 0; i < results.size(); i++) {
-                    papersWritten = results.get(i) + "\n";
+                for (String result : results) {
+                    papersWritten = result + "\n";
                 }
 
                 mysqld.close();

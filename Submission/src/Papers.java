@@ -273,24 +273,21 @@ public class Papers extends DLObject{
 
     public String getPaper(int _paperId) throws DLException {
         String paperInfo = "";
-        setPaperId(_paperId);
+        // QUESTION: are we setting this paper object to be the paper passed in, or are we getting info
+        // about an unrelated paper?
         try {
             MySQLDatabase mysqld = new MySQLDatabase("root", "USO800rubysky#1!");
 
-            // make sure youre getting info about right paper. do you need this?
-            // idk
-            fetch();
+            String sql0 = "select title, abstract, submissionType from papers where paperid = ?";
+            ArrayList<String> values0 = new ArrayList<>();
+            values0.add(Integer.toString(_paperId));
 
-            // NEED TO GET:
-            // PAPER TITLE
-            // PAPER ABSTRACT
-            // PAPER SUBMISSION TYPE
-            // PAPER SUBJECT(S)
-            // PAPER AUTHORS (FIRST AND LAST NAMES)
+            ArrayList<ArrayList<String>> fullResults0 = mysqld.getData(sql0, values0);
+            ArrayList<String> results0 = fullResults0.get(2);
 
-            paperInfo += "Paper title: " + getTitle();
-            paperInfo += "\nPaper abstract: " + getPaperAbstract();
-            paperInfo += "\nPaper submission type: " + getSubmissionType();
+            paperInfo += "Paper title: " + results0.get(0);
+            paperInfo += "\nPaper abstract: " + results0.get(1);
+            paperInfo += "\nPaper submission type: " + results0.get(2);
             paperInfo += "\nPaper subject(s): ";
 
             String sql1 = "select _subjects.subjectname from _subjects join " +
@@ -298,12 +295,12 @@ public class Papers extends DLObject{
                     "join papers on papersubjects.paperid = papers.paperid AND " +
                     "papers.paperid = ?;";
             ArrayList<String> values1 = new ArrayList<>();
-            values1.add(Integer.toString(getPaperId()));
+            values1.add(Integer.toString(_paperId));
 
             ArrayList<ArrayList<String>> fullResults1 = mysqld.getData(sql1, values1);
             ArrayList<ArrayList<String>> results1 = new ArrayList<ArrayList<String>>();
-            for (ArrayList<String> strings : fullResults1) {
-                results1.add(strings);
+            for (int i = 2; i < fullResults1.size(); i++) {
+                results1.add(fullResults1.get(i));
             }
 
             if (results1.size() > 1) {
@@ -325,13 +322,12 @@ public class Papers extends DLObject{
                     "paperauthors.userid inner join papers on paperauthors.paperid " +
                     "= papers.paperid and papers.paperid = ?;";
             ArrayList<String> values2 = new ArrayList<>();
-            values2.add(Integer.toString(getPaperId()));
+            values2.add(Integer.toString(_paperId));
 
             ArrayList<ArrayList<String>> fullResults2 = mysqld.getData(sql2, values2);
             ArrayList<ArrayList<String>> results2 = new ArrayList<ArrayList<String>>();
-
-            for (ArrayList<String> strings : fullResults2) {
-                results2.add(strings);
+            for (int i = 2; i < fullResults2.size(); i++) {
+                results2.add(fullResults2.get(i));
             }
 
             if (results2.size() > 1) {

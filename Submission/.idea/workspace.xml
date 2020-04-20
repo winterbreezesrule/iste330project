@@ -1,10 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="a83c8840-1d35-4859-b7f7-15df0c73c04a" name="Default Changelist" comment="" />
-    <list default="true" id="3b1da219-8e82-4b73-9dca-b6f4d29e8f1d" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/out/production/Submission/DLObject.class" afterDir="false" />
+    <list default="true" id="a83c8840-1d35-4859-b7f7-15df0c73c04a" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Submission/DLObject.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Submission/DLObject.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Submission/MainTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Submission/MainTest.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Submission/PaperAuthors.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Submission/PaperAuthors.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Submission/Papers.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Submission/Papers.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Submission/Users.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Submission/Users.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Papers.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Papers.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Users.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Users.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,67 +53,67 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-  <component name="ProjectId" id="1ajBuvyJv3B7WNs9UhrthQnFrmm" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
-    <OptionsSetting value="false" id="Update" />
-    <ConfirmationsSetting value="2" id="Add" />
-  </component>
-  <component name="ProjectViewState">
-    <option name="hideEmptyMiddlePackages" value="true" />
-    <option name="showExcludedFiles" value="true" />
-    <option name="showLibraryContents" value="true" />
-  </component>
-  <component name="PropertiesComponent">
-    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
-    <property name="Downloaded.Files.Path.Enabled" value="false" />
-    <property name="Repository.Attach.Annotations" value="false" />
-    <property name="Repository.Attach.JavaDocs" value="false" />
-    <property name="Repository.Attach.Sources" value="false" />
-    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="project.structure.last.edited" value="Modules" />
-    <property name="project.structure.proportion" value="0.15" />
-    <property name="project.structure.side.proportion" value="0.2" />
-  </component>
-  <component name="RunManager">
-    <configuration name="MainTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="MainTest" />
-      <module name="Submission" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <recent_temporary>
-      <list>
-        <item itemvalue="Application.MainTest" />
-      </list>
-    </recent_temporary>
-  </component>
-  <component name="SvnConfiguration">
-    <configuration />
-  </component>
-  <component name="TaskManager">
-    <task active="true" id="Default" summary="Default task">
-      <changelist id="a83c8840-1d35-4859-b7f7-15df0c73c04a" name="Default Changelist" comment="" />
-      <created>1587236747397</created>
-      <option name="number" value="Default" />
-      <option name="presentableId" value="Default" />
-      <updated>1587236747397</updated>
-    </task>
-    <servers />
-  </component>
-  <component name="WindowStateProjectService">
-    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1587239570482">
-      <screen x="0" y="0" width="1920" height="1040" />
-    </state>
-    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1587239570482" />
+    <component name="ProjectId" id="1ajBuvyJv3B7WNs9UhrthQnFrmm" />
+    <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+      <OptionsSetting value="false" id="Update" />
+      <ConfirmationsSetting value="2" id="Add" />
+    </component>
+    <component name="ProjectViewState">
+      <option name="hideEmptyMiddlePackages" value="true" />
+      <option name="showExcludedFiles" value="true" />
+      <option name="showLibraryContents" value="true" />
+    </component>
+    <component name="PropertiesComponent">
+      <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+      <property name="Downloaded.Files.Path.Enabled" value="false" />
+      <property name="Repository.Attach.Annotations" value="false" />
+      <property name="Repository.Attach.JavaDocs" value="false" />
+      <property name="Repository.Attach.Sources" value="false" />
+      <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+      <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+      <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+      <property name="project.structure.last.edited" value="Modules" />
+      <property name="project.structure.proportion" value="0.15" />
+      <property name="project.structure.side.proportion" value="0.2" />
+    </component>
+    <component name="RunManager">
+      <configuration name="MainTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+        <option name="MAIN_CLASS_NAME" value="MainTest" />
+        <module name="Submission" />
+        <method v="2">
+          <option name="Make" enabled="true" />
+        </method>
+      </configuration>
+      <recent_temporary>
+        <list>
+          <item itemvalue="Application.MainTest" />
+        </list>
+      </recent_temporary>
+    </component>
+    <component name="SvnConfiguration">
+      <configuration />
+    </component>
+    <component name="TaskManager">
+      <task active="true" id="Default" summary="Default task">
+        <changelist id="a83c8840-1d35-4859-b7f7-15df0c73c04a" name="Default Changelist" comment="" />
+        <created>1587236747397</created>
+        <option name="number" value="Default" />
+        <option name="presentableId" value="Default" />
+        <updated>1587236747397</updated>
+      </task>
+      <servers />
+    </component>
+    <component name="WindowStateProjectService">
+      <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1587239570482">
+        <screen x="0" y="0" width="1920" height="1040" />
+      </state>
+      <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1587239570482" />
       <changelist id="3b1da219-8e82-4b73-9dca-b6f4d29e8f1d" name="Default Changelist" comment="" />
       <created>1587239350199</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1587239350199</updated>
-    </task>
+    </component>
     <task id="LOCAL-00001" summary="Added login and token functionality, tested in Main">
       <created>1587339787202</created>
       <option name="number" value="00001" />
@@ -98,6 +122,19 @@
       <updated>1587339787202</updated>
     </task>
     <option name="localTasksCounter" value="2" />
+    <servers />
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="d42fbf7d-a2de-4e71-b178-48e896785de4" name="Default Changelist" comment="" />
+      <created>1587409645249</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1587409645249</updated>
+    </task>
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -110,6 +147,7 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
