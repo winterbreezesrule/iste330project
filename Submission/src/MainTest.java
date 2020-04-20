@@ -27,10 +27,7 @@ public class MainTest {
 
             // System.out.println(tokenValues);
 
-            PaperAuthors test = new PaperAuthors();
-            test.setPaperId(1);
-            test.setUserId(558);
-            test.fetch();
+            
 
 
 

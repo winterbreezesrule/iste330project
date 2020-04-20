@@ -10,6 +10,8 @@ public class DLObject {
         MySQLDatabase db = new MySQLDatabase("root", "USO800rubysky#1!");
         if(db.connect()) {
             StringBuilder sql = new StringBuilder("SELECT * FROM " + tableName + " WHERE ");
+            System.out.println(pkNames.size());
+            System.out.println(pkData.size());
             for (int i = 0; i < pkNames.size(); i++){
                 String pk = pkNames.get(i);
                 if (i == pkNames.size() - 1){
