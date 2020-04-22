@@ -376,7 +376,7 @@ public class Users extends DLObject{
     public void setUser(String _lastName, String _firstName, String _email,
                         int affiliation) {
 
-        // MAKE THIS INTO A TRANSACTION?
+        // MAKE THE TRANSACTION WORK DINGDONG
         MySQLDatabase mysqld = new MySQLDatabase("root", "USO800rubysky#1!");
 
         if (getUserId() == 0) { // creates new user entry
