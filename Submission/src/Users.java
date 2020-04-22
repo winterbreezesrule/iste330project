@@ -355,27 +355,7 @@ public class Users extends DLObject{
 
         userInfo += "Name: " + getFirstName() + " " + getLastName();
         userInfo += "\nEmail: " + getEmail();
-        userInfo += "\nAffiliation: ";
-
-        // need SQL to get affiliation name
-        String sql = "select _affiliations.affiliationName from users inner " +
-                "join _affiliations on users.affiliationId = _affiliations." +
-                "affiliationId AND userId = ?;";
-        ArrayList<String> values = new ArrayList<>();
-
-        values.add(Integer.toString(getUserId()));
-
-        MySQLDatabase mysqld = new MySQLDatabase("root", "USO800rubysky#1!");
-        try {
-            if (mysqld.connect()) {
-                ArrayList<ArrayList<String>> fullResults = mysqld.getData(sql, values);
-                ArrayList<String> results = fullResults.get(2);
-                userInfo += results.get(0);
-                mysqld.close();
-            }
-        } catch (Exception e) {
-            userInfo += "Affiliation could not be properly retrieved.";
-        }
+        userInfo += "\nAffiliation: " + getAffiliationId();
 
         return userInfo;
     }
@@ -394,59 +374,31 @@ public class Users extends DLObject{
       */
 
     public void setUser(String _lastName, String _firstName, String _email,
-                        String affiliation) {
+                        int affiliation) {
 
         // MAKE THIS INTO A TRANSACTION?
         MySQLDatabase mysqld = new MySQLDatabase("root", "USO800rubysky#1!");
 
-        // get ID associated with affiliation
-        try {
-            if (mysqld.connect()) {
-                String sql = "select affiliationId FROM _affiliations WHERE affiliationName = ?;";
-                ArrayList<String> values = new ArrayList<>();
-                values.add(affiliation);
-                ArrayList<ArrayList<String>> fullResults = mysqld.getData(sql, values);
-                // affiliation does not exist in _affiliations, must be added
-                if (fullResults.isEmpty()) {
-                    String sql2 = "select MAX(affiliationId) from _affiliations";
-                    ArrayList<String> values2 = new ArrayList<>();
-                    ArrayList<ArrayList<String>> fullResults2 = mysqld.getData(sql2, values2);
-                    ArrayList<String> results = fullResults2.get(2);
-                    int affid = Integer.parseInt(results.get(0));
-
-                    Affiliations newAff = new Affiliations();
-
-                    newAff.setAffiliationId(affid);
-                    newAff.setAffiliationName(affiliation);
-
-                    newAff.post();
-
-                    setAffiliationId(affid);
-
-                } else { // affiliation already exists, can get ID
-                    ArrayList<String> results = fullResults.get(2);
-                    int affid = Integer.parseInt(results.get(0));
-                    setAffiliationId(affid);
-                }
-                mysqld.close();
-            }
-        } catch (Exception e) {
-            System.out.println("Could not retrieve ID associated with the user's affiliation.");
-        }
-
         if (getUserId() == 0) { // creates new user entry
             try {
                 if (mysqld.connect()) {
+                    mysqld.startTrans();
                     System.out.println("Creating new user.");
                     String sql1 = "INSERT INTO users (userId, lastName, firstName, " +
                             "email, affiliationId) VALUES (?, ?, ?, ?, ?)";
                     String sql2 = "SELECT MAX(userId) from users";
+
                     ArrayList<String> values1 = new ArrayList<>();
                     ArrayList<String> values2 = new ArrayList<>();
 
                     ArrayList<ArrayList<String>> fullResults2 = mysqld.getData(sql2, values2);
                     ArrayList<String> results2 = fullResults2.get(2);
+
                     setUserId(Integer.parseInt(results2.get(0)));
+                    setLastName(_lastName);
+                    setFirstName(_firstName);
+                    setEmail(_email);
+                    setAffiliationId(affiliation);
 
                     values1.add(Integer.toString(getUserId()));
                     values1.add(getLastName());
@@ -458,6 +410,7 @@ public class Users extends DLObject{
 
                     System.out.println(recordschanged + " records changed.");
 
+                    mysqld.endTrans();
                     mysqld.close();
                 }
             } catch (Exception e) {
@@ -466,10 +419,16 @@ public class Users extends DLObject{
         } else { // updates existing info for user
             try {
                 if (mysqld.connect()) {
+                    mysqld.startTrans();
                     System.out.println("Updating info on user.");
                     String sql = "UPDATE users SET lastName = ?, firstName = ?, email = ?" +
                             ", affiliationId = ? WHERE userId = ?";
                     ArrayList<String> values = new ArrayList<>();
+
+                    setLastName(_lastName);
+                    setFirstName(_firstName);
+                    setEmail(_email);
+                    setAffiliationId(affiliation);
 
                     values.add(getLastName());
                     values.add(getFirstName());
@@ -481,6 +440,7 @@ public class Users extends DLObject{
 
                     System.out.println(recordschanged + " records changed.");
 
+                    mysqld.endTrans();
                     mysqld.close();
                 }
             } catch (Exception e) {
