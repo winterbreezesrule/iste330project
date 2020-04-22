@@ -102,7 +102,7 @@ public class Subjects extends DLObject{
     }
 
     /**
-     * delete method for the user object. Passes info from this class
+     * delete method for the subject object. Passes info from this class
      * to the superclass delete method, where the query is created and executed.
      *
      * @return number of rows affected

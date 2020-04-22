@@ -10,6 +10,15 @@ import java.util.ArrayList;
 // TODO ADD JAVADOCS FOR ALL OF THESE
 public class DLObject {
 
+    /**
+     * Fetch method for objects that have more than one primary key
+     *
+     * @param tableName name of the table to get data from
+     * @param pkNames ArrayList containing the names of the primary key attributes
+     * @param pkData ArrayList containing the values of the primary keys
+     * @return 2D ArrayList containing the selected data
+     * @throws DLException custom exception that logs errors in a separate file
+     */
     public ArrayList<ArrayList<String>> fetch(String tableName, ArrayList<String> pkNames, ArrayList<String> pkData) throws DLException{
         MySQLDatabase db = new MySQLDatabase("username", "password");
         if(db.connect()) {
@@ -34,6 +43,15 @@ public class DLObject {
     }
 
 
+    /**
+     * Fetch method for objects that have a single primary key
+     *
+     * @param tableName name of the table to get data from
+     * @param pkName name of the table's primary key
+     * @param pkData value for the primary key
+     * @return 2D ArrayList containing the selected data
+     * @throws DLException custom exception that logs errors in a separate file
+     */
     public ArrayList<ArrayList<String>> fetch(String tableName, String pkName, String pkData) throws DLException{
         MySQLDatabase db = new MySQLDatabase("username", "password");
         if (db.connect()) {
@@ -46,6 +64,16 @@ public class DLObject {
             return new ArrayList<>();
         }
     }
+
+    /**
+     * Put method
+     *
+     * @param tableName name of the table to update data in
+     * @param columnNames ArrayList containing the names of the attributes to change
+     * @param values ArrayList containing the new values
+     * @return number of rows affected
+     * @throws DLException custom exception that logs errors in a separate file
+     */
     public int put(String tableName, ArrayList<String> columnNames, ArrayList<String> values) throws DLException{
         MySQLDatabase db = new MySQLDatabase("username", "password");
         if (db.connect()){
@@ -69,6 +97,15 @@ public class DLObject {
         }
     }
 
+    /**
+     * Post method for data objects
+     *
+     * @param tableName name of the table to post data to
+     * @param columnNames ArrayList containing the attribute names for the table
+     * @param values ArrayList containing the values to be inserted
+     * @return number of rows affected
+     * @throws DLException custom exception that logs errors in a separate file
+     */
     public int post(String tableName, ArrayList<String> columnNames, ArrayList<String> values) throws DLException{
         MySQLDatabase db = new MySQLDatabase("username", "password");
         if (db.connect()) {
@@ -88,6 +125,15 @@ public class DLObject {
         }
     }
 
+    /**
+     * Delete method for objects with more than one primary key
+     *
+     * @param tableName name of the table to delete data from
+     * @param pkNames ArrayList containing the names of the primary key attributes
+     * @param pkData ArrayList containing the values of the primary keys
+     * @return number of rows affected
+     * @throws DLException custom exception that logs errors in a separate file
+     */
     public int delete(String tableName, ArrayList<String> pkNames, ArrayList<String> pkData) throws DLException{
         MySQLDatabase db = new MySQLDatabase("username", "password");
         if (db.connect()) {
@@ -109,6 +155,15 @@ public class DLObject {
         }
     }
 
+    /**
+     * Delete method for objects with one primary key
+     *
+     * @param tableName name of the table to delete data from
+     * @param pkName name of the primary key attribute
+     * @param pkData value of the primary key
+     * @return number of rows affected
+     * @throws DLException custom exception that logs errors in a separate file
+     */
     public int delete(String tableName, String pkName, String pkData) throws DLException{
         MySQLDatabase db = new MySQLDatabase("username", "password");
         if (db.connect()) {

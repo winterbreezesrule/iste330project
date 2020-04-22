@@ -44,7 +44,7 @@ public class Types extends DLObject {
 
     /**
      * fetch method for the type object. Passes info from this class
-     * to the superclass post method, where the query is created and executed.
+     * to the superclass fetch method, where the query is created and executed.
      *
      * @throws DLException custom exception that logs errors in a separate file
      */
