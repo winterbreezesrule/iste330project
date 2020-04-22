@@ -41,6 +41,12 @@ public class Subjects extends DLObject{
         this.subjectName = subjectName;
     }
 
+    /**
+     * fetch method for the subject object. Passes info from this class
+     * to the superclass fetch method, where the query is created and executed.
+     *
+     * @throws DLException custom exception that logs errors in a separate file
+     */
     public void fetch() throws DLException {
         // add primary key to ArrayList for passing into superclass method
         ArrayList<String> pkNames = new ArrayList<>();
@@ -53,10 +59,34 @@ public class Subjects extends DLObject{
         ArrayList<ArrayList<String>> data = super.fetch("Subjects", pkNames, pkData);
     }
 
+    /**
+     * put method for the subject object. Passes info from this class
+     * to the superclass put method, where the query is created and executed.
+     *
+     * @return number of rows affected
+     * @throws DLException custom exception that logs errors in a separate file
+     */
     public int put() throws DLException {
-        return 1;
+        // putting all of the column names into an ArrayList for passing to the superclass method
+        ArrayList<String> columnNames = new ArrayList<>();
+        columnNames.add("subjectName");
+        columnNames.add("subjectId");
+
+        // putting all of the object values into an ArrayList for passing to the superclass method
+        ArrayList<String> values = new ArrayList<>();
+        values.add(subjectName);
+        values.add(Integer.toString(subjectId));
+
+        return super.put("Subjects", columnNames, values);
     }
 
+    /**
+     * post method for the subject object. Passes info from this class
+     * to the superclass post method, where the query is created and executed.
+     *
+     * @return number of rows affected
+     * @throws DLException custom exception that logs errors in a separate file
+     */
     public int post() throws DLException {
         // putting all of the column names into an ArrayList for passing to the superclass method
         ArrayList<String> columnNames = new ArrayList<>();
@@ -71,8 +101,15 @@ public class Subjects extends DLObject{
         return super.post("Subjects", columnNames, values);
     }
 
+    /**
+     * delete method for the user object. Passes info from this class
+     * to the superclass delete method, where the query is created and executed.
+     *
+     * @return number of rows affected
+     * @throws DLException custom exception that logs errors in a separate file
+     */
     public int delete() throws DLException {
-        return 1;
+        return super.delete("Subjects", "subjectId", Integer.toString(subjectId));
     }
 
 } // end Subjects 

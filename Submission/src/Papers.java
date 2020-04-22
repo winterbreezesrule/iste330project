@@ -164,7 +164,7 @@ public class Papers extends DLObject{
 
     /**
      * fetch method for the paper object. Passes info from this class
-     * to the superclass post method, where the query is created and executed.
+     * to the superclass fetch method, where the query is created and executed.
      *
      * @throws DLException custom exception that logs errors in a separate file
      */
@@ -174,7 +174,7 @@ public class Papers extends DLObject{
 
     /**
      * put method for the paper object. Passes info from this class
-     * to the superclass post method, where the query is created and executed.
+     * to the superclass put method, where the query is created and executed.
      *
      * @return number of rows affected
      * @throws DLException custom exception that logs errors in a separate file
@@ -244,7 +244,7 @@ public class Papers extends DLObject{
 
     /**
      * delete method for the paper object. Passes info from this class
-     * to the superclass post method, where the query is created and executed.
+     * to the superclass delete method, where the query is created and executed.
      *
      * @return number of rows affected
      * @throws DLException custom exception that logs errors in a separate file

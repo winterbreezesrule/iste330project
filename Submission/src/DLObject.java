@@ -7,7 +7,7 @@ import java.util.ArrayList;
  *
  * @author Aaron Erhart
  */
-
+// TODO ADD JAVADOCS FOR ALL OF THESE
 public class DLObject {
 
     public ArrayList<ArrayList<String>> fetch(String tableName, ArrayList<String> pkNames, ArrayList<String> pkData) throws DLException{
