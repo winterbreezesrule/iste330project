@@ -77,7 +77,7 @@ public class PaperAuthors extends DLObject {
         // putting all of the column names into an ArrayList for passing to the superclass method
         ArrayList<String> columnNames = new ArrayList<>();
         columnNames.add("paperId");
-        // TODO fix the composite key problem with the put method
+        // TODO fix the composite key problem with the put method by adding a numKeys parameter to put in DLObject
 
         // putting all of the object values into an ArrayList for passing to the superclass method
         ArrayList<String> values = new ArrayList<>();
