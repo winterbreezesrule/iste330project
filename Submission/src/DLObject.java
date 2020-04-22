@@ -1,12 +1,16 @@
 import java.util.ArrayList;
 
 /**
- * A generic class we use for CRUD methods. AARON, YOU WRITE THIS DOCUMENTATION
+ * A generic class we use for CRUD methods.
+ * This class is extended by all of the other data objects
+ * Each of those classes uses these methods with its own attributes
+ *
+ * @author Aaron Erhart
  */
 
 public class DLObject {
 
-    public void fetch(String tableName, ArrayList<String> pkNames, ArrayList<String> pkData) throws DLException{
+    public ArrayList<ArrayList<String>> fetch(String tableName, ArrayList<String> pkNames, ArrayList<String> pkData) throws DLException{
         MySQLDatabase db = new MySQLDatabase("username", "password");
         if(db.connect()) {
             StringBuilder sql = new StringBuilder("SELECT * FROM " + tableName + " WHERE ");
@@ -22,7 +26,24 @@ public class DLObject {
                 }
             }
 
-            ArrayList<ArrayList<String>> data = db.getData(sql.toString(), pkData);
+            return db.getData(sql.toString(), pkData);
+        }
+        else {
+            return new ArrayList<>();
+        }
+    }
+
+
+    public ArrayList<ArrayList<String>> fetch(String tableName, String pkName, String pkData) throws DLException{
+        MySQLDatabase db = new MySQLDatabase("username", "password");
+        if (db.connect()) {
+            String sql = "SELECT * FROM " + tableName + " WHERE " + pkName + " = ?;";
+            ArrayList<String> values = new ArrayList<>();
+            values.add(pkData);
+            return db.getData(sql, values);
+        }
+        else {
+            return new ArrayList<>();
         }
     }
     public int put(String tableName, ArrayList<String> columnNames, ArrayList<String> values) throws DLException{
@@ -61,6 +82,27 @@ public class DLObject {
                 }
             }
             return db.setData(sql.toString(), values);
+        }
+        else {
+            return -1;
+        }
+    }
+
+    public int delete(String tableName, ArrayList<String> pkNames, ArrayList<String> pkData) throws DLException{
+        MySQLDatabase db = new MySQLDatabase("username", "password");
+        if (db.connect()) {
+            StringBuilder sql = new StringBuilder("DELETE FROM " + tableName + " WHERE ");
+            for (int i = 0; i < pkNames.size(); i++){
+                String pk = pkNames.get(i);
+                if (i == pkNames.size() - 1){
+                    sql.append(pk).append(" = ?;");
+                }
+                else {
+                    sql.append(pk).append(" = ? AND ");
+                }
+            }
+
+            return db.setData(sql.toString(), pkData);
         }
         else {
             return -1;

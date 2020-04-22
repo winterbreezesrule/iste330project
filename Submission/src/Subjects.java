@@ -1,7 +1,9 @@
+import java.util.ArrayList;
+
 /**
  * Used to represent the _Subjects table in the CSM database.
  */
-public class Subjects {
+public class Subjects extends DLObject{
 
     // table attributes
     private int subjectId;
@@ -40,19 +42,37 @@ public class Subjects {
     }
 
     public void fetch() throws DLException {
+        // add primary key to ArrayList for passing into superclass method
+        ArrayList<String> pkNames = new ArrayList<>();
+        pkNames.add("subjectId");
 
+        // add primary key data to ArrayList for passing into superclass method
+        ArrayList<String> pkData = new ArrayList<>();
+        pkData.add(Integer.toString(subjectId));
+
+        ArrayList<ArrayList<String>> data = super.fetch("Subjects", pkNames, pkData);
     }
 
-    public String put() throws DLException {
-        return "Hi.";
+    public int put() throws DLException {
+        return 1;
     }
 
-    public String post() throws DLException {
-        return "Hi.";
+    public int post() throws DLException {
+        // putting all of the column names into an ArrayList for passing to the superclass method
+        ArrayList<String> columnNames = new ArrayList<>();
+        columnNames.add("subjectId");
+        columnNames.add("subjectName");
+
+        // putting all of the object values into an ArrayList for passing to the superclass method
+        ArrayList<String> values = new ArrayList<>();
+        values.add(Integer.toString(subjectId));
+        values.add(subjectName);
+
+        return super.post("Subjects", columnNames, values);
     }
 
-    public String delete() throws DLException {
-        return "Hi.";
+    public int delete() throws DLException {
+        return 1;
     }
 
 } // end Subjects 

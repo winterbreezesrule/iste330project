@@ -169,15 +169,7 @@ public class Papers extends DLObject{
      * @throws DLException custom exception that logs errors in a separate file
      */
     public void fetch() throws DLException {
-        // add primary key to ArrayList for passing into superclass method
-        ArrayList<String> pkNames = new ArrayList<>();
-        pkNames.add("paperId");
-
-        // add primary key data to ArrayList for passing into superclass method
-        ArrayList<String> pkData = new ArrayList<>();
-        pkData.add(Integer.toString(paperId));
-
-        super.fetch("Users", pkNames, pkData);
+        ArrayList<ArrayList<String>> data = super.fetch("Papers", "paperId", Integer.toString(paperId));
     }
 
     /**
