@@ -347,8 +347,7 @@ public class Papers extends DLObject{
       *
       */
     public void setPaper(int _paperId, String _title, String _paperAbstract, int _submissionType,
-                         String filename, String[] subjects, String[] coauthorsFirstNames, String[]
-                         coauthorsLastNames) {
+                         String filename, int[] subjectIds, int[] coauthorIds) {
         // check to see if subject(s) exist in _subjects
         // check to see if authors exist in _users
 
