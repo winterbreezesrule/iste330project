@@ -270,7 +270,7 @@ public class Papers extends DLObject{
 
             // YOU NEED TO GET EVERYTHING EXCLUDING FILENAME
             String sql0 = "select title, abstract, track, status, submissionType, " +
-                    "submitterId, tentativeStatus from papers where paperid = ?";
+                    "submitterId, tentativeStatus from papers where paperId = ?";
             ArrayList<String> values0 = new ArrayList<>();
             values0.add(Integer.toString(_paperId));
 
@@ -335,11 +335,24 @@ public class Papers extends DLObject{
             }
 
 
-            paperInfo += "\nPaper track: ";
-            paperInfo += "\nPaper status: ";
-            paperInfo += "\nPaper submission type: "; // GET SUBMISSION TYPE FROM THIS
-            paperInfo += "\nSubmitter: "; // GET PERSON NAME FROM THIS
-            paperInfo += "\nTentative status: ";
+            paperInfo += "\nPaper track: " + results0.get(2);
+
+            paperInfo += "\nPaper status: " + results0.get(3);
+
+            paperInfo += "\nPaper submission type: ";
+            Types tempType = new Types();
+            tempType.setTypeId(Integer.parseInt(results0.get(4)));
+            tempType.fetch();
+            paperInfo += tempType.getTypeName();
+
+
+            paperInfo += "\nSubmitter: ";
+            Users tempUser = new Users();
+            tempUser.setUserId(Integer.parseInt(results0.get(5)));
+            tempUser.fetch();
+            paperInfo += tempUser.getFirstName() + tempUser.getLastName();
+
+            paperInfo += "\nTentative status: " + results0.get(6);
 
         } catch (Exception e) {
             System.out.println("Paper information could not be retrieved.");
@@ -365,8 +378,8 @@ public class Papers extends DLObject{
         // otherwise update current paper
         // UPDATE PAPERS SET title = ?, abstract = ?, submissionType = ? WHERE paperId = ?;
 
-        // need to also update paperauthors and papersubjects
-        // IS THIS A TRANSACTION?
+        // need to also update paperauthors and papersubjects so this is a transaction
+        // how do we...get...submitterId HANSEL HELP
 
     }
 
