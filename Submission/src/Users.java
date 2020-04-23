@@ -246,7 +246,7 @@ public class Users extends DLObject{
         values.add(Integer.toString(affiliationId));
         values.add(Integer.toString(userId));
 
-        return super.put("Users", columnNames, values);
+        return super.put("Users", columnNames, values, 1);
     }
 
     /**
