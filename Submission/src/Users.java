@@ -304,7 +304,7 @@ public class Users extends DLObject{
 
     public String getPapers(int _userId) {
         String papersWritten = "";
-        MySQLDatabase mysqld = new MySQLDatabase("root", "USO800rubysky#1!");
+        MySQLDatabase mysqld = new MySQLDatabase("username", "password");
 
         try {
             if (mysqld.connect()) {
@@ -342,12 +342,30 @@ public class Users extends DLObject{
       *
       */
 
-    public String getUser() {
+    public String getUser() throws DLException {
         String userInfo = "";
 
-        userInfo += "Name: " + getFirstName() + " " + getLastName();
+        userInfo += "User ID: " + getUserId();
+        userInfo += "\nName: " + getFirstName() + " " + getLastName();
         userInfo += "\nEmail: " + getEmail();
-        userInfo += "\nAffiliation: " + getAffiliationId();
+        userInfo += "\nPassword Expiration: " + getExpiration();
+        userInfo += "\nIs admin? ";
+        // CHECK AND SEE IF 1 IS ADMIN AND 0 IS NONADMIN
+        if (isAdmin == 1) {
+            userInfo += "Yes.";
+        } else if (isAdmin == 0) {
+            userInfo += "No.";
+        }
+        userInfo += "\nAffiliation: ";
+        try {
+            Affiliations temp = new Affiliations();
+            temp.setAffiliationId(getAffiliationId());
+            temp.fetch();
+            userInfo += temp.getAffiliationName();
+        } catch (Exception e) {
+            System.out.println("Affiliation could not be retrieved.");
+            throw new DLException(e);
+        }
 
         return userInfo;
     }
