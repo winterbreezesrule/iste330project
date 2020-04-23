@@ -379,7 +379,7 @@ public class Users extends DLObject{
      * @param _lastName is the user's last name
      * @param _firstName is the user's first name
      * @param _email is the email of the user
-     * @param affiliation is the institute the user is affiliated with
+     * @param affiliation is the id of the institute the user is affiliated with
       *
       */
 
@@ -393,6 +393,7 @@ public class Users extends DLObject{
             try {
                 if (mysqld.connect()) {
                     mysqld.startTrans();
+                    // sql statements needed
                     System.out.println("Creating new user.");
                     String sql1 = "INSERT INTO users (userId, lastName, firstName, " +
                             "email, affiliationId) VALUES (?, ?, ?, ?, ?)";
@@ -401,10 +402,13 @@ public class Users extends DLObject{
                     ArrayList<String> values1 = new ArrayList<>();
                     ArrayList<String> values2 = new ArrayList<>();
 
+                    // get max value of user IDs
                     ArrayList<ArrayList<String>> fullResults2 = mysqld.getData(sql2, values2);
                     ArrayList<String> results2 = fullResults2.get(2);
 
-                    setUserId(Integer.parseInt(results2.get(0)));
+                    // set new user id to one greater than current max of user IDs
+                    setUserId(Integer.parseInt(results2.get(0)) + 1);
+                    // set the rest of the info
                     setLastName(_lastName);
                     setFirstName(_firstName);
                     setEmail(_email);
@@ -416,8 +420,10 @@ public class Users extends DLObject{
                     values1.add(getEmail());
                     values1.add(Integer.toString(getAffiliationId()));
 
+                    // try to insert the new record
                     int recordschanged = mysqld.setData(sql1, values1);
 
+                    // note how many records were changed
                     System.out.println(recordschanged + " records changed.");
 
                     mysqld.endTrans();
@@ -461,12 +467,12 @@ public class Users extends DLObject{
 
     /**
       *
-      * resetPassword() GOES HERE
+      * Creates a new password and sends to specified address.
+     * Good for five minutes.
+     *
+     * @param email is the email to send the new password to
       *
       */
-        //creates a new password and sends to specified address
-        //good for 5 minutes - expiration field in user table
-        //email new password to user
     public void resetPassword(String email) throws DLException {
         //create a new random password
         String newRandomPass = createRandomPass();
@@ -524,6 +530,10 @@ public class Users extends DLObject{
 
     }
 
+    /**
+     * Creates a new random password String.
+     * @return the new, random password.
+     */
     private String createRandomPass() {
         //create a new password string of random text(8 characters)
         String randomString = "";
@@ -559,6 +569,10 @@ public class Users extends DLObject{
         return randomString;
     }
 
+    /**
+     * Gets the time five minutes from now.
+     * @return a string holding the time five minutes from now.
+     */
     private String fiveMinutesFromNow(){
         Date now = new Date();
         Calendar cal = Calendar.getInstance();
@@ -587,11 +601,15 @@ public class Users extends DLObject{
 
     /**
       *
-      * login() GOES HERE
+      * Checks the expiration of a user's password when they log in. If their
+     * password has expired, they cannot log in. Otherwise, they either successfully
+     * log in, if their password is correct, or are told otherwise.
+     *
+     * @param email is the user's email
+     * @param pass is the user's password
+     * @return a String describing if the user successfully logged in
       *
       */
-      //check expiration when user logs in
-      //expire after a long time in the future
     public String login(String email, String pass) throws DLException {
         String tokenString = "";
         //check if password is expired
@@ -639,14 +657,23 @@ public class Users extends DLObject{
     }
     /**
       *
-      * hash() GOES HERE
+      * DESCRIBE WHAT THIS DOES HERE
+     *
+     * @param passwd
+     * @return
       *
       */
     private String hash(String passwd){
         String returnHash = BCrypt.hashpw(passwd, BCrypt.gensalt(12));
         return returnHash;
     }
-    //checks if timestamp is expired, returns true or false
+
+    /**
+     * Checks if timestamp is expired.
+     * @param timestamp is the current time (?)
+     * @return if the timestamp is expired
+     * @throws DLException [oh god damn it do we have to do this]
+     */
     private boolean isExpired(String timestamp) throws DLException {
         boolean returnVal = true;//assume it is expired for security
         //parse string into date
@@ -669,9 +696,16 @@ public class Users extends DLObject{
         return returnVal;
     }
 
-    //create a token
-    //userID, lastName, firstName, isAdmin, expiration
-    //(https://developer.okta.com/blog/2018/10/31/jwts-with-java) -- instructions followed
+    /**
+     * Creates a token.
+     * Following instructions used here: https://developer.okta.com/blog/2018/10/31/jwts-with-java
+     * @param uID
+     * @param lastName
+     * @param firstName
+     * @param isAdmin
+     * @param expiration
+     * @return
+     */
     public String createToken(String uID, String lastName, String firstName, String isAdmin, String expiration){
         //choose signature algorithm
         SignatureAlgorithm sigAl = SignatureAlgorithm.HS256;
@@ -699,12 +733,20 @@ public class Users extends DLObject{
         return jwtString;
     }
 
+    /**
+     * Generates a key.
+     * @return
+     */
     private String genKey(){
         Key newKey = Keys.secretKeyFor(SignatureAlgorithm.HS256);
         String returnVal = Encoders.BASE64.encode(newKey.getEncoded());
         return returnVal;
     }
 
+    /**
+     * Sets the new date for the token's expiration.
+     * @return
+     */
     private Date newTokenExpiration(){
         Date now = new Date();
         Calendar cal = Calendar.getInstance();
@@ -715,6 +757,12 @@ public class Users extends DLObject{
 
     }
 
+    /**
+     * Decodes the token.
+     * @param jwtString
+     * @return
+     * @throws DLException
+     */
     public Jws<Claims> decodeToken(String jwtString) throws DLException {
         Jws<Claims> newJWS;
         try {
