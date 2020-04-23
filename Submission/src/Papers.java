@@ -16,7 +16,7 @@ public class Papers extends DLObject{
     private int submissionType;
     private int submitterId;
     private String fileId;
-    private String tenativeStatus;
+    private String tentativeStatus;
 
     /**
      * Gets the ID associated with this paper.
@@ -147,19 +147,19 @@ public class Papers extends DLObject{
     }
 
     /**
-     * Gets the tenative status of the paper.
-     * @return the tenative status of the paper.
+     * Gets the tentative status of the paper.
+     * @return the tentative status of the paper.
      */
-    public String getTenativeStatus() {
-        return tenativeStatus;
+    public String getTentativeStatus() {
+        return tentativeStatus;
     }
 
     /**
-     * Sets the tenative status of the paper.
-     * @param tenativeStatus is the new tenative status.
+     * Sets the tentative status of the paper.
+     * @param tentativeStatus is the new tenative status.
      */
-    public void setTenativeStatus(String tenativeStatus) {
-        this.tenativeStatus = tenativeStatus;
+    public void setTentativeStatus(String tentativeStatus) {
+        this.tentativeStatus = tentativeStatus;
     }
 
     /**
@@ -201,7 +201,7 @@ public class Papers extends DLObject{
         values.add(Integer.toString(submissionType));
         values.add(Integer.toString(submitterId));
         values.add(fileId);
-        values.add(tenativeStatus);
+        values.add(tentativeStatus);
         values.add(Integer.toString(paperId));
 
         return super.put("Users", columnNames, values);
@@ -237,7 +237,7 @@ public class Papers extends DLObject{
         values.add(Integer.toString(submissionType));
         values.add(Integer.toString(submitterId));
         values.add(fileId);
-        values.add(tenativeStatus);
+        values.add(tentativeStatus);
 
         return super.post("Users", columnNames, values);
     }
@@ -269,7 +269,8 @@ public class Papers extends DLObject{
             MySQLDatabase mysqld = new MySQLDatabase("root", "USO800rubysky#1!");
 
             // YOU NEED TO GET EVERYTHING EXCLUDING FILENAME
-            String sql0 = "select title, abstract, submissionType from papers where paperid = ?";
+            String sql0 = "select title, abstract, track, status, submissionType, " +
+                    "submitterId, tentativeStatus from papers where paperid = ?";
             ArrayList<String> values0 = new ArrayList<>();
             values0.add(Integer.toString(_paperId));
 
@@ -336,7 +337,7 @@ public class Papers extends DLObject{
 
             paperInfo += "\nPaper track: ";
             paperInfo += "\nPaper status: ";
-            paperInfo += "\nPaper submission type: " + results0.get(2);
+            paperInfo += "\nPaper submission type: "; // GET SUBMISSION TYPE FROM THIS
             paperInfo += "\nSubmitter: "; // GET PERSON NAME FROM THIS
             paperInfo += "\nTentative status: ";
 
