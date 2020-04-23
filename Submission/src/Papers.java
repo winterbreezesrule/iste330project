@@ -268,6 +268,7 @@ public class Papers extends DLObject{
         try {
             MySQLDatabase mysqld = new MySQLDatabase("root", "USO800rubysky#1!");
 
+            // YOU NEED TO GET EVERYTHING EXCLUDING FILENAME
             String sql0 = "select title, abstract, submissionType from papers where paperid = ?";
             ArrayList<String> values0 = new ArrayList<>();
             values0.add(Integer.toString(_paperId));
@@ -275,9 +276,9 @@ public class Papers extends DLObject{
             ArrayList<ArrayList<String>> fullResults0 = mysqld.getData(sql0, values0);
             ArrayList<String> results0 = fullResults0.get(2);
 
-            paperInfo += "Paper title: " + results0.get(0);
+            paperInfo += "Information for paper with ID: " + _paperId;
+            paperInfo += "\nPaper title: " + results0.get(0);
             paperInfo += "\nPaper abstract: " + results0.get(1);
-            paperInfo += "\nPaper submission type: " + results0.get(2);
             paperInfo += "\nPaper subject(s): ";
 
             String sql1 = "select _subjects.subjectname from _subjects join " +
@@ -331,6 +332,13 @@ public class Papers extends DLObject{
                 ArrayList<String> author = results2.get(0);
                 paperInfo += author.get(0) + ", " + author.get(1);
             }
+
+
+            paperInfo += "\nPaper track: ";
+            paperInfo += "\nPaper status: ";
+            paperInfo += "\nPaper submission type: " + results0.get(2);
+            paperInfo += "\nSubmitter: "; // GET PERSON NAME FROM THIS
+            paperInfo += "\nTentative status: ";
 
         } catch (Exception e) {
             System.out.println("Paper information could not be retrieved.");

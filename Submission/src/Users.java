@@ -385,14 +385,11 @@ public class Users extends DLObject{
 
     public void setUser(String _lastName, String _firstName, String _email,
                         int affiliation) {
-
-        // MAKE THE TRANSACTION WORK DINGDONG
         MySQLDatabase mysqld = new MySQLDatabase("root", "USO800rubysky#1!");
 
         if (getUserId() == 0) { // creates new user entry
             try {
                 if (mysqld.connect()) {
-                    mysqld.startTrans();
                     // sql statements needed
                     System.out.println("Creating new user.");
                     String sql1 = "INSERT INTO users (userId, lastName, firstName, " +
@@ -426,7 +423,6 @@ public class Users extends DLObject{
                     // note how many records were changed
                     System.out.println(recordschanged + " records changed.");
 
-                    mysqld.endTrans();
                     mysqld.close();
                 }
             } catch (Exception e) {
@@ -435,12 +431,12 @@ public class Users extends DLObject{
         } else { // updates existing info for user
             try {
                 if (mysqld.connect()) {
-                    mysqld.startTrans();
                     System.out.println("Updating info on user.");
                     String sql = "UPDATE users SET lastName = ?, firstName = ?, email = ?" +
                             ", affiliationId = ? WHERE userId = ?";
                     ArrayList<String> values = new ArrayList<>();
 
+                    // set new user info
                     setLastName(_lastName);
                     setFirstName(_firstName);
                     setEmail(_email);
@@ -452,11 +448,12 @@ public class Users extends DLObject{
                     values.add(Integer.toString(getAffiliationId()));
                     values.add(Integer.toString(getUserId()));
 
+                    // try to update user info
                     int recordschanged = mysqld.setData(sql, values);
 
+                    // print how many records were changed
                     System.out.println(recordschanged + " records changed.");
 
-                    mysqld.endTrans();
                     mysqld.close();
                 }
             } catch (Exception e) {
