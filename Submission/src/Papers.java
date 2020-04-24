@@ -366,20 +366,88 @@ public class Papers extends DLObject{
       * Sets the current paper to the information provided. If a paperId is not currently
       * set, a new paper is created and added to the database. If a paperId is set, the
       * information about the paper is updated.
+     *
+     * @param _paperId is the new ID of the paper
+     * @param _title is the title of the paper
+     * @param _paperAbstract is the new abstract of the paper
+     * @param _submissionType is the type of submission
+     * @param filename is the filename of the paper
+     * @param coauthorIds is an array of co-author IDs associated with the paper
+     * @param subjectIds is an array of subject IDs associated with the paper
       *
       */
     public void setPaper(int _paperId, String _title, String _paperAbstract, int _submissionType,
-                         String filename, int[] subjectIds, int[] coauthorIds) {
-        // check to see if subject(s) exist in _subjects
-        // check to see if authors exist in _users
+                         String filename, int[] subjectIds, int[] coauthorIds) throws DLException {
+        if (_paperId == 0) { // create new paper
+            MySQLDatabase mysqld = new MySQLDatabase("username", "password");
 
-        // if paperId = 0 make new paper
-        // INSERT INTO papers (paperId, title, abstract, submissionType) VALUES (?, ?, ?, ?);
-        // otherwise update current paper
-        // UPDATE PAPERS SET title = ?, abstract = ?, submissionType = ? WHERE paperId = ?;
+            int paperAuthorCount = coauthorIds.length;
+            int paperSubjectCount = subjectIds.length;
 
-        // need to also update paperauthors and papersubjects so this is a transaction
-        // how do we...get...submitterId HANSEL HELP
+            // HANSEL SUBMITTER ID SHIT HELP ME OUT HERE
+            int tempsubid = 0;
+
+            try {
+                mysqld.connect();
+                mysqld.startTrans();
+
+                String sql1 = "INSERT INTO papers (paperId, title, abstract, submissionType, submitterId, fileId) VALUES (?, ?, ?, ?, ?, ?);";
+                ArrayList<String> values1 = new ArrayList<String>();
+
+                // set info of this object to new values
+                setPaperId(_paperId);
+                setTitle(_title);
+                setPaperAbstract(_paperAbstract);
+                setSubmissionType(_submissionType);
+                setSubmitterId(tempsubid);
+                setFileId(filename);
+
+                // add new values to array
+                values1.add(Integer.toString(_paperId));
+                values1.add(_title);
+                values1.add(_paperAbstract);
+                values1.add(Integer.toString(_submissionType));
+                values1.add(Integer.toString(tempsubid));
+                values1.add(filename);
+
+                // insert new item into papers
+                mysqld.setData(sql1, values1);
+
+                // insert new item(s) into papersubjects
+                for (int subjectId : subjectIds) {
+                    String sql2 = "INSERT INTO paperSubjects values ?, ?;";
+                    ArrayList<String> values2 = new ArrayList<String>();
+
+                    values2.add("" + _paperId);
+                    values2.add("" + subjectId);
+
+                    mysqld.setData(sql2, values2);
+                }
+
+                // insert new item(s) into paperauthors
+                for (int coauthorId : coauthorIds) {
+                    String sql3 = "INSERT INTO paperAuthors values ?, ?;";
+                    ArrayList<String> values3 = new ArrayList<String>();
+
+                    values3.add("" + _paperId);
+                    values3.add("" + coauthorId);
+
+                    mysqld.setData(sql3, values3);
+                }
+
+                // end transaction
+                mysqld.endTrans();
+                mysqld.close();
+            } catch (Exception e) {
+                System.out.println("Paper info could not be set.");
+                mysqld.rollbackTrans();
+                mysqld.close();
+                throw new DLException(e);
+            }
+
+        } else { // update existing paper
+            // UPDATE PAPERS SET title = ?, abstract = ?, submissionType = ? WHERE paperId = ?;
+        }
 
     }
 
