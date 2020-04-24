@@ -378,32 +378,42 @@ public class Papers extends DLObject{
       */
     public void setPaper(int _paperId, String _title, String _paperAbstract, int _submissionType,
                          String filename, int[] subjectIds, int[] coauthorIds) throws DLException {
+
+
+        MySQLDatabase mysqld = new MySQLDatabase("username", "password");
+
+        int paperAuthorCount = coauthorIds.length;
+        int paperSubjectCount = subjectIds.length;
+
+        // HANSEL SUBMITTER ID SHIT HELP ME OUT HERE
+        int tempsubid = 0;
+
+        // set info of this object to new values
+        setPaperId(_paperId);
+        setTitle(_title);
+        setPaperAbstract(_paperAbstract);
+        setSubmissionType(_submissionType);
+        setSubmitterId(tempsubid);
+        setFileId(filename);
+
         if (_paperId == 0) { // create new paper
-            MySQLDatabase mysqld = new MySQLDatabase("username", "password");
-
-            int paperAuthorCount = coauthorIds.length;
-            int paperSubjectCount = subjectIds.length;
-
-            // HANSEL SUBMITTER ID SHIT HELP ME OUT HERE
-            int tempsubid = 0;
-
             try {
                 mysqld.connect();
                 mysqld.startTrans();
 
+                String sql0 = "SELECT MAX(paperId) from users;";
+                ArrayList<String> values0 = new ArrayList<>();
+
+                ArrayList<ArrayList<String>> fullResults0 = mysqld.getData(sql0, values0);
+                ArrayList<String> results0 = fullResults0.get(2);
+
+                setPaperId(Integer.parseInt(results0.get(0)));
+
                 String sql1 = "INSERT INTO papers (paperId, title, abstract, submissionType, submitterId, fileId) VALUES (?, ?, ?, ?, ?, ?);";
                 ArrayList<String> values1 = new ArrayList<String>();
 
-                // set info of this object to new values
-                setPaperId(_paperId);
-                setTitle(_title);
-                setPaperAbstract(_paperAbstract);
-                setSubmissionType(_submissionType);
-                setSubmitterId(tempsubid);
-                setFileId(filename);
-
                 // add new values to array
-                values1.add(Integer.toString(_paperId));
+                values1.add("" + getPaperId());
                 values1.add(_title);
                 values1.add(_paperAbstract);
                 values1.add(Integer.toString(_submissionType));
@@ -446,7 +456,63 @@ public class Papers extends DLObject{
             }
 
         } else { // update existing paper
-            // UPDATE PAPERS SET title = ?, abstract = ?, submissionType = ? WHERE paperId = ?;
+            try {
+                mysqld.connect();
+                mysqld.startTrans();
+
+                String sql1 = "UPDATE PAPERS SET title = ?, abstract = ?, submissionType = ?, submitterId = ?, fileId = ? WHERE paperId = ?;";
+                ArrayList<String> values1 = new ArrayList<String>();
+
+                values1.add(_title);
+                values1.add(_paperAbstract);
+                values1.add(_submissionType + "");
+                values1.add(tempsubid + "");
+                values1.add(filename);
+                values1.add(_paperId + "");
+
+                mysqld.setData(sql1, values1);
+
+                // delete obsolete data from papersubjects and paperauthors
+                String sql2 = "DELETE from papersubjects WHERE paperId = ?;";
+                String sql3 = "DELETE from paperauthors WHERE paperId = ?;";
+
+                ArrayList<String> values2 = new ArrayList<String>();
+                values2.add("" + _paperId);
+                ArrayList<String> values3 = values2;
+
+                mysqld.setData(sql2, values2);
+                mysqld.setData(sql3, values3);
+
+                // update papersubjects
+                for (int subjectId : subjectIds) {
+                    String sql4 = "INSERT INTO papersubjects VALUES ?, ?;";
+                    ArrayList<String> values4 = new ArrayList<String>();
+
+                    values4.add("" + _paperId);
+                    values4.add("" + subjectId);
+
+                    mysqld.setData(sql4, values4);
+                }
+
+                // update paperauthors
+                for (int coauthorId : coauthorIds) {
+                    String sql5 = "INSERT INTO paperauthors VALUES ?, ?;";
+                    ArrayList<String> values5 = new ArrayList<String>();
+
+                    values5.add("" + _paperId);
+                    values5.add("" + coauthorId);
+
+                    mysqld.setData(sql5, values5);
+                }
+
+                mysqld.endTrans();
+                mysqld.close();
+            } catch (Exception e) {
+                System.out.println("Paper info could not be updated.");
+                mysqld.rollbackTrans();
+                mysqld.close();
+                throw new DLException(e);
+            }
         }
 
     }
