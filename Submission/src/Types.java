@@ -49,7 +49,7 @@ public class Types extends DLObject {
      * @throws DLException custom exception that logs errors in a separate file
      */
     public void fetch() throws DLException {
-        ArrayList<ArrayList<String>> data = super.fetch("Types", "typeId", Integer.toString(typeId));
+        ArrayList<ArrayList<String>> data = super.fetch("_Types", "typeId", Integer.toString(typeId));
      }
 
     /**
@@ -70,7 +70,7 @@ public class Types extends DLObject {
         values.add(typeName);
         values.add(Integer.toString(typeId));
 
-        return super.put("Types", columnNames, values, 1);
+        return super.put("_Types", columnNames, values, 1);
     }
 
     /**
@@ -91,7 +91,7 @@ public class Types extends DLObject {
         values.add(Integer.toString(typeId));
         values.add(typeName);
 
-        return super.post("Types", columnNames, values);
+        return super.post("_Types", columnNames, values);
     }
 
     /**
@@ -102,7 +102,7 @@ public class Types extends DLObject {
      * @throws DLException custom exception that logs errors in a separate file
      */
     public int delete() throws DLException {
-        return super.delete("Types", "typeId", Integer.toString(typeId));
+        return super.delete("_Types", "typeId", Integer.toString(typeId));
     }
 
 } // end Types

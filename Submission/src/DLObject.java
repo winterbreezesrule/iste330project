@@ -9,6 +9,8 @@ import java.util.ArrayList;
  */
 // TODO ADD JAVADOCS FOR ALL OF THESE
 public class DLObject {
+    private final String uName = "root";
+    private final String uPass = "USO800rubysky#1!";
 
     /**
      * Fetch method for objects that have more than one primary key
@@ -20,7 +22,7 @@ public class DLObject {
      * @throws DLException custom exception that logs errors in a separate file
      */
     public ArrayList<ArrayList<String>> fetch(String tableName, ArrayList<String> pkNames, ArrayList<String> pkData) throws DLException{
-        MySQLDatabase db = new MySQLDatabase("username", "password");
+        MySQLDatabase db = new MySQLDatabase(uName, uPass);
         if(db.connect()) {
             StringBuilder sql = new StringBuilder("SELECT * FROM " + tableName + " WHERE ");
             System.out.println(pkNames.size());
@@ -53,7 +55,7 @@ public class DLObject {
      * @throws DLException custom exception that logs errors in a separate file
      */
     public ArrayList<ArrayList<String>> fetch(String tableName, String pkName, String pkData) throws DLException{
-        MySQLDatabase db = new MySQLDatabase("username", "password");
+        MySQLDatabase db = new MySQLDatabase(uName, uPass);
         if (db.connect()) {
             String sql = "SELECT * FROM " + tableName + " WHERE " + pkName + " = ?;";
             ArrayList<String> values = new ArrayList<>();
@@ -75,7 +77,7 @@ public class DLObject {
      * @throws DLException custom exception that logs errors in a separate file
      */
     public int put(String tableName, ArrayList<String> columnNames, ArrayList<String> values, int numKeys) throws DLException{
-        MySQLDatabase db = new MySQLDatabase("username", "password");
+        MySQLDatabase db = new MySQLDatabase(uName, uPass);
         if (db.connect()){
             StringBuilder sql = new StringBuilder("UPDATE " + tableName + " SET ");
             for (int i = 0; i < columnNames.size(); i++){
@@ -107,7 +109,7 @@ public class DLObject {
      * @throws DLException custom exception that logs errors in a separate file
      */
     public int post(String tableName, ArrayList<String> columnNames, ArrayList<String> values) throws DLException{
-        MySQLDatabase db = new MySQLDatabase("username", "password");
+        MySQLDatabase db = new MySQLDatabase(uName, uPass);
         if (db.connect()) {
             StringBuilder sql = new StringBuilder("INSERT INTO " + tableName + " VALUES ( ");
             for (int i = 0; i < columnNames.size(); i++) {
@@ -135,7 +137,7 @@ public class DLObject {
      * @throws DLException custom exception that logs errors in a separate file
      */
     public int delete(String tableName, ArrayList<String> pkNames, ArrayList<String> pkData) throws DLException{
-        MySQLDatabase db = new MySQLDatabase("username", "password");
+        MySQLDatabase db = new MySQLDatabase(uName, uPass);
         if (db.connect()) {
             StringBuilder sql = new StringBuilder("DELETE FROM " + tableName + " WHERE ");
             for (int i = 0; i < pkNames.size(); i++){
@@ -165,7 +167,7 @@ public class DLObject {
      * @throws DLException custom exception that logs errors in a separate file
      */
     public int delete(String tableName, String pkName, String pkData) throws DLException{
-        MySQLDatabase db = new MySQLDatabase("username", "password");
+        MySQLDatabase db = new MySQLDatabase(uName, uPass);
         if (db.connect()) {
             String sql = "DELETE FROM " + tableName + " WHERE " + pkName + " = ?;";
             ArrayList<String> values = new ArrayList<>();

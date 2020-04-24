@@ -31,20 +31,13 @@ public class MainTest {
 
             // RUN THAT GETS TOKEN
             String tokenString = newUser.login("jml7290@g.rit.edu", "testpass");
-            boolean adminStatus =  newUser.admincheck();
-            System.out.println("Admin? " + adminStatus);
 
             Jws<Claims> info = newUser.decodeToken(tokenString);
-            System.out.println("Info successfully retrieved");
 
             Users testUser = new Users();
 
             System.out.println(testUser.getPapers(9999, tokenString));
-
-            int userId = Integer.parseInt((String) info.getBody().get("UserID"));
-            System.out.println(userId);
-
-            System.out.println(info);
+            System.out.println(testUser.getUser());
 
 
 

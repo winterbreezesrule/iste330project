@@ -56,7 +56,7 @@ public class Subjects extends DLObject{
         ArrayList<String> pkData = new ArrayList<>();
         pkData.add(Integer.toString(subjectId));
 
-        ArrayList<ArrayList<String>> data = super.fetch("Subjects", pkNames, pkData);
+        ArrayList<ArrayList<String>> data = super.fetch("_Subjects", pkNames, pkData);
     }
 
     /**
@@ -77,7 +77,7 @@ public class Subjects extends DLObject{
         values.add(subjectName);
         values.add(Integer.toString(subjectId));
 
-        return super.put("Subjects", columnNames, values, 1);
+        return super.put("_Subjects", columnNames, values, 1);
     }
 
     /**
@@ -98,7 +98,7 @@ public class Subjects extends DLObject{
         values.add(Integer.toString(subjectId));
         values.add(subjectName);
 
-        return super.post("Subjects", columnNames, values);
+        return super.post("_Subjects", columnNames, values);
     }
 
     /**
@@ -109,7 +109,7 @@ public class Subjects extends DLObject{
      * @throws DLException custom exception that logs errors in a separate file
      */
     public int delete() throws DLException {
-        return super.delete("Subjects", "subjectId", Integer.toString(subjectId));
+        return super.delete("_Subjects", "subjectId", Integer.toString(subjectId));
     }
 
 } // end Subjects 

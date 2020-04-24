@@ -49,7 +49,7 @@ public class Affiliations extends DLObject {
      * @throws DLException custom exception that logs errors in a separate file
      */
     public void fetch() throws DLException {
-        ArrayList<ArrayList<String>> data = super.fetch("Affiliations", "affiliationId", Integer.toString(affiliationId));
+        ArrayList<ArrayList<String>> data = super.fetch("_Affiliations", "affiliationId", Integer.toString(affiliationId));
     }
 
     /**
@@ -81,7 +81,7 @@ public class Affiliations extends DLObject {
         values.add(Integer.toString(affiliationId));
         values.add(affiliationName);
 
-        return super.post("Affiliations", columnNames, values);
+        return super.post("_Affiliations", columnNames, values);
     }
 
     /**
@@ -92,7 +92,7 @@ public class Affiliations extends DLObject {
      * @throws DLException custom exception that logs errors in a separate file
      */
     public int delete() throws DLException {
-        return super.delete("Affiliations", "affiliationId", Integer.toString(affiliationId));
+        return super.delete("_Affiliations", "affiliationId", Integer.toString(affiliationId));
     }
 
 } // end Affiliations 

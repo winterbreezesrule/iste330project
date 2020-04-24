@@ -51,7 +51,7 @@ public class Users extends DLObject{
     private boolean loggedIn = false;
     private String loginToken;
 
-    //constructors
+    // constructors
     public Users(int userId, String lastName, String firstName, String email, String pswd, String expiration, int isAdmin, int affiliationId) {
         this.userId = userId;
         this.lastName = lastName;
@@ -370,13 +370,25 @@ public class Users extends DLObject{
         }
         userInfo += "\nAffiliation: ";
         try {
-            Affiliations temp = new Affiliations();
-            temp.setAffiliationId(getAffiliationId());
-            temp.fetch();
-            userInfo += temp.getAffiliationName();
+            MySQLDatabase mysqld = new MySQLDatabase(uName, uPass);
+            if (mysqld.connect()) {
+                String sql = "select affiliationName from _affiliations where affiliationId = ?;";
+                ArrayList<String> values = new ArrayList<String>();
+                values.add(Integer.toString(getAffiliationId()));
+
+                ArrayList<ArrayList<String>> results = mysqld.getData(sql, values);
+                if (results.get(2).get(0) == null) {
+                    userInfo += "Affiliation could not be retrieved.";
+                } else {
+                    userInfo += results.get(2).get(0);
+                }
+                mysqld.close();
+            } else {
+                userInfo += "Affiliation could not be retrieved.";
+            }
         } catch (Exception e) {
             System.out.println("Affiliation could not be retrieved.");
-            throw new DLException(e);
+            // throw new DLException(e);
         }
 
         return userInfo;

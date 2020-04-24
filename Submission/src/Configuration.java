@@ -145,7 +145,7 @@ public class Configuration {
     }
 
     public void fetch() throws DLException {
-
+        // table name is _Configuration, not Configuration
     }
 
     public String put() throws DLException {

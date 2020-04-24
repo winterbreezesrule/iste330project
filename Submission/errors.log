@@ -1,33 +1,20 @@
 Exception info: 
-io.jsonwebtoken.security.SignatureException: JWT signature does not match locally computed signature. JWT validity cannot be asserted and should not be trusted.
-	at io.jsonwebtoken.impl.DefaultJwtParser.parse(DefaultJwtParser.java:411)
-	at io.jsonwebtoken.impl.DefaultJwtParser.parse(DefaultJwtParser.java:541)
-	at io.jsonwebtoken.impl.DefaultJwtParser.parseClaimsJws(DefaultJwtParser.java:601)
-	at io.jsonwebtoken.impl.ImmutableJwtParser.parseClaimsJws(ImmutableJwtParser.java:173)
-	at Users.decodeToken(Users.java:840)
-	at Users.getPapers(Users.java:311)
-	at MainTest.main(MainTest.java:41)
-Current time: 2020-04-24 13:34:19.746
+java.lang.NullPointerException
+	at MySQLDatabase.prepare(MySQLDatabase.java:84)
+	at MySQLDatabase.getData(MySQLDatabase.java:120)
+	at Users.getUser(Users.java:378)
+	at MainTest.main(MainTest.java:42)
+[SQL Query:, select affiliationName from _affiliations where affiliationId = ?;]
+[Values to be bound:, 1]
+Current time: 2020-04-24 14:14:15.949
 
 Exception info: 
-io.jsonwebtoken.security.SignatureException: JWT signature does not match locally computed signature. JWT validity cannot be asserted and should not be trusted.
-	at io.jsonwebtoken.impl.DefaultJwtParser.parse(DefaultJwtParser.java:411)
-	at io.jsonwebtoken.impl.DefaultJwtParser.parse(DefaultJwtParser.java:541)
-	at io.jsonwebtoken.impl.DefaultJwtParser.parseClaimsJws(DefaultJwtParser.java:601)
-	at io.jsonwebtoken.impl.ImmutableJwtParser.parseClaimsJws(ImmutableJwtParser.java:173)
-	at Users.decodeToken(Users.java:840)
-	at Users.getPapers(Users.java:311)
+DLException
+	at MySQLDatabase.prepare(MySQLDatabase.java:104)
+	at MySQLDatabase.getData(MySQLDatabase.java:120)
+	at Users.getUser(Users.java:378)
 	at MainTest.main(MainTest.java:42)
-Current time: 2020-04-24 13:35:47.46
-
-Exception info: 
-io.jsonwebtoken.security.SignatureException: JWT signature does not match locally computed signature. JWT validity cannot be asserted and should not be trusted.
-	at io.jsonwebtoken.impl.DefaultJwtParser.parse(DefaultJwtParser.java:411)
-	at io.jsonwebtoken.impl.DefaultJwtParser.parse(DefaultJwtParser.java:541)
-	at io.jsonwebtoken.impl.DefaultJwtParser.parseClaimsJws(DefaultJwtParser.java:601)
-	at io.jsonwebtoken.impl.ImmutableJwtParser.parseClaimsJws(ImmutableJwtParser.java:173)
-	at Users.decodeToken(Users.java:840)
-	at Users.getPapers(Users.java:311)
-	at MainTest.main(MainTest.java:42)
-Current time: 2020-04-24 13:42:42.716
+[SQL Query:, select affiliationName from _affiliations where affiliationId = ?;]
+[Values to be bound:, Values to be bound:, 1]
+Current time: 2020-04-24 14:14:15.951
 
