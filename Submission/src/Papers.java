@@ -1,3 +1,6 @@
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jws;
+
 import java.util.*;
 /**
  * Used to represent the Papers table in the CSM database.
@@ -261,104 +264,141 @@ public class Papers extends DLObject{
       * Returns all information for the specified paper, excluding filename.
      *
      * @param _paperId is the ID to get information for
+     * @param token is the token of the logged-in user attempting to use this function
      * @return a string holding the info about the paper
      *
       *
       */
 
-    public String getPaper(int _paperId) throws DLException {
+    public String getPaper(int _paperId, String token) throws DLException {
         String paperInfo = "";
+
+        Users testUser = new Users();
+
+        Jws<Claims> tokenClaims = testUser.decodeToken(token);
+
+        int admin = Integer.parseInt((String) tokenClaims.getBody().get("IsAdmin"));
+        int loginUserId = Integer.parseInt((String) tokenClaims.getBody().get("UserID"));
         try {
             MySQLDatabase mysqld = new MySQLDatabase(uName, uPass);
 
-            // YOU NEED TO GET EVERYTHING EXCLUDING FILENAME
-            String sql0 = "select title, abstract, track, status, submissionType, " +
-                    "submitterId, tentativeStatus from papers where paperId = ?";
-            ArrayList<String> values0 = new ArrayList<>();
-            values0.add(Integer.toString(_paperId));
+            if (mysqld.connect()) {
 
-            ArrayList<ArrayList<String>> fullResults0 = mysqld.getData(sql0, values0);
-            ArrayList<String> results0 = fullResults0.get(2);
+                String sqlcheck = "select userId from paperauthors where paperId = ?";
+                ArrayList<String> valuescheck = new ArrayList<>();
+                valuescheck.add(Integer.toString(_paperId));
 
-            paperInfo += "Information for paper with ID: " + _paperId;
-            paperInfo += "\nPaper title: " + results0.get(0);
-            paperInfo += "\nPaper abstract: " + results0.get(1);
-            paperInfo += "\nPaper subject(s): ";
-
-            String sql1 = "select _subjects.subjectname from _subjects join " +
-                    "papersubjects on _subjects.subjectid = papersubjects.subjectid " +
-                    "join papers on papersubjects.paperid = papers.paperid AND " +
-                    "papers.paperid = ?;";
-            ArrayList<String> values1 = new ArrayList<>();
-            values1.add(Integer.toString(_paperId));
-
-            ArrayList<ArrayList<String>> fullResults1 = mysqld.getData(sql1, values1);
-            ArrayList<ArrayList<String>> results1 = new ArrayList<ArrayList<String>>();
-            for (int i = 2; i < fullResults1.size(); i++) {
-                results1.add(fullResults1.get(i));
-            }
-
-            if (results1.size() > 1) {
-                for (int i = 0; i < results1.size() - 1; i++) {
-                    ArrayList<String> subject = results1.get(i);
-                    paperInfo += subject.get(0) + ", " + subject.get(1) + "; ";
+                ArrayList<ArrayList<String>> fullresultscheck = mysqld.getData(sqlcheck, valuescheck);
+                ArrayList<ArrayList<String>> authorlist = new ArrayList<>();
+                for (int i = 2; i < fullresultscheck.size(); i++) {
+                    authorlist.add(fullresultscheck.get(i));
                 }
-                ArrayList<String> finalsubject = results1.get(results1.size() - 1);
-                paperInfo += finalsubject.get(0) + ", " + finalsubject.get(1);
-            } else {
-                ArrayList<String> subject = results1.get(0);
-                paperInfo += subject.get(0) + ", " + subject.get(1);
-            }
 
-            paperInfo += "\nPaper author(s): ";
+                ArrayList<String> loggedinId = new ArrayList<String>();
+                loggedinId.add(Integer.toString(loginUserId));
 
-            String sql2 = "select users.lastname, users.firstname from " +
-                    "users inner join paperauthors on users.userid = " +
-                    "paperauthors.userid inner join papers on paperauthors.paperid " +
-                    "= papers.paperid and papers.paperid = ?;";
-            ArrayList<String> values2 = new ArrayList<>();
-            values2.add(Integer.toString(_paperId));
+                if (admin == 1 | authorlist.contains(loggedinId)) {
+                    String sql0 = "select title, abstract, track, status, submissionType, " +
+                            "submitterId, tentativeStatus from papers where paperId = ?";
+                    ArrayList<String> values0 = new ArrayList<>();
+                    values0.add(Integer.toString(_paperId));
 
-            ArrayList<ArrayList<String>> fullResults2 = mysqld.getData(sql2, values2);
-            ArrayList<ArrayList<String>> results2 = new ArrayList<ArrayList<String>>();
-            for (int i = 2; i < fullResults2.size(); i++) {
-                results2.add(fullResults2.get(i));
-            }
+                    ArrayList<ArrayList<String>> fullResults0 = mysqld.getData(sql0, values0);
+                    ArrayList<String> results0 = fullResults0.get(2);
 
-            if (results2.size() > 1) {
-                for (int i = 0; i < results2.size() - 1; i++) {
-                    ArrayList<String> name = results2.get(i);
-                    paperInfo += name.get(0) + ", " + name.get(1) + "; ";
+                    paperInfo += "Information for paper with ID: " + _paperId;
+                    paperInfo += "\nPaper title: " + results0.get(0);
+                    paperInfo += "\nPaper abstract: " + results0.get(1);
+                    paperInfo += "\nPaper subject(s): ";
+
+                    String sql1 = "select _subjects.subjectname from _subjects join " +
+                            "papersubjects on _subjects.subjectid = papersubjects.subjectid " +
+                            "join papers on papersubjects.paperid = papers.paperid AND " +
+                            "papers.paperid = ?;";
+                    ArrayList<String> values1 = new ArrayList<>();
+                    values1.add(Integer.toString(_paperId));
+
+                    ArrayList<ArrayList<String>> fullResults1 = mysqld.getData(sql1, values1);
+                    ArrayList<ArrayList<String>> results1 = new ArrayList<ArrayList<String>>();
+                    for (int i = 2; i < fullResults1.size(); i++) {
+                        results1.add(fullResults1.get(i));
+                    }
+
+                    if (results1.size() > 1) {
+                        for (int i = 0; i < results1.size() - 1; i++) {
+                            ArrayList<String> subject = results1.get(i);
+                            paperInfo += subject.get(0) + ", " + subject.get(1) + "; ";
+                        }
+                        ArrayList<String> finalsubject = results1.get(results1.size() - 1);
+                        paperInfo += finalsubject.get(0) + ", " + finalsubject.get(1);
+                    } else {
+                        ArrayList<String> subject = results1.get(0);
+                        paperInfo += subject.get(0);
+                    }
+
+                    paperInfo += "\nPaper author(s): ";
+
+                    String sql2 = "select users.lastname, users.firstname from " +
+                            "users inner join paperauthors on users.userid = " +
+                            "paperauthors.userid inner join papers on paperauthors.paperid " +
+                            "= papers.paperid and papers.paperid = ?;";
+                    ArrayList<String> values2 = new ArrayList<>();
+                    values2.add(Integer.toString(_paperId));
+
+                    ArrayList<ArrayList<String>> fullResults2 = mysqld.getData(sql2, values2);
+                    ArrayList<ArrayList<String>> results2 = new ArrayList<ArrayList<String>>();
+                    for (int i = 2; i < fullResults2.size(); i++) {
+                        results2.add(fullResults2.get(i));
+                    }
+
+                    if (results2.size() > 1) {
+                        for (int i = 0; i < results2.size() - 1; i++) {
+                            ArrayList<String> name = results2.get(i);
+                            paperInfo += name.get(0) + ", " + name.get(1) + "; ";
+                        }
+                        ArrayList<String> finalname = results2.get(results2.size() - 1);
+                        paperInfo += finalname.get(0) + ", " + finalname.get(1);
+                    } else {
+                        ArrayList<String> author = results2.get(0);
+                        paperInfo += author.get(0) + ", " + author.get(1);
+                    }
+
+
+                    paperInfo += "\nPaper track: " + results0.get(2);
+
+                    paperInfo += "\nPaper status: " + results0.get(3);
+
+                    paperInfo += "\nPaper submission type: ";
+                    Types tempType = new Types();
+                    tempType.setTypeId(Integer.parseInt(results0.get(4)));
+                    tempType.fetch();
+                    paperInfo += tempType.getTypeName();
+
+
+                    paperInfo += "\nSubmitter: ";
+
+                    String sql3 = "select lastname, firstname from users where userid = ?;";
+                    ArrayList<String> values3 = new ArrayList<String>();
+                    values3.add(results0.get(5));
+
+                    ArrayList<ArrayList<String>> fullResults3 = mysqld.getData(sql3, values3);
+                    ArrayList<ArrayList<String>> results3 = new ArrayList<ArrayList<String>>();
+
+                    for (int i = 2; i < fullResults3.size(); i++) {
+                        results3.add(fullResults3.get(i));
+                    }
+
+                    paperInfo += results3.get(0).get(0) + ", " + results3.get(0).get(1);
+
+                    paperInfo += "\nTentative status: " + results0.get(6);
+                } else {
+                    paperInfo += "You cannot retrieve information on this paper. You can only retrieve information on papers you worked on if you are not an admin.";
                 }
-                ArrayList<String> finalname = results2.get(results2.size() - 1);
-                paperInfo += finalname.get(0) + ", " + finalname.get(1);
-            } else {
-                ArrayList<String> author = results2.get(0);
-                paperInfo += author.get(0) + ", " + author.get(1);
+                mysqld.close();
             }
-
-
-            paperInfo += "\nPaper track: " + results0.get(2);
-
-            paperInfo += "\nPaper status: " + results0.get(3);
-
-            paperInfo += "\nPaper submission type: ";
-            Types tempType = new Types();
-            tempType.setTypeId(Integer.parseInt(results0.get(4)));
-            tempType.fetch();
-            paperInfo += tempType.getTypeName();
-
-
-            paperInfo += "\nSubmitter: ";
-            Users tempUser = new Users();
-            tempUser.setUserId(Integer.parseInt(results0.get(5)));
-            tempUser.fetch();
-            paperInfo += tempUser.getFirstName() + tempUser.getLastName();
-
-            paperInfo += "\nTentative status: " + results0.get(6);
-
         } catch (Exception e) {
             System.out.println("Paper information could not be retrieved.");
+            throw new DLException(e);
         }
 
         return paperInfo;
@@ -377,26 +417,29 @@ public class Papers extends DLObject{
      * @param filename is the filename of the paper
      * @param coauthorIds is an array of co-author IDs associated with the paper
      * @param subjectIds is an array of subject IDs associated with the paper
+     * @param token is the token from the currently logged-in user
       *
       */
     public void setPaper(int _paperId, String _title, String _paperAbstract, int _submissionType,
-                         String filename, int[] subjectIds, int[] coauthorIds) throws DLException {
-
-
+                         String filename, int[] subjectIds, int[] coauthorIds, String token) throws DLException {
         MySQLDatabase mysqld = new MySQLDatabase(uName, uPass);
 
         int paperAuthorCount = coauthorIds.length;
         int paperSubjectCount = subjectIds.length;
 
-        // HANSEL SUBMITTER ID SHIT HELP ME OUT HERE
-        int tempsubid = 0;
+        Users testUser = new Users();
+
+        Jws<Claims> tokenClaims = testUser.decodeToken(token);
+
+        int admin = Integer.parseInt((String) tokenClaims.getBody().get("IsAdmin"));
+        int loginUserId = Integer.parseInt((String) tokenClaims.getBody().get("UserID"));
 
         // set info of this object to new values
         setPaperId(_paperId);
         setTitle(_title);
         setPaperAbstract(_paperAbstract);
         setSubmissionType(_submissionType);
-        setSubmitterId(tempsubid);
+        setSubmitterId(loginUserId);
         setFileId(filename);
 
         if (_paperId == 0) { // create new paper
@@ -420,7 +463,7 @@ public class Papers extends DLObject{
                 values1.add(_title);
                 values1.add(_paperAbstract);
                 values1.add(Integer.toString(_submissionType));
-                values1.add(Integer.toString(tempsubid));
+                values1.add(Integer.toString(loginUserId));
                 values1.add(filename);
 
                 // insert new item into papers
@@ -459,62 +502,66 @@ public class Papers extends DLObject{
             }
 
         } else { // update existing paper
-            try {
-                mysqld.connect();
-                mysqld.startTrans();
+            if (admin == 1 || Arrays.asList(coauthorIds).contains(loginUserId)) {
+                try {
+                    mysqld.connect();
+                    mysqld.startTrans();
 
-                String sql1 = "UPDATE PAPERS SET title = ?, abstract = ?, submissionType = ?, submitterId = ?, fileId = ? WHERE paperId = ?;";
-                ArrayList<String> values1 = new ArrayList<String>();
+                    String sql1 = "UPDATE PAPERS SET title = ?, abstract = ?, submissionType = ?, submitterId = ?, fileId = ? WHERE paperId = ?;";
+                    ArrayList<String> values1 = new ArrayList<String>();
 
-                values1.add(_title);
-                values1.add(_paperAbstract);
-                values1.add(_submissionType + "");
-                values1.add(tempsubid + "");
-                values1.add(filename);
-                values1.add(_paperId + "");
+                    values1.add(_title);
+                    values1.add(_paperAbstract);
+                    values1.add(_submissionType + "");
+                    values1.add(loginUserId + "");
+                    values1.add(filename);
+                    values1.add(_paperId + "");
 
-                mysqld.setData(sql1, values1);
+                    mysqld.setData(sql1, values1);
 
-                // delete obsolete data from papersubjects and paperauthors
-                String sql2 = "DELETE from papersubjects WHERE paperId = ?;";
-                String sql3 = "DELETE from paperauthors WHERE paperId = ?;";
+                    // delete obsolete data from papersubjects and paperauthors
+                    String sql2 = "DELETE from papersubjects WHERE paperId = ?;";
+                    String sql3 = "DELETE from paperauthors WHERE paperId = ?;";
 
-                ArrayList<String> values2 = new ArrayList<String>();
-                values2.add("" + _paperId);
-                ArrayList<String> values3 = values2;
+                    ArrayList<String> values2 = new ArrayList<String>();
+                    values2.add("" + _paperId);
+                    ArrayList<String> values3 = values2;
 
-                mysqld.setData(sql2, values2);
-                mysqld.setData(sql3, values3);
+                    mysqld.setData(sql2, values2);
+                    mysqld.setData(sql3, values3);
 
-                // update papersubjects
-                for (int subjectId : subjectIds) {
-                    String sql4 = "INSERT INTO papersubjects VALUES ?, ?;";
-                    ArrayList<String> values4 = new ArrayList<String>();
+                    // update papersubjects
+                    for (int subjectId : subjectIds) {
+                        String sql4 = "INSERT INTO papersubjects VALUES ?, ?;";
+                        ArrayList<String> values4 = new ArrayList<String>();
 
-                    values4.add("" + _paperId);
-                    values4.add("" + subjectId);
+                        values4.add("" + _paperId);
+                        values4.add("" + subjectId);
 
-                    mysqld.setData(sql4, values4);
+                        mysqld.setData(sql4, values4);
+                    }
+
+                    // update paperauthors
+                    for (int coauthorId : coauthorIds) {
+                        String sql5 = "INSERT INTO paperauthors VALUES ?, ?;";
+                        ArrayList<String> values5 = new ArrayList<String>();
+
+                        values5.add("" + _paperId);
+                        values5.add("" + coauthorId);
+
+                        mysqld.setData(sql5, values5);
+                    }
+
+                    mysqld.endTrans();
+                    mysqld.close();
+                } catch (Exception e) {
+                    System.out.println("Paper info could not be updated.");
+                    mysqld.rollbackTrans();
+                    mysqld.close();
+                    throw new DLException(e);
                 }
-
-                // update paperauthors
-                for (int coauthorId : coauthorIds) {
-                    String sql5 = "INSERT INTO paperauthors VALUES ?, ?;";
-                    ArrayList<String> values5 = new ArrayList<String>();
-
-                    values5.add("" + _paperId);
-                    values5.add("" + coauthorId);
-
-                    mysqld.setData(sql5, values5);
-                }
-
-                mysqld.endTrans();
-                mysqld.close();
-            } catch (Exception e) {
-                System.out.println("Paper info could not be updated.");
-                mysqld.rollbackTrans();
-                mysqld.close();
-                throw new DLException(e);
+            } else {
+                System.out.println("You cannot update information on this paper. If you are not an author, you must be an admin.");
             }
         }
 

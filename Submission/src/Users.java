@@ -298,6 +298,7 @@ public class Users extends DLObject{
       * Gets all of the papers for the specified user.
      *
      * @param _userId is the user to retrieve papers for
+     * @param token is the token of the logged-in user attempting to use this function
      * @return a string containing the list of papers the user has written
       *
       */
@@ -405,6 +406,7 @@ public class Users extends DLObject{
      * @param _firstName is the user's first name
      * @param _email is the email of the user
      * @param affiliation is the id of the institute the user is affiliated with
+     * @param token is the token of the logged-in user attempting to use this function
       *
       */
 

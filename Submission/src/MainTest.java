@@ -39,9 +39,13 @@ public class MainTest {
             System.out.println(testUser.getPapers(9999, tokenString));
             System.out.println(testUser.getUser());
 
-            testUser.setUserId(1);
-
             testUser.setUser("Long", "Jay", "jml7290@g.rit.edu", 0, tokenString);
+
+            Papers testPaper = new Papers();
+
+            System.out.println(testPaper.getPaper(99999, tokenString));
+
+
 
         } catch (Exception e) {
             e.printStackTrace();
