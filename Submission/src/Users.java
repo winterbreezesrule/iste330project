@@ -378,17 +378,17 @@ public class Users extends DLObject{
 
                 ArrayList<ArrayList<String>> results = mysqld.getData(sql, values);
                 if (results.get(2).get(0) == null) {
-                    userInfo += "Affiliation could not be retrieved.";
+                    userInfo += "N/A";
                 } else {
                     userInfo += results.get(2).get(0);
                 }
                 mysqld.close();
             } else {
-                userInfo += "Affiliation could not be retrieved.";
+                userInfo += "N/A";
             }
         } catch (Exception e) {
             System.out.println("Affiliation could not be retrieved.");
-            // throw new DLException(e);
+            throw new DLException(e);
         }
 
         return userInfo;
@@ -398,7 +398,8 @@ public class Users extends DLObject{
       *
       * Sets the current user to the information provided. If a userId is not currently
      * set, a new user is created and added to the database. If a userId is set, the
-     * information about the user is updated.
+     * information about the user is updated. Note that if a userId is set, it must be
+     * matched against the currently logged-in user.
      *
      * @param _lastName is the user's last name
      * @param _firstName is the user's first name
@@ -408,10 +409,17 @@ public class Users extends DLObject{
       */
 
     public void setUser(String _lastName, String _firstName, String _email,
-                        int affiliation) {
+                        int affiliation, String token) throws DLException {
         MySQLDatabase mysqld = new MySQLDatabase(uName, uPass);
+        Users testUser = new Users();
 
-        if (getUserId() == 0) { // creates new user entry
+        Jws<Claims> tokenClaims = testUser.decodeToken(token);
+
+        int admin = Integer.parseInt((String) tokenClaims.getBody().get("IsAdmin"));
+        int loginUserId = Integer.parseInt((String) tokenClaims.getBody().get("UserID"));
+
+        // creates new user entry
+        if (getUserId() == 0) {
             try {
                 if (mysqld.connect()) {
                     // sql statements needed
@@ -426,7 +434,7 @@ public class Users extends DLObject{
                     ArrayList<ArrayList<String>> fullResults2 = mysqld.getData(sql2, values2);
                     ArrayList<String> results2 = fullResults2.get(2);
 
-                    setUserId(Integer.parseInt(results2.get(0)));
+                    setUserId(Integer.parseInt(results2.get(0)) + 1);
                     setLastName(_lastName);
                     setFirstName(_firstName);
                     setEmail(_email);
@@ -447,7 +455,7 @@ public class Users extends DLObject{
             } catch (Exception e) {
                 System.out.println("New user could not be added.");
             }
-        } else { // updates existing info for user
+        } else if (admin == 1 || loginUserId == getUserId()) { // updates existing info for user
             try {
                 if (mysqld.connect()) {
                     System.out.println("Updating info on user.");
@@ -478,6 +486,8 @@ public class Users extends DLObject{
             } catch (Exception e) {
                 System.out.println("Information could not be updated for current user.");
             }
+        } else {
+            System.out.println("Could not update user information. Are you an admin?");
         }
     }
 

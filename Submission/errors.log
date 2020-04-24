@@ -18,3 +18,40 @@ DLException
 [Values to be bound:, Values to be bound:, 1]
 Current time: 2020-04-24 14:14:15.951
 
+Exception info: 
+com.mysql.jdbc.exceptions.jdbc4.MySQLIntegrityConstraintViolationException: Duplicate entry '9999' for key 'PRIMARY'
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
+	at com.mysql.jdbc.Util.handleNewInstance(Util.java:425)
+	at com.mysql.jdbc.Util.getInstance(Util.java:408)
+	at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:936)
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:3933)
+	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:3869)
+	at com.mysql.jdbc.MysqlIO.sendCommand(MysqlIO.java:2524)
+	at com.mysql.jdbc.MysqlIO.sqlQueryDirect(MysqlIO.java:2675)
+	at com.mysql.jdbc.ConnectionImpl.execSQL(ConnectionImpl.java:2465)
+	at com.mysql.jdbc.PreparedStatement.executeInternal(PreparedStatement.java:1912)
+	at com.mysql.jdbc.PreparedStatement.executeUpdateInternal(PreparedStatement.java:2133)
+	at com.mysql.jdbc.PreparedStatement.executeUpdateInternal(PreparedStatement.java:2067)
+	at com.mysql.jdbc.PreparedStatement.executeLargeUpdate(PreparedStatement.java:5175)
+	at com.mysql.jdbc.PreparedStatement.executeUpdate(PreparedStatement.java:2052)
+	at MySQLDatabase.executeStmt(MySQLDatabase.java:209)
+	at MySQLDatabase.setData(MySQLDatabase.java:177)
+	at Users.setUser(Users.java:449)
+	at MainTest.main(MainTest.java:42)
+[SQL Query:, INSERT INTO users (userId, lastName, firstName, email, affiliationId) VALUES (?, ?, ?, ?, ?)]
+[Values to be bound:, 9999, Long, Jay, jml7290@g.rit.edu, 0]
+Current time: 2020-04-24 14:38:43.8
+
+Exception info: 
+DLException
+	at MySQLDatabase.executeStmt(MySQLDatabase.java:224)
+	at MySQLDatabase.setData(MySQLDatabase.java:177)
+	at Users.setUser(Users.java:449)
+	at MainTest.main(MainTest.java:42)
+[SQL Query:, INSERT INTO users (userId, lastName, firstName, email, affiliationId) VALUES (?, ?, ?, ?, ?)]
+[Values to be bound:, Values to be bound:, 9999, Long, Jay, jml7290@g.rit.edu, 0]
+Current time: 2020-04-24 14:38:43.813
+
