@@ -1,102 +1,33 @@
 Exception info: 
-java.sql.SQLException: Access denied for user 'student'@'localhost' (using password: YES)
-	at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:965)
-	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:3933)
-	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:3869)
-	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:864)
-	at com.mysql.jdbc.MysqlIO.proceedHandshakeWithPluggableAuthentication(MysqlIO.java:1707)
-	at com.mysql.jdbc.MysqlIO.doHandshake(MysqlIO.java:1217)
-	at com.mysql.jdbc.ConnectionImpl.coreConnect(ConnectionImpl.java:2189)
-	at com.mysql.jdbc.ConnectionImpl.connectOneTryOnly(ConnectionImpl.java:2220)
-	at com.mysql.jdbc.ConnectionImpl.createNewIO(ConnectionImpl.java:2015)
-	at com.mysql.jdbc.ConnectionImpl.<init>(ConnectionImpl.java:768)
-	at com.mysql.jdbc.JDBC4Connection.<init>(JDBC4Connection.java:47)
-	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
-	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
-	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
-	at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
-	at com.mysql.jdbc.Util.handleNewInstance(Util.java:425)
-	at com.mysql.jdbc.ConnectionImpl.getInstance(ConnectionImpl.java:385)
-	at com.mysql.jdbc.NonRegisteringDriver.connect(NonRegisteringDriver.java:323)
-	at java.sql.DriverManager.getConnection(DriverManager.java:664)
-	at java.sql.DriverManager.getConnection(DriverManager.java:247)
-	at MySQLDatabase.connect(MySQLDatabase.java:46)
-	at Users.resetPassword(Users.java:475)
-	at MainTest.main(MainTest.java:22)
-Current time: 2020-04-22 14:53:07.399
+io.jsonwebtoken.security.SignatureException: JWT signature does not match locally computed signature. JWT validity cannot be asserted and should not be trusted.
+	at io.jsonwebtoken.impl.DefaultJwtParser.parse(DefaultJwtParser.java:411)
+	at io.jsonwebtoken.impl.DefaultJwtParser.parse(DefaultJwtParser.java:541)
+	at io.jsonwebtoken.impl.DefaultJwtParser.parseClaimsJws(DefaultJwtParser.java:601)
+	at io.jsonwebtoken.impl.ImmutableJwtParser.parseClaimsJws(ImmutableJwtParser.java:173)
+	at Users.decodeToken(Users.java:840)
+	at Users.getPapers(Users.java:311)
+	at MainTest.main(MainTest.java:41)
+Current time: 2020-04-24 13:34:19.746
 
 Exception info: 
-java.lang.NullPointerException
-	at MySQLDatabase.close(MySQLDatabase.java:64)
-	at Users.resetPassword(Users.java:488)
-	at MainTest.main(MainTest.java:22)
-Current time: 2020-04-22 14:53:07.41
+io.jsonwebtoken.security.SignatureException: JWT signature does not match locally computed signature. JWT validity cannot be asserted and should not be trusted.
+	at io.jsonwebtoken.impl.DefaultJwtParser.parse(DefaultJwtParser.java:411)
+	at io.jsonwebtoken.impl.DefaultJwtParser.parse(DefaultJwtParser.java:541)
+	at io.jsonwebtoken.impl.DefaultJwtParser.parseClaimsJws(DefaultJwtParser.java:601)
+	at io.jsonwebtoken.impl.ImmutableJwtParser.parseClaimsJws(ImmutableJwtParser.java:173)
+	at Users.decodeToken(Users.java:840)
+	at Users.getPapers(Users.java:311)
+	at MainTest.main(MainTest.java:42)
+Current time: 2020-04-24 13:35:47.46
 
 Exception info: 
-java.sql.SQLException: Access denied for user 'student'@'localhost' (using password: YES)
-	at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:965)
-	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:3933)
-	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:3869)
-	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:864)
-	at com.mysql.jdbc.MysqlIO.proceedHandshakeWithPluggableAuthentication(MysqlIO.java:1707)
-	at com.mysql.jdbc.MysqlIO.doHandshake(MysqlIO.java:1217)
-	at com.mysql.jdbc.ConnectionImpl.coreConnect(ConnectionImpl.java:2189)
-	at com.mysql.jdbc.ConnectionImpl.connectOneTryOnly(ConnectionImpl.java:2220)
-	at com.mysql.jdbc.ConnectionImpl.createNewIO(ConnectionImpl.java:2015)
-	at com.mysql.jdbc.ConnectionImpl.<init>(ConnectionImpl.java:768)
-	at com.mysql.jdbc.JDBC4Connection.<init>(JDBC4Connection.java:47)
-	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
-	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
-	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
-	at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
-	at com.mysql.jdbc.Util.handleNewInstance(Util.java:425)
-	at com.mysql.jdbc.ConnectionImpl.getInstance(ConnectionImpl.java:385)
-	at com.mysql.jdbc.NonRegisteringDriver.connect(NonRegisteringDriver.java:323)
-	at java.sql.DriverManager.getConnection(DriverManager.java:664)
-	at java.sql.DriverManager.getConnection(DriverManager.java:247)
-	at MySQLDatabase.connect(MySQLDatabase.java:46)
-	at Users.resetPassword(Users.java:485)
-	at MainTest.main(MainTest.java:22)
-Current time: 2020-04-23 12:52:53.002
-
-Exception info: 
-java.lang.NullPointerException
-	at MySQLDatabase.close(MySQLDatabase.java:64)
-	at Users.resetPassword(Users.java:498)
-	at MainTest.main(MainTest.java:22)
-Current time: 2020-04-23 12:52:53.07
-
-Exception info: 
-java.sql.SQLException: Access denied for user 'student'@'localhost' (using password: YES)
-	at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:965)
-	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:3933)
-	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:3869)
-	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:864)
-	at com.mysql.jdbc.MysqlIO.proceedHandshakeWithPluggableAuthentication(MysqlIO.java:1707)
-	at com.mysql.jdbc.MysqlIO.doHandshake(MysqlIO.java:1217)
-	at com.mysql.jdbc.ConnectionImpl.coreConnect(ConnectionImpl.java:2189)
-	at com.mysql.jdbc.ConnectionImpl.connectOneTryOnly(ConnectionImpl.java:2220)
-	at com.mysql.jdbc.ConnectionImpl.createNewIO(ConnectionImpl.java:2015)
-	at com.mysql.jdbc.ConnectionImpl.<init>(ConnectionImpl.java:768)
-	at com.mysql.jdbc.JDBC4Connection.<init>(JDBC4Connection.java:47)
-	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
-	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:62)
-	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
-	at java.lang.reflect.Constructor.newInstance(Constructor.java:423)
-	at com.mysql.jdbc.Util.handleNewInstance(Util.java:425)
-	at com.mysql.jdbc.ConnectionImpl.getInstance(ConnectionImpl.java:385)
-	at com.mysql.jdbc.NonRegisteringDriver.connect(NonRegisteringDriver.java:323)
-	at java.sql.DriverManager.getConnection(DriverManager.java:664)
-	at java.sql.DriverManager.getConnection(DriverManager.java:247)
-	at MySQLDatabase.connect(MySQLDatabase.java:46)
-	at Users.resetPassword(Users.java:488)
-	at MainTest.main(MainTest.java:22)
-Current time: 2020-04-23 20:17:22.348
-
-Exception info: 
-java.lang.NullPointerException
-	at MySQLDatabase.close(MySQLDatabase.java:64)
-	at Users.resetPassword(Users.java:501)
-	at MainTest.main(MainTest.java:22)
-Current time: 2020-04-23 20:17:22.379
+io.jsonwebtoken.security.SignatureException: JWT signature does not match locally computed signature. JWT validity cannot be asserted and should not be trusted.
+	at io.jsonwebtoken.impl.DefaultJwtParser.parse(DefaultJwtParser.java:411)
+	at io.jsonwebtoken.impl.DefaultJwtParser.parse(DefaultJwtParser.java:541)
+	at io.jsonwebtoken.impl.DefaultJwtParser.parseClaimsJws(DefaultJwtParser.java:601)
+	at io.jsonwebtoken.impl.ImmutableJwtParser.parseClaimsJws(ImmutableJwtParser.java:173)
+	at Users.decodeToken(Users.java:840)
+	at Users.getPapers(Users.java:311)
+	at MainTest.main(MainTest.java:42)
+Current time: 2020-04-24 13:42:42.716
 

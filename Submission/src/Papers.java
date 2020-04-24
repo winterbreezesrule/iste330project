@@ -4,6 +4,9 @@ import java.util.*;
  */
 
 public class Papers extends DLObject{
+    //connection variables
+    private final String uName = "root";
+    private final String uPass = "USO800rubysky#1!";
 
     // table attributes
     private int paperId;
@@ -266,7 +269,7 @@ public class Papers extends DLObject{
     public String getPaper(int _paperId) throws DLException {
         String paperInfo = "";
         try {
-            MySQLDatabase mysqld = new MySQLDatabase("root", "USO800rubysky#1!");
+            MySQLDatabase mysqld = new MySQLDatabase(uName, uPass);
 
             // YOU NEED TO GET EVERYTHING EXCLUDING FILENAME
             String sql0 = "select title, abstract, track, status, submissionType, " +
@@ -380,7 +383,7 @@ public class Papers extends DLObject{
                          String filename, int[] subjectIds, int[] coauthorIds) throws DLException {
 
 
-        MySQLDatabase mysqld = new MySQLDatabase("username", "password");
+        MySQLDatabase mysqld = new MySQLDatabase(uName, uPass);
 
         int paperAuthorCount = coauthorIds.length;
         int paperSubjectCount = subjectIds.length;

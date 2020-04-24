@@ -33,8 +33,8 @@ import java.util.*;
 @SuppressWarnings({"unused", "UnnecessaryLocalVariable", "RedundantThrows", "SpellCheckingInspection", "DanglingJavadoc"})
 public class Users extends DLObject{
     //connection variables
-    private final String uName = "student";
-    private final String uPass = "student";
+    private final String uName = "root";
+    private final String uPass = "USO800rubysky#1!";
 
     //secret encryption key
     public static String SECRET_KEY;
@@ -61,7 +61,7 @@ public class Users extends DLObject{
         this.expiration = expiration;
         this.isAdmin = isAdmin;
         this.affiliationId = affiliationId;
-        SECRET_KEY = genKey();
+        SECRET_KEY = "++Gl8jZDzG/KuHK9QgE64sFQCksjKk3Fke2vpWw53+A=";
         loginToken = "";
     }
 
@@ -74,7 +74,7 @@ public class Users extends DLObject{
         expiration = "";
         isAdmin = 0;
         affiliationId = 0;
-        SECRET_KEY = genKey();
+        SECRET_KEY = "++Gl8jZDzG/KuHK9QgE64sFQCksjKk3Fke2vpWw53+A=";
         loginToken = "";
     }
 
@@ -302,34 +302,71 @@ public class Users extends DLObject{
       *
       */
 
-    public String getPapers(int _userId) {
+    public String getPapers(int _userId, String token) throws DLException {
         String papersWritten = "";
-        MySQLDatabase mysqld = new MySQLDatabase("username", "password");
+        MySQLDatabase mysqld = new MySQLDatabase(uName, uPass);
 
-        try {
-            if (mysqld.connect()) {
+        Users testUser = new Users();
 
-                String sql = "select papers.title from papers inner " +
-                        "join paperauthors on papers.paperid = " +
-                        "paperauthors.paperid inner join users " +
-                        "on paperauthors.userid = users.userid " +
-                        "and users.userid = ?;";
-                ArrayList<String> values = new ArrayList<>();
+        Jws<Claims> tokenClaims = testUser.decodeToken(token);
 
-                values.add(Integer.toString(_userId));
+        int admin = Integer.parseInt((String) tokenClaims.getBody().get("IsAdmin"));
+        int loginUserId = Integer.parseInt((String) tokenClaims.getBody().get("UserID"));
 
-                ArrayList<ArrayList<String>> fullResults = mysqld.getData(sql, values);
-                ArrayList<String> results = fullResults.get(2);
+        if (admin == 1) {
+            try {
+                if (mysqld.connect()) {
 
-                for (String result : results) {
-                    papersWritten = result + "\n";
+                    String sql = "select papers.title from papers inner " +
+                            "join paperauthors on papers.paperid = " +
+                            "paperauthors.paperid inner join users " +
+                            "on paperauthors.userid = users.userid " +
+                            "and users.userid = ?;";
+                    ArrayList<String> values = new ArrayList<>();
+
+                    values.add(Integer.toString(_userId));
+
+                    ArrayList<ArrayList<String>> fullResults = mysqld.getData(sql, values);
+                    ArrayList<String> results = fullResults.get(2);
+
+                    for (String result : results) {
+                        papersWritten = result + "\n";
+                    }
+
+                    mysqld.close();
                 }
-
-                mysqld.close();
+            } catch (Exception e) {
+                papersWritten += "Could not retrieve list of papers written by inputted user.";
             }
-        } catch (Exception e) {
-            papersWritten += "Could not retrieve list of papers written by inputted user.";
+        } else if (_userId == loginUserId) {
+            try {
+                if (mysqld.connect()) {
+
+                    String sql = "select papers.title from papers inner " +
+                            "join paperauthors on papers.paperid = " +
+                            "paperauthors.paperid inner join users " +
+                            "on paperauthors.userid = users.userid " +
+                            "and users.userid = ?;";
+                    ArrayList<String> values = new ArrayList<>();
+
+                    values.add(Integer.toString(_userId));
+
+                    ArrayList<ArrayList<String>> fullResults = mysqld.getData(sql, values);
+                    ArrayList<String> results = fullResults.get(2);
+
+                    for (String result : results) {
+                        papersWritten = result + "\n";
+                    }
+
+                    mysqld.close();
+                }
+            } catch (Exception e) {
+                papersWritten += "Could not retrieve list of papers written by inputted user.";
+            }
+        } else {
+            papersWritten += "You cannot view papers written by another author.";
         }
+
 
         return papersWritten;
     }
@@ -385,7 +422,7 @@ public class Users extends DLObject{
 
     public void setUser(String _lastName, String _firstName, String _email,
                         int affiliation) {
-        MySQLDatabase mysqld = new MySQLDatabase("root", "USO800rubysky#1!");
+        MySQLDatabase mysqld = new MySQLDatabase(uName, uPass);
 
         if (getUserId() == 0) { // creates new user entry
             try {
@@ -688,8 +725,8 @@ public class Users extends DLObject{
       *
       * DESCRIBE WHAT THIS DOES HERE
      *
-     * @param passwd
-     * @return
+     * @param passwd is the password to hash.
+     * @return the hashed password.
       *
       */
     private String hash(String passwd){
@@ -767,12 +804,12 @@ public class Users extends DLObject{
     /**
      * Generates a key.
      * @return
-     */
-    private String genKey(){
+
+    public String genKey(){
         Key newKey = Keys.secretKeyFor(SignatureAlgorithm.HS256);
         String returnVal = Encoders.BASE64.encode(newKey.getEncoded());
         return returnVal;
-    }
+    }*/
 
     /**
      * Sets the new date for the token's expiration.
@@ -791,7 +828,7 @@ public class Users extends DLObject{
     /**
      * Decodes the token.
      * @param jwtString
-     * @return
+     * @return a Jws<Claims> that contains information on the token
      * @throws DLException
      */
     public Jws<Claims> decodeToken(String jwtString) throws DLException {
