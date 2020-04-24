@@ -447,13 +447,13 @@ public class Papers extends DLObject{
                 mysqld.connect();
                 mysqld.startTrans();
 
-                String sql0 = "SELECT MAX(paperId) from users;";
+                String sql0 = "SELECT MAX(paperId) from papers;";
                 ArrayList<String> values0 = new ArrayList<>();
 
                 ArrayList<ArrayList<String>> fullResults0 = mysqld.getData(sql0, values0);
                 ArrayList<String> results0 = fullResults0.get(2);
 
-                setPaperId(Integer.parseInt(results0.get(0)));
+                setPaperId(Integer.parseInt(results0.get(0)) + 1);
 
                 String sql1 = "INSERT INTO papers (paperId, title, abstract, submissionType, submitterId, fileId) VALUES (?, ?, ?, ?, ?, ?);";
                 ArrayList<String> values1 = new ArrayList<String>();
@@ -471,22 +471,22 @@ public class Papers extends DLObject{
 
                 // insert new item(s) into papersubjects
                 for (int subjectId : subjectIds) {
-                    String sql2 = "INSERT INTO paperSubjects values ?, ?;";
+                    String sql2 = "INSERT INTO paperSubjects (paperId, subjectId) values (?, ?);";
                     ArrayList<String> values2 = new ArrayList<String>();
 
-                    values2.add("" + _paperId);
-                    values2.add("" + subjectId);
+                    values2.add(Integer.toString(getPaperId()));
+                    values2.add(Integer.toString(subjectId));
 
                     mysqld.setData(sql2, values2);
                 }
 
                 // insert new item(s) into paperauthors
                 for (int coauthorId : coauthorIds) {
-                    String sql3 = "INSERT INTO paperAuthors values ?, ?;";
+                    String sql3 = "INSERT INTO paperAuthors (paperId, userId) values (?, ?);";
                     ArrayList<String> values3 = new ArrayList<String>();
 
-                    values3.add("" + _paperId);
-                    values3.add("" + coauthorId);
+                    values3.add(Integer.toString(getPaperId()));
+                    values3.add(Integer.toString(coauthorId));
 
                     mysqld.setData(sql3, values3);
                 }
@@ -502,7 +502,35 @@ public class Papers extends DLObject{
             }
 
         } else { // update existing paper
-            if (admin == 1 || Arrays.asList(coauthorIds).contains(loginUserId)) {
+            boolean submitterIsCoauthor = false;
+
+            // GET LIST OF PEOPLE WHO WORKED ON PAPER AND SEE IF ANY OF THEM ARE THE LOGGED IN USER
+            try {
+                mysqld.connect();
+                String sql = "select userId from paperauthors where paperId = ?;";
+                ArrayList<String> values = new ArrayList<>();
+                values.add(Integer.toString(_paperId));
+
+                ArrayList<ArrayList<String>> fullresults = mysqld.getData(sql, values);
+                ArrayList<ArrayList<String>> results = new ArrayList<ArrayList<String>>();
+
+                for (int i = 2; i < fullresults.size(); i++) {
+                    results.add(fullresults.get(i));
+                }
+
+                for (int i = 0; i < results.size(); i++) {
+                    if (loginUserId == Integer.parseInt(results.get(i).get(0))) {
+                        submitterIsCoauthor = true;
+                    }
+                }
+
+                mysqld.close();
+            } catch (Exception e) {
+                System.out.println("Could not retrieve info on the people who made this paper. Therefore, the paper could not be edited.");
+                throw new DLException(e);
+            }
+
+            if (admin == 1 || submitterIsCoauthor) {
                 try {
                     mysqld.connect();
                     mysqld.startTrans();
@@ -524,7 +552,7 @@ public class Papers extends DLObject{
                     String sql3 = "DELETE from paperauthors WHERE paperId = ?;";
 
                     ArrayList<String> values2 = new ArrayList<String>();
-                    values2.add("" + _paperId);
+                    values2.add(Integer.toString(_paperId));
                     ArrayList<String> values3 = values2;
 
                     mysqld.setData(sql2, values2);
@@ -532,22 +560,22 @@ public class Papers extends DLObject{
 
                     // update papersubjects
                     for (int subjectId : subjectIds) {
-                        String sql4 = "INSERT INTO papersubjects VALUES ?, ?;";
+                        String sql4 = "INSERT INTO papersubjects (paperId, subjectId) VALUES (?, ?);";
                         ArrayList<String> values4 = new ArrayList<String>();
 
-                        values4.add("" + _paperId);
-                        values4.add("" + subjectId);
+                        values4.add(Integer.toString(getPaperId()));
+                        values4.add(Integer.toString(subjectId));
 
                         mysqld.setData(sql4, values4);
                     }
 
                     // update paperauthors
                     for (int coauthorId : coauthorIds) {
-                        String sql5 = "INSERT INTO paperauthors VALUES ?, ?;";
+                        String sql5 = "INSERT INTO paperauthors (paperId, userId) VALUES (?, ?);";
                         ArrayList<String> values5 = new ArrayList<String>();
 
-                        values5.add("" + _paperId);
-                        values5.add("" + coauthorId);
+                        values5.add(Integer.toString(getPaperId()));
+                        values5.add(Integer.toString(coauthorId));
 
                         mysqld.setData(sql5, values5);
                     }

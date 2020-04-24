@@ -24,6 +24,7 @@ public class MainTest {
 
             // RUN TO RESET PASSWORD TO RANDOM THING
             // newUser.resetPassword("jml7290@g.rit.edu");
+            // NEED TO HAVE PAPERCUT RUNNING, THATS WHAT GETS THE "EMAIL"
 
             // RUN TO SET NEW PASSWORD
             // newUser.login("jml7290@g.rit.edu", "randomly generated password "emailed" to you");
@@ -45,7 +46,9 @@ public class MainTest {
 
             System.out.println(testPaper.getPaper(99999, tokenString));
 
-
+            int[] subids = {1};
+            int[] coids = {1, 9999};
+            testPaper.setPaper(7, "Test", "Test", 1, "Test", subids, coids, tokenString);
 
         } catch (Exception e) {
             e.printStackTrace();
