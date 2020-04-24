@@ -313,32 +313,7 @@ public class Users extends DLObject{
         int admin = Integer.parseInt((String) tokenClaims.getBody().get("IsAdmin"));
         int loginUserId = Integer.parseInt((String) tokenClaims.getBody().get("UserID"));
 
-        if (admin == 1) {
-            try {
-                if (mysqld.connect()) {
-
-                    String sql = "select papers.title from papers inner " +
-                            "join paperauthors on papers.paperid = " +
-                            "paperauthors.paperid inner join users " +
-                            "on paperauthors.userid = users.userid " +
-                            "and users.userid = ?;";
-                    ArrayList<String> values = new ArrayList<>();
-
-                    values.add(Integer.toString(_userId));
-
-                    ArrayList<ArrayList<String>> fullResults = mysqld.getData(sql, values);
-                    ArrayList<String> results = fullResults.get(2);
-
-                    for (String result : results) {
-                        papersWritten = result + "\n";
-                    }
-
-                    mysqld.close();
-                }
-            } catch (Exception e) {
-                papersWritten += "Could not retrieve list of papers written by inputted user.";
-            }
-        } else if (_userId == loginUserId) {
+        if (admin == 1 || _userId == loginUserId) {
             try {
                 if (mysqld.connect()) {
 
@@ -364,7 +339,7 @@ public class Users extends DLObject{
                 papersWritten += "Could not retrieve list of papers written by inputted user.";
             }
         } else {
-            papersWritten += "You cannot view papers written by another author.";
+            papersWritten += "You cannot view papers written by another author. Are you an admin?";
         }
 
 
@@ -803,7 +778,8 @@ public class Users extends DLObject{
 
     /**
      * Generates a key.
-     * @return
+     * @return the new key. NOT USED BECAUSE WE'RE HARDCODING,
+     * BUT KEEPING IN CASE WE NEED TO GENERATE A NEW KEY
 
     public String genKey(){
         Key newKey = Keys.secretKeyFor(SignatureAlgorithm.HS256);
