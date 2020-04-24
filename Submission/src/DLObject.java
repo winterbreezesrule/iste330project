@@ -74,16 +74,16 @@ public class DLObject {
      * @return number of rows affected
      * @throws DLException custom exception that logs errors in a separate file
      */
-    public int put(String tableName, ArrayList<String> columnNames, ArrayList<String> values) throws DLException{
+    public int put(String tableName, ArrayList<String> columnNames, ArrayList<String> values, int numKeys) throws DLException{
         MySQLDatabase db = new MySQLDatabase("username", "password");
         if (db.connect()){
             StringBuilder sql = new StringBuilder("UPDATE " + tableName + " SET ");
             for (int i = 0; i < columnNames.size(); i++){
                 String column = columnNames.get(i);
-                if (i == columnNames.size() - 1){
+                if (i == (columnNames.size() - numKeys)){
                     sql.append("WHERE ").append(column).append(" = ?;");
                 }
-                else if (i == columnNames.size() - 2){
+                else if (i == ((columnNames.size() - numKeys) - 1)){
                     sql.append(column).append(" = ? ");
                 }
                 else {

@@ -204,7 +204,7 @@ public class Papers extends DLObject{
         values.add(tentativeStatus);
         values.add(Integer.toString(paperId));
 
-        return super.put("Users", columnNames, values);
+        return super.put("Users", columnNames, values, 1);
     }
 
     /**

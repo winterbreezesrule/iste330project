@@ -246,7 +246,7 @@ public class Users extends DLObject{
         values.add(Integer.toString(affiliationId));
         values.add(Integer.toString(userId));
 
-        return super.put("Users", columnNames, values);
+        return super.put("Users", columnNames, values, 1);
     }
 
     /**
@@ -399,13 +399,10 @@ public class Users extends DLObject{
                     ArrayList<String> values1 = new ArrayList<>();
                     ArrayList<String> values2 = new ArrayList<>();
 
-                    // get max value of user IDs
                     ArrayList<ArrayList<String>> fullResults2 = mysqld.getData(sql2, values2);
                     ArrayList<String> results2 = fullResults2.get(2);
 
-                    // set new user id to one greater than current max of user IDs
-                    setUserId(Integer.parseInt(results2.get(0)) + 1);
-                    // set the rest of the info
+                    setUserId(Integer.parseInt(results2.get(0)));
                     setLastName(_lastName);
                     setFirstName(_firstName);
                     setEmail(_email);
@@ -417,10 +414,8 @@ public class Users extends DLObject{
                     values1.add(getEmail());
                     values1.add(Integer.toString(getAffiliationId()));
 
-                    // try to insert the new record
                     int recordschanged = mysqld.setData(sql1, values1);
 
-                    // note how many records were changed
                     System.out.println(recordschanged + " records changed.");
 
                     mysqld.close();
@@ -470,17 +465,18 @@ public class Users extends DLObject{
      * @param email is the email to send the new password to
       *
       */
-    public void resetPassword(String email) throws DLException {
+        //creates a new password and sends to specified address
+        //good for 5 minutes - expiration field in user table
+        //email new password to user
+    public int resetPassword(String email) throws DLException {
+        int numAffected = 0;
+
         //create a new random password
         String newRandomPass = createRandomPass();
         //hash the new password
         String randomPassHash = hash(newRandomPass);
         //store a time 5 minutes from now
         String fiveMinutesLater = fiveMinutesFromNow();
-
-        System.out.println(newRandomPass);//testing
-        System.out.println(randomPassHash);//testing
-        System.out.println(fiveMinutesLater);//testing
 
         //store hash and set expiration for five minutes from now for email specified in DB
         MySQLDatabase newDB = new MySQLDatabase(uName, uPass);
@@ -492,8 +488,7 @@ public class Users extends DLObject{
                 valList.add(randomPassHash);
                 valList.add(fiveMinutesLater);
                 valList.add(email);
-                int numAffected = newDB.setData(sqlString, valList);//use prepared statement for setdata
-                System.out.println(numAffected);//testing
+                numAffected = newDB.setData(sqlString, valList);//use prepared statement for setdata
                 newDB.close();//close DB after updating
             }
         } catch (DLException err){
@@ -501,30 +496,32 @@ public class Users extends DLObject{
             newDB.close();
             throw new DLException(err);
         }
-        //send email with new password and message
-        String from = "donotreply@csm.com"; //sender email
-        String host = "localhost"; //send from the local host
-        Properties prop = System.getProperties(); //get system properties
-        prop.setProperty("mail.smtp.host", host); //setup mail server
-        Session sesh = Session.getDefaultInstance(prop); //get default session
-        try{
-            MimeMessage message = new MimeMessage(sesh);//create deafult MIME message
-            //change settings for message
-            message.setFrom(new InternetAddress(from));
-            message.addRecipient(Message.RecipientType.TO, new InternetAddress(email));
-            message.setSubject("Password change request");
-            message.setText("You have requested to change your password for the csm system.\n"
-                + "Your new password is " + newRandomPass + "\n"
-                + "You have 5 minutes to login and set a new password.");
-            //send message
-            Transport.send(message);
-            System.out.println("Message sent successfully!");
+        if (numAffected > 0){
+            //send email with new password and message
+            String from = "donotreply@csm.com"; //sender email
+            String host = "localhost"; //send from the local host
+            Properties prop = System.getProperties(); //get system properties
+            prop.setProperty("mail.smtp.host", host); //setup mail server
+            Session sesh = Session.getDefaultInstance(prop); //get default session
+            try{
+                MimeMessage message = new MimeMessage(sesh);//create deafult MIME message
+                //change settings for message
+                message.setFrom(new InternetAddress(from));
+                message.addRecipient(Message.RecipientType.TO, new InternetAddress(email));
+                message.setSubject("Password change request");
+                message.setText("You have requested to change your password for the csm system.\n"
+                        + "Your new password is " + newRandomPass + "\n"
+                        + "You have 5 minutes to login and set a new password.");
+                //send message
+                Transport.send(message);
 
-        } catch (MessagingException err) {
-            System.out.println("Problem Sending Email.");
-            throw new DLException(err);
+            } catch (MessagingException err) {
+                System.out.println("Problem Sending Email.");
+                throw new DLException(err);
+            }
         }
 
+        return numAffected;
     }
 
     /**
@@ -582,6 +579,17 @@ public class Users extends DLObject{
 
     }
 
+    private String sixMonthsFromNow(){
+        Date now = new Date();
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(now);
+        cal.add(Calendar.MONTH, 6);
+        Date sixMonthsLater = cal.getTime();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
+        String returnDateString = dateFormat.format(sixMonthsLater);
+        return returnDateString;
+    }
+
     /**
       *
       * setPassword() GOES HERE
@@ -592,8 +600,28 @@ public class Users extends DLObject{
         //-accepts a string of text
         //-creates a hash of it
         //-stores hash in password field users table
-    public void setPassword(String pass){
-
+    public void setPassword(String pass) throws DLException {
+        if(logincheck()){ //if login has a token and token is not expired
+            //store hashed password in database
+            String newPassHash = hash(pass);
+            MySQLDatabase  newDB = new MySQLDatabase(uName, uPass);
+            try {
+                if (newDB.connect()){
+                    //create and execute a prepared statement
+                    String sqlString = "UPDATE users SET pswd = ?, expiration = ? WHERE email = ?";
+                    ArrayList<String> valList = new ArrayList<String>();
+                    valList.add(newPassHash);
+                    valList.add(sixMonthsFromNow());
+                    Jws<Claims> checkClaims = decodeToken(loginToken);
+                    valList.add((String) checkClaims.getBody().get("email"));
+                    int numaffected = newDB.setData(sqlString, valList);
+                    newDB.close();
+                }
+            } catch (DLException err){
+                System.out.println("Error occured when setting new password.");
+                throw new DLException(err);
+            }
+        }
     }
 
     /**
@@ -622,30 +650,34 @@ public class Users extends DLObject{
                 if(!isExpired(returnVals.get(2).get(6))){
                     //if password matches
                     if(BCrypt.checkpw(pass, returnVals.get(2).get(4))){
-                        System.out.println("Password Matches!");
                         //create a token to send back
                             //token variables
                                 //-userID, lastName, firstName, isAdmin, expiration
                         tokenString = createToken(returnVals.get(2).get(0),
                                 returnVals.get(2).get(1),
                                 returnVals.get(2).get(2),
+                                returnVals.get(2).get(3),
                                 returnVals.get(2).get(7),
                                 returnVals.get(2).get(6));
 
                         loginToken = tokenString;
 
                     }else{//password doesn't match
-                        System.out.println("doesn't match");//testing
+                        System.out.println("Password is not correct!");//testing
                     }
 
                 }else{ //password is expired
                     System.out.println("Expired");//testing
                 }
+                newDB.close();
 
             }
-        }catch (DLException err){
-            System.out.println("Error occurred when logging in.");
+        }catch (DLException | IndexOutOfBoundsException err){
+            System.out.println("Error occurred when logging in. Make sure email and password are correct.");
             newDB.close();
+            throw new DLException(err);
+        }catch (IllegalArgumentException err){
+            System.out.println("User password must be reset before logging in.");
             throw new DLException(err);
         }
 
@@ -703,7 +735,8 @@ public class Users extends DLObject{
      * @param expiration
      * @return
      */
-    public String createToken(String uID, String lastName, String firstName, String isAdmin, String expiration){
+
+    public String createToken(String uID, String lastName, String firstName, String email, String isAdmin, String expiration){
         //choose signature algorithm
         SignatureAlgorithm sigAl = SignatureAlgorithm.HS256;
 
@@ -720,6 +753,7 @@ public class Users extends DLObject{
         builder.claim("UserID", uID);
         builder.claim("FirstName", firstName);
         builder.claim("LastName", lastName);
+        builder.claim("email", email);
         builder.claim("IsAdmin", isAdmin);
         builder.claim("Expiration", expiration);
         builder.signWith(signingKey, sigAl);
@@ -773,6 +807,43 @@ public class Users extends DLObject{
         }
 
         return newJWS;
+    }
+    //checks if token exists, and is not expired
+    public boolean logincheck() throws DLException {
+        boolean checkVal = false;
+        if (loginToken != ""){ //if token exists
+            try {
+                Jws<Claims> tokenClaims = decodeToken(loginToken);
+                Date rightNow = new Date();
+                //if token is still valid
+                if(rightNow.before(tokenClaims.getBody().getExpiration())){
+                    checkVal = true;
+                }
+
+            } catch (DLException err){
+                System.out.println("Error occured when checking token");
+                throw new DLException(err);
+            }
+
+        }
+        return checkVal;
+    }
+
+    public boolean admincheck() throws DLException {
+        boolean isAdmin = false;
+        if (loginToken != ""){ //if token exists
+            try {
+                Jws<Claims> tokenClaims = decodeToken(loginToken);
+                if (tokenClaims.getBody().get("IsAdmin").toString().equals("1")){
+                    isAdmin = true;
+                }
+
+            } catch (DLException err){
+                System.out.println("Error occured when checking admin status");
+                throw new DLException(err);
+            }
+        }
+        return isAdmin;
     }
 
 } // end Users

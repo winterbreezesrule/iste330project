@@ -70,7 +70,7 @@ public class Types extends DLObject {
         values.add(typeName);
         values.add(Integer.toString(typeId));
 
-        return super.put("Types", columnNames, values);
+        return super.put("Types", columnNames, values, 1);
     }
 
     /**

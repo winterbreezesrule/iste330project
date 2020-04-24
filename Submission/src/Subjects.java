@@ -77,7 +77,7 @@ public class Subjects extends DLObject{
         values.add(subjectName);
         values.add(Integer.toString(subjectId));
 
-        return super.put("Subjects", columnNames, values);
+        return super.put("Subjects", columnNames, values, 1);
     }
 
     /**

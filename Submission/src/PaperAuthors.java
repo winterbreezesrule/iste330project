@@ -59,6 +59,12 @@ public class PaperAuthors extends DLObject {
         this.displayOrder = displayOrder;
     }
 
+    /**
+     * fetch method for the paperAuthor object. Passes info from this class
+     * to the superclass fetch method, where the query is created and executed.
+     *
+     * @throws DLException custom exception that logs errors in a separate file
+     */
     public void fetch() throws DLException {
         // add primary key to ArrayList for passing into superclass method
         ArrayList<String> pkNames = new ArrayList<>();
@@ -70,26 +76,74 @@ public class PaperAuthors extends DLObject {
         pkData.add(Integer.toString(paperId));
         pkData.add(Integer.toString(userId));
 
-        super.fetch("PaperAuthors", pkNames, pkData);
+        ArrayList<ArrayList<String>> data = super.fetch("PaperAuthors", pkNames, pkData);
     }
 
+    /**
+     * put method for the paperAuthor object. Passes info from this class
+     * to the superclass put method, where the query is created and executed.
+     *
+     * @return number of rows affected
+     * @throws DLException custom exception that logs errors in a separate file
+     */
     public int put() throws DLException {
         // putting all of the column names into an ArrayList for passing to the superclass method
         ArrayList<String> columnNames = new ArrayList<>();
+        columnNames.add("displayOrder");
         columnNames.add("paperId");
-        // TODO fix the composite key problem with the put method by adding a numKeys parameter to put in DLObject
+        columnNames.add("userId");
 
         // putting all of the object values into an ArrayList for passing to the superclass method
         ArrayList<String> values = new ArrayList<>();
-        return 1;
+        values.add(Integer.toString(displayOrder));
+        values.add(Integer.toString(paperId));
+        values.add(Integer.toString(userId));
+
+        return super.put("PaperAuthors", columnNames, values, 2);
     }
 
+    /**
+     * post method for the paperAuthor object. Passes info from this class
+     * to the superclass post method, where the query is created and executed.
+     *
+     * @return number of rows affected
+     * @throws DLException custom exception that logs errors in a separate file
+     */
     public int post() throws DLException {
-        return 1;
+        // putting all of the column names into an ArrayList for passing to the superclass method
+        ArrayList<String> columnNames = new ArrayList<>();
+        columnNames.add("paperId");
+        columnNames.add("userId");
+        columnNames.add("displayOrder");
+
+        // putting all of the object values into an ArrayList for passing to the superclass method
+        ArrayList<String> values = new ArrayList<>();
+        values.add(Integer.toString(paperId));
+        values.add(Integer.toString(userId));
+        values.add(Integer.toString(displayOrder));
+
+        return super.post("PaperAuthors", columnNames, values);
     }
 
+    /**
+     * delete method for the paperAuthor object. Passes info from this class
+     * to the superclass delete method, where the query is created and executed.
+     *
+     * @return number of rows affected
+     * @throws DLException custom exception that logs errors in a separate file
+     */
     public int delete() throws DLException {
-        return 1;
+        // add primary keys to ArrayList for passing into superclass method
+        ArrayList<String> pkNames = new ArrayList<>();
+        pkNames.add("paperId");
+        pkNames.add("userId");
+
+        // add primary keys data to ArrayList for passing into superclass method
+        ArrayList<String> pkData = new ArrayList<>();
+        pkData.add(Integer.toString(paperId));
+        pkData.add(Integer.toString(userId));
+
+        return super.delete("PaperAuthors", pkNames, pkData);
     }
 
 } // end PaperAuthors

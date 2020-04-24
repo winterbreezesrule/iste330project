@@ -17,17 +17,15 @@ public class MainTest {
     public static void main(String[] args) {
 
         try {
-            //test login
-            Users testUser = new Users();
-            testUser.resetPassword("hl4442@rit.edu");
-            String newToken = testUser.login("hl4442@rit.edu", "4hrA1t59");
-            System.out.println("Token:" + newToken);
 
-            Jws<Claims> tokenValues = testUser.decodeToken(newToken);
+            Users newUser = new Users();
+            //newUser.resetPassword("luntb@byu.edu");
+            String tokenString = newUser.login("ckadlec@georgiasouthern.edu", "newPass");
 
-            System.out.println(tokenValues);
-
-
+            // String tokenString = newUser.login("hl4442@rit.edu", "newPass");
+            boolean adminStatus =  newUser.admincheck();
+            System.out.println(newUser.decodeToken(tokenString));
+            System.out.println(adminStatus);
 
 
 
