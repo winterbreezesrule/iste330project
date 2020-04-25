@@ -262,6 +262,8 @@ public class Papers extends DLObject{
     /**
       *
       * Returns all information for the specified paper, excluding filename.
+     * However, only admins can retrieve info on any paper--otherwise, the person
+     * has to have been an author.
      *
      * @param _paperId is the ID to get information for
      * @param token is the token of the logged-in user attempting to use this function
@@ -408,7 +410,8 @@ public class Papers extends DLObject{
       *
       * Sets the current paper to the information provided. If a paperId is not currently
       * set, a new paper is created and added to the database. If a paperId is set, the
-      * information about the paper is updated.
+      * information about the paper is updated. However, only admins and people who have worked on
+     * the paper are allowed to upload/edit them.
      *
      * @param _paperId is the new ID of the paper
      * @param _title is the title of the paper
@@ -443,64 +446,76 @@ public class Papers extends DLObject{
         setFileId(filename);
 
         if (_paperId == 0) { // create new paper
-            try {
-                mysqld.connect();
-                mysqld.startTrans();
+            boolean submitterIsCoauthor = false;
 
-                String sql0 = "SELECT MAX(paperId) from papers;";
-                ArrayList<String> values0 = new ArrayList<>();
+            // see if submitter is one of the authors of new paper
+            for (int i = 0; i < coauthorIds.length; i++) {
+                if (loginUserId == coauthorIds[i]) {
 
-                ArrayList<ArrayList<String>> fullResults0 = mysqld.getData(sql0, values0);
-                ArrayList<String> results0 = fullResults0.get(2);
-
-                setPaperId(Integer.parseInt(results0.get(0)) + 1);
-
-                String sql1 = "INSERT INTO papers (paperId, title, abstract, submissionType, submitterId, fileId) VALUES (?, ?, ?, ?, ?, ?);";
-                ArrayList<String> values1 = new ArrayList<String>();
-
-                // add new values to array
-                values1.add("" + getPaperId());
-                values1.add(_title);
-                values1.add(_paperAbstract);
-                values1.add(Integer.toString(_submissionType));
-                values1.add(Integer.toString(loginUserId));
-                values1.add(filename);
-
-                // insert new item into papers
-                mysqld.setData(sql1, values1);
-
-                // insert new item(s) into papersubjects
-                for (int subjectId : subjectIds) {
-                    String sql2 = "INSERT INTO paperSubjects (paperId, subjectId) values (?, ?);";
-                    ArrayList<String> values2 = new ArrayList<String>();
-
-                    values2.add(Integer.toString(getPaperId()));
-                    values2.add(Integer.toString(subjectId));
-
-                    mysqld.setData(sql2, values2);
                 }
-
-                // insert new item(s) into paperauthors
-                for (int coauthorId : coauthorIds) {
-                    String sql3 = "INSERT INTO paperAuthors (paperId, userId) values (?, ?);";
-                    ArrayList<String> values3 = new ArrayList<String>();
-
-                    values3.add(Integer.toString(getPaperId()));
-                    values3.add(Integer.toString(coauthorId));
-
-                    mysqld.setData(sql3, values3);
-                }
-
-                // end transaction
-                mysqld.endTrans();
-                mysqld.close();
-            } catch (Exception e) {
-                System.out.println("Paper info could not be set.");
-                mysqld.rollbackTrans();
-                mysqld.close();
-                throw new DLException(e);
             }
 
+            if (admin == 1 | submitterIsCoauthor) {
+                try {
+                    mysqld.connect();
+                    mysqld.startTrans();
+
+                    String sql0 = "SELECT MAX(paperId) from papers;";
+                    ArrayList<String> values0 = new ArrayList<>();
+
+                    ArrayList<ArrayList<String>> fullResults0 = mysqld.getData(sql0, values0);
+                    ArrayList<String> results0 = fullResults0.get(2);
+
+                    setPaperId(Integer.parseInt(results0.get(0)) + 1);
+
+                    String sql1 = "INSERT INTO papers (paperId, title, abstract, submissionType, submitterId, fileId) VALUES (?, ?, ?, ?, ?, ?);";
+                    ArrayList<String> values1 = new ArrayList<String>();
+
+                    // add new values to array
+                    values1.add("" + getPaperId());
+                    values1.add(_title);
+                    values1.add(_paperAbstract);
+                    values1.add(Integer.toString(_submissionType));
+                    values1.add(Integer.toString(loginUserId));
+                    values1.add(filename);
+
+                    // insert new item into papers
+                    mysqld.setData(sql1, values1);
+
+                    // insert new item(s) into papersubjects
+                    for (int subjectId : subjectIds) {
+                        String sql2 = "INSERT INTO paperSubjects (paperId, subjectId) values (?, ?);";
+                        ArrayList<String> values2 = new ArrayList<String>();
+
+                        values2.add(Integer.toString(getPaperId()));
+                        values2.add(Integer.toString(subjectId));
+
+                        mysqld.setData(sql2, values2);
+                    }
+
+                    // insert new item(s) into paperauthors
+                    for (int coauthorId : coauthorIds) {
+                        String sql3 = "INSERT INTO paperAuthors (paperId, userId) values (?, ?);";
+                        ArrayList<String> values3 = new ArrayList<String>();
+
+                        values3.add(Integer.toString(getPaperId()));
+                        values3.add(Integer.toString(coauthorId));
+
+                        mysqld.setData(sql3, values3);
+                    }
+
+                    // end transaction
+                    mysqld.endTrans();
+                    mysqld.close();
+                } catch (Exception e) {
+                    System.out.println("Paper info could not be set.");
+                    mysqld.rollbackTrans();
+                    mysqld.close();
+                    throw new DLException(e);
+                }
+            } else {
+                System.out.println("You are trying to submit a paper you didn't work on! Please only submit papers you have worked on.");
+            }
         } else { // update existing paper
             boolean submitterIsCoauthor = false;
 

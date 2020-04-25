@@ -47,8 +47,8 @@ public class MainTest {
             System.out.println(testPaper.getPaper(99999, tokenString));
 
             int[] subids = {1};
-            int[] coids = {1, 9999};
-            testPaper.setPaper(7, "Test", "Test", 1, "Test", subids, coids, tokenString);
+            int[] coids = {1};
+            testPaper.setPaper(0, "Test", "Test", 1, "Test", subids, coids, tokenString);
 
         } catch (Exception e) {
             e.printStackTrace();

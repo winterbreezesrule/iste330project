@@ -295,7 +295,9 @@ public class Users extends DLObject{
 
     /**
       *
-      * Gets all of the papers for the specified user.
+      * Gets all of the papers for the specified user. However, only an admin
+     * can get all papers of any user. Otherwise, a user can only retrieve the
+     * papers they have participated in.
      *
      * @param _userId is the user to retrieve papers for
      * @param token is the token of the logged-in user attempting to use this function
@@ -400,7 +402,8 @@ public class Users extends DLObject{
       * Sets the current user to the information provided. If a userId is not currently
      * set, a new user is created and added to the database. If a userId is set, the
      * information about the user is updated. Note that if a userId is set, it must be
-     * matched against the currently logged-in user.
+     * matched against the currently logged-in user to make changes. Otherwise, the only
+     * person who can make changes is an admin.
      *
      * @param _lastName is the user's last name
      * @param _firstName is the user's first name
