@@ -1,5 +1,7 @@
 import io.jsonwebtoken.*;
+import javafx.beans.binding.IntegerBinding;
 
+import java.nio.IntBuffer;
 import java.util.ArrayList;
 
 /**
@@ -36,7 +38,12 @@ public class DLObject {
             hasAccess = true;
         }
         else {
+            if (tableName.equals("Users")){
 
+            }
+            else {
+
+            }
         }
 
         if(hasAccess) {
@@ -60,7 +67,8 @@ public class DLObject {
             }
         }
         else {
-
+            System.out.println("Access");
+            return new ArrayList<>();
         }
     }
 

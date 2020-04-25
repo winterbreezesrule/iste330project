@@ -70,7 +70,17 @@ public class Affiliations extends DLObject {
      * @throws DLException custom exception that logs errors in a separate file
      */
     public int put(Jws<Claims> token) throws DLException {
-        return 1;
+        // putting all of the column names into an ArrayList for passing to the superclass method
+        ArrayList<String> columnNames = new ArrayList<>();
+        columnNames.add("affiliationName");
+        columnNames.add("affiliationId");
+
+        // putting all of the object values into an ArrayList for passing to the superclass method
+        ArrayList<String> values = new ArrayList<>();
+        values.add(affiliationName);
+        values.add(Integer.toString(affiliationId));
+
+        return super.put("_Affiliations", columnNames, values, 1, token);
     }
 
     /**
