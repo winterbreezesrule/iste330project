@@ -151,16 +151,60 @@ public class Configuration extends DLObject{
         ArrayList<ArrayList<String>> data = super.fetch("_Configuration", token);
     }
 
-    public int put() throws DLException {
-        return "Hi.";
+    public int put(Jws<Claims> token) throws DLException {
+        // putting all of the column names into an ArrayList for passing to the superclass method
+        ArrayList<String> columnNames = new ArrayList<>();
+        columnNames.add("submissionOpen");
+        columnNames.add("submissionClose");
+        columnNames.add("PCEmail");
+        columnNames.add("PCName");
+        columnNames.add("PC2Email");
+        columnNames.add("PC2Name");
+        columnNames.add("shortName");
+        columnNames.add("logoFile");
+
+        // putting all of the object values into an ArrayList for passing to the superclass method
+        ArrayList<String> values = new ArrayList<>();
+        columnNames.add(submissionOpen.toString());
+        columnNames.add(submissionClose.toString());
+        columnNames.add(PCEmail);
+        columnNames.add(PCName);
+        columnNames.add(PC2Email);
+        columnNames.add(PC2Name);
+        columnNames.add(shortName);
+        columnNames.add(logoFile);
+
+        return super.put("_Configuration", columnNames, values, token);
     }
 
-    public int post() throws DLException {
-        return "Hi.";
+    public int post(Jws<Claims> token) throws DLException {
+        // putting all of the column names into an ArrayList for passing to the superclass method
+        ArrayList<String> columnNames = new ArrayList<>();
+        columnNames.add("submissionOpen");
+        columnNames.add("submissionClose");
+        columnNames.add("PCEmail");
+        columnNames.add("PCName");
+        columnNames.add("PC2Email");
+        columnNames.add("PC2Name");
+        columnNames.add("shortName");
+        columnNames.add("logoFile");
+
+        // putting all of the object values into an ArrayList for passing to the superclass method
+        ArrayList<String> values = new ArrayList<>();
+        columnNames.add(submissionOpen.toString());
+        columnNames.add(submissionClose.toString());
+        columnNames.add(PCEmail);
+        columnNames.add(PCName);
+        columnNames.add(PC2Email);
+        columnNames.add(PC2Name);
+        columnNames.add(shortName);
+        columnNames.add(logoFile);
+
+        return super.post("_Configuration", columnNames, values, token);
     }
 
-    public int delete() throws DLException {
-        return "Hi.";
+    public int delete(Jws<Claims> token) throws DLException {
+        return super.delete("_Configuration", token);
     }
 
 } // end Configuration

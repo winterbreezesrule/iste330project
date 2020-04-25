@@ -237,6 +237,39 @@ public class DLObject {
     }
 
     /**
+     * Put method for _Configuration table
+     *
+     * @param tableName name of the table to get data from
+     * @return 2D ArrayList containing the selected data
+     * @throws DLException custom exception that logs errors in a separate file
+     */
+    public int put(String tableName, ArrayList<String> columnNames, ArrayList<String> values, Jws<Claims> token) throws DLException{
+        MySQLDatabase db = new MySQLDatabase(uName, uPass);
+        if (db.connect()) {
+            int isAdmin = Integer.parseInt((String) token.getBody().get("IsAdmin"));
+
+            if (isAdmin == 1) {
+                StringBuilder sql = new StringBuilder("UPDATE " + tableName + " SET ");
+                for (int i = 0; i < columnNames.size(); i++) {
+                    String column = columnNames.get(i);
+                    if (i == (columnNames.size() - 1)) {
+                        sql.append(column).append(" = ?;");
+                    } else {
+                        sql.append(column).append(" = ?, ");
+                    }
+                }
+                return db.setData(sql.toString(), values);
+            } else {
+                return -1;
+            }
+        }
+        else {
+            System.out.println("Failed to connect!");
+            return -1;
+        }
+    }
+
+    /**
      * Post method for data objects
      *
      * @param tableName name of the table to post data to
@@ -283,7 +316,6 @@ public class DLObject {
             if (hasAccess) {
                 StringBuilder sql = new StringBuilder("INSERT INTO " + tableName + " VALUES ( ");
                 for (int i = 0; i < columnNames.size(); i++) {
-                    String column = columnNames.get(i);
                     if (i == columnNames.size() - 1) {
                         sql.append("?);");
                     } else {
@@ -364,6 +396,32 @@ public class DLObject {
             }
         }
         else {
+            return -1;
+        }
+    }
+
+    /**
+     * Delete method for _Configuration table
+     *
+     * @param tableName name of the table to get data from
+     * @return 2D ArrayList containing the selected data
+     * @throws DLException custom exception that logs errors in a separate file
+     */
+    public int delete(String tableName, Jws<Claims> token) throws DLException{
+        MySQLDatabase db = new MySQLDatabase(uName, uPass);
+        if (db.connect()) {
+            int isAdmin = Integer.parseInt((String) token.getBody().get("IsAdmin"));
+
+            if (isAdmin == 1) {
+                String sql = "DELETE * FROM " + tableName + ";";
+                ArrayList<String> values = new ArrayList<>();
+                return db.setData(sql, values);
+            } else {
+                return -1;
+            }
+        }
+        else {
+            System.out.println("Failed to connect!");
             return -1;
         }
     }
