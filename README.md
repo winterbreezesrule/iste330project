@@ -36,7 +36,9 @@ What a user can do is determined first and foremost by their admin status. An ad
 
 A decoded token includes a user's ID, their first and last name, the email, their admin status, and the expiration date of their password's validity. The most important parts of the token for modifying parts of the database are the user's ID and their admin status. 
 
-For all of the CRUD methods for all DataObjects aside from Users and Papers, a user cannot do anything if they are not an admin. Within these two objects, a user only has the rights to create, read, and write to objects--deletion is reserved strictly for admins.
+For all of the CRUD methods for all DataObjects aside from Users and Papers, a user cannot do anything if they are not an admin. Within these two objects, a user only has the rights to create, read, and write to objects--deletion is reserved strictly for admins. 
+
+The general CRUD methods take the decoded token, but the specialized methods below take the token to be decoded.
 
 Within Users and Papers, there are five specialized methods that return data beyond what's retrieved using a simple CRUD call. The five methods, and what a general user/admin can do, are listed below:
 

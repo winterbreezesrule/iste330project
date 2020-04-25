@@ -174,8 +174,8 @@ public class Papers extends DLObject{
      *
      * @throws DLException custom exception that logs errors in a separate file
      */
-    public void fetch() throws DLException {
-        ArrayList<ArrayList<String>> data = super.fetch("Papers", "paperId", Integer.toString(paperId));
+    public void fetch(Jws<Claims> token) throws DLException {
+        ArrayList<ArrayList<String>> data = super.fetch("Papers", "paperId", Integer.toString(paperId), token);
     }
 
     /**
@@ -185,7 +185,7 @@ public class Papers extends DLObject{
      * @return number of rows affected
      * @throws DLException custom exception that logs errors in a separate file
      */
-    public int put() throws DLException {
+    public int put(Jws<Claims> token) throws DLException {
         // putting all of the column names into an ArrayList for passing to the superclass method
         ArrayList<String> columnNames = new ArrayList<>();
         columnNames.add("title");
@@ -210,7 +210,7 @@ public class Papers extends DLObject{
         values.add(tentativeStatus);
         values.add(Integer.toString(paperId));
 
-        return super.put("Papers", columnNames, values, 1);
+        return super.put("Papers", columnNames, values, 1, token);
     }
 
     /**
@@ -220,7 +220,7 @@ public class Papers extends DLObject{
      * @return number of rows affected
      * @throws DLException custom exception that logs errors in a separate file
      */
-    public int post() throws DLException {
+    public int post(Jws<Claims> token) throws DLException {
         // putting all of the column names into an ArrayList for passing to the superclass method
         ArrayList<String> columnNames = new ArrayList<>();
         columnNames.add("paperId");
@@ -245,7 +245,7 @@ public class Papers extends DLObject{
         values.add(fileId);
         values.add(tentativeStatus);
 
-        return super.post("Papers", columnNames, values);
+        return super.post("Papers", columnNames, values, token);
     }
 
     /**
@@ -255,8 +255,8 @@ public class Papers extends DLObject{
      * @return number of rows affected
      * @throws DLException custom exception that logs errors in a separate file
      */
-    public int delete() throws DLException {
-        return super.delete("Papers", "paperId", Integer.toString(paperId));
+    public int delete(Jws<Claims> token) throws DLException {
+        return super.delete("Papers", "paperId", Integer.toString(paperId), token);
     }
 
     /**

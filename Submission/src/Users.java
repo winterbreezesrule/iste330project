@@ -212,10 +212,10 @@ public class Users extends DLObject{
      *
      * @throws DLException custom exception that logs errors in a separate file
      */
-    public void fetch() throws DLException {
+    public void fetch(Jws<Claims> token) throws DLException {
         // user checking needs to be added
         try {
-            ArrayList<ArrayList<String>> data = super.fetch("Users", "userId", Integer.toString(userId));
+            ArrayList<ArrayList<String>> data = super.fetch("Users", "userId", Integer.toString(userId), token);
             setUserId(Integer.parseInt(data.get(2).get(0)));
             setLastName(data.get(2).get(1));
             setFirstName(data.get(2).get(2));
@@ -237,7 +237,7 @@ public class Users extends DLObject{
      * @return number of rows affected
      * @throws DLException custom exception that logs errors in a separate file
      */
-    public int put() throws DLException {
+    public int put(Jws<Claims> token) throws DLException {
         // putting all of the column names into an ArrayList for passing to the superclass method
         ArrayList<String> columnNames = new ArrayList<>();
         columnNames.add("lastName");
@@ -260,7 +260,7 @@ public class Users extends DLObject{
         values.add(Integer.toString(affiliationId));
         values.add(Integer.toString(userId));
 
-        return super.put("Users", columnNames, values, 1);
+        return super.put("Users", columnNames, values, 1, token);
     }
 
     /**
@@ -270,7 +270,7 @@ public class Users extends DLObject{
      * @return number of rows affected
      * @throws DLException custom exception that logs errors in a separate file
      */
-    public int post() throws DLException {
+    public int post(Jws<Claims> token) throws DLException {
         // putting all of the column names into an ArrayList for passing to the superclass method
         ArrayList<String> columnNames = new ArrayList<>();
         columnNames.add("userId");
@@ -293,7 +293,7 @@ public class Users extends DLObject{
         values.add(Integer.toString(isAdmin));
         values.add(Integer.toString(affiliationId));
 
-        return super.post("Users", columnNames, values);
+        return super.post("Users", columnNames, values, token);
     }
 
     /**
@@ -303,8 +303,8 @@ public class Users extends DLObject{
      * @return number of rows affected
      * @throws DLException custom exception that logs errors in a separate file
      */
-    public int delete() throws DLException {
-        return super.delete("Users", "userId", Integer.toString(userId));
+    public int delete(Jws<Claims> token) throws DLException {
+        return super.delete("Users", "userId", Integer.toString(userId), token);
     }
 
     /**
