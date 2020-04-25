@@ -1,7 +1,9 @@
+import java.util.ArrayList;
+
 /**
  * Used to represent the PaperSubjects table in the CSM database.
  */
-public class PaperSubjects {
+public class PaperSubjects extends DLObject{
 
     // attributes
     private int paperId;
@@ -40,19 +42,59 @@ public class PaperSubjects {
     }
 
     public void fetch() throws DLException {
+        // add primary key to ArrayList for passing into superclass method
+        ArrayList<String> pkNames = new ArrayList<>();
+        pkNames.add("paperId");
+        pkNames.add("subjectId");
 
+        // add primary key data to ArrayList for passing into superclass method
+        ArrayList<String> pkData = new ArrayList<>();
+        pkData.add(Integer.toString(paperId));
+        pkData.add(Integer.toString(subjectId));
+
+        ArrayList<ArrayList<String>> data = super.fetch("PaperSubjects", pkNames, pkData);
     }
 
-    public String put() throws DLException {
-        return "Hi.";
+    public int put() throws DLException {
+        // putting all of the column names into an ArrayList for passing to the superclass method
+        ArrayList<String> columnNames = new ArrayList<>();
+        columnNames.add("paperId");
+        columnNames.add("subjectId");
+
+        // putting all of the object values into an ArrayList for passing to the superclass method
+        ArrayList<String> values = new ArrayList<>();
+        values.add(Integer.toString(paperId));
+        values.add(Integer.toString(subjectId));
+
+        return super.put("PaperSubjects", columnNames, values, 1);
     }
 
-    public String post() throws DLException {
-        return "Hi.";
+    public int post() throws DLException {
+        // putting all of the column names into an ArrayList for passing to the superclass method
+        ArrayList<String> columnNames = new ArrayList<>();
+        columnNames.add("subjectId");
+        columnNames.add("paperId");
+
+        // putting all of the object values into an ArrayList for passing to the superclass method
+        ArrayList<String> values = new ArrayList<>();
+        values.add(Integer.toString(subjectId));
+        values.add(Integer.toString(paperId));
+
+        return super.put("PaperSubjects", columnNames, values, 1);
     }
 
-    public String delete() throws DLException {
-        return "Hi.";
+    public int delete() throws DLException {
+        // add primary key to ArrayList for passing into superclass method
+        ArrayList<String> pkNames = new ArrayList<>();
+        pkNames.add("paperId");
+        pkNames.add("subjectId");
+
+        // add primary key data to ArrayList for passing into superclass method
+        ArrayList<String> pkData = new ArrayList<>();
+        pkData.add(Integer.toString(paperId));
+        pkData.add(Integer.toString(subjectId));
+
+        return super.delete("PaperSubjects", pkNames, pkData);
     }
 
 } // end PaperSubjects

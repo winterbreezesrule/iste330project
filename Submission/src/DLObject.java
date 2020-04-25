@@ -1,3 +1,5 @@
+import io.jsonwebtoken.*;
+
 import java.util.ArrayList;
 
 /**
@@ -7,7 +9,7 @@ import java.util.ArrayList;
  *
  * @author Aaron Erhart
  */
-// TODO ADD JAVADOCS FOR ALL OF THESE
+
 public class DLObject {
     private final String uName = "root";
     private final String uPass = "USO800rubysky#1!";
@@ -21,26 +23,44 @@ public class DLObject {
      * @return 2D ArrayList containing the selected data
      * @throws DLException custom exception that logs errors in a separate file
      */
-    public ArrayList<ArrayList<String>> fetch(String tableName, ArrayList<String> pkNames, ArrayList<String> pkData) throws DLException{
-        MySQLDatabase db = new MySQLDatabase(uName, uPass);
-        if(db.connect()) {
-            StringBuilder sql = new StringBuilder("SELECT * FROM " + tableName + " WHERE ");
-            System.out.println(pkNames.size());
-            System.out.println(pkData.size());
-            for (int i = 0; i < pkNames.size(); i++){
-                String pk = pkNames.get(i);
-                if (i == pkNames.size() - 1){
-                    sql.append(pk).append(" = ?;");
-                }
-                else {
-                    sql.append(pk).append(" = ? AND ");
-                }
-            }
+    public ArrayList<ArrayList<String>> fetch(String tableName, ArrayList<String> pkNames, ArrayList<String> pkData, Jws<Claims> token) throws DLException{
+        int isAdmin = Integer.parseInt((String) token.getBody().get("IsAdmin"));
+        int loginUserId = Integer.parseInt((String) token.getBody().get("UserID"));
 
-            return db.getData(sql.toString(), pkData);
+        boolean hasAccess = false;
+
+        if((!tableName.equals("Papers")) && (!tableName.equals("Users")) && isAdmin != 1) {
+            System.out.println("Access Denied: Only Admins can do that!");
+        }
+        else if (isAdmin == 1){
+            hasAccess = true;
         }
         else {
-            return new ArrayList<>();
+
+        }
+
+        if(hasAccess) {
+            MySQLDatabase db = new MySQLDatabase(uName, uPass);
+            if (db.connect()) {
+                StringBuilder sql = new StringBuilder("SELECT * FROM " + tableName + " WHERE ");
+                System.out.println(pkNames.size());
+                System.out.println(pkData.size());
+                for (int i = 0; i < pkNames.size(); i++) {
+                    String pk = pkNames.get(i);
+                    if (i == pkNames.size() - 1) {
+                        sql.append(pk).append(" = ?;");
+                    } else {
+                        sql.append(pk).append(" = ? AND ");
+                    }
+                }
+
+                return db.getData(sql.toString(), pkData);
+            } else {
+                return new ArrayList<>();
+            }
+        }
+        else {
+
         }
     }
 
@@ -54,7 +74,7 @@ public class DLObject {
      * @return 2D ArrayList containing the selected data
      * @throws DLException custom exception that logs errors in a separate file
      */
-    public ArrayList<ArrayList<String>> fetch(String tableName, String pkName, String pkData) throws DLException{
+    public ArrayList<ArrayList<String>> fetch(String tableName, String pkName, String pkData, Jws<Claims> token) throws DLException{
         MySQLDatabase db = new MySQLDatabase(uName, uPass);
         if (db.connect()) {
             String sql = "SELECT * FROM " + tableName + " WHERE " + pkName + " = ?;";
@@ -76,7 +96,7 @@ public class DLObject {
      * @return number of rows affected
      * @throws DLException custom exception that logs errors in a separate file
      */
-    public int put(String tableName, ArrayList<String> columnNames, ArrayList<String> values, int numKeys) throws DLException{
+    public int put(String tableName, ArrayList<String> columnNames, ArrayList<String> values, int numKeys, Jws<Claims> token) throws DLException{
         MySQLDatabase db = new MySQLDatabase(uName, uPass);
         if (db.connect()){
             StringBuilder sql = new StringBuilder("UPDATE " + tableName + " SET ");
@@ -108,7 +128,7 @@ public class DLObject {
      * @return number of rows affected
      * @throws DLException custom exception that logs errors in a separate file
      */
-    public int post(String tableName, ArrayList<String> columnNames, ArrayList<String> values) throws DLException{
+    public int post(String tableName, ArrayList<String> columnNames, ArrayList<String> values, Jws<Claims> token) throws DLException{
         MySQLDatabase db = new MySQLDatabase(uName, uPass);
         if (db.connect()) {
             StringBuilder sql = new StringBuilder("INSERT INTO " + tableName + " VALUES ( ");
@@ -136,7 +156,7 @@ public class DLObject {
      * @return number of rows affected
      * @throws DLException custom exception that logs errors in a separate file
      */
-    public int delete(String tableName, ArrayList<String> pkNames, ArrayList<String> pkData) throws DLException{
+    public int delete(String tableName, ArrayList<String> pkNames, ArrayList<String> pkData, Jws<Claims> token) throws DLException{
         MySQLDatabase db = new MySQLDatabase(uName, uPass);
         if (db.connect()) {
             StringBuilder sql = new StringBuilder("DELETE FROM " + tableName + " WHERE ");
@@ -166,7 +186,7 @@ public class DLObject {
      * @return number of rows affected
      * @throws DLException custom exception that logs errors in a separate file
      */
-    public int delete(String tableName, String pkName, String pkData) throws DLException{
+    public int delete(String tableName, String pkName, String pkData, Jws<Claims> token) throws DLException{
         MySQLDatabase db = new MySQLDatabase(uName, uPass);
         if (db.connect()) {
             String sql = "DELETE FROM " + tableName + " WHERE " + pkName + " = ?;";

@@ -210,7 +210,7 @@ public class Papers extends DLObject{
         values.add(tentativeStatus);
         values.add(Integer.toString(paperId));
 
-        return super.put("Users", columnNames, values, 1);
+        return super.put("Papers", columnNames, values, 1);
     }
 
     /**
@@ -245,7 +245,7 @@ public class Papers extends DLObject{
         values.add(fileId);
         values.add(tentativeStatus);
 
-        return super.post("Users", columnNames, values);
+        return super.post("Papers", columnNames, values);
     }
 
     /**
