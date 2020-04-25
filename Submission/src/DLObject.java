@@ -26,29 +26,41 @@ public class DLObject {
      * @throws DLException custom exception that logs errors in a separate file
      */
     public ArrayList<ArrayList<String>> fetch(String tableName, ArrayList<String> pkNames, ArrayList<String> pkData, Jws<Claims> token) throws DLException{
-        int isAdmin = Integer.parseInt((String) token.getBody().get("IsAdmin"));
-        int loginUserId = Integer.parseInt((String) token.getBody().get("UserID"));
 
-        boolean hasAccess = false;
+        MySQLDatabase db = new MySQLDatabase(uName, uPass);
+        if (db.connect()) {
+            int isAdmin = Integer.parseInt((String) token.getBody().get("IsAdmin"));
+            int loginUserId = Integer.parseInt((String) token.getBody().get("UserID"));
 
-        if((!tableName.equals("Papers")) && (!tableName.equals("Users")) && isAdmin != 1) {
-            System.out.println("Access Denied: Only Admins can do that!");
-        }
-        else if (isAdmin == 1){
-            hasAccess = true;
-        }
-        else {
-            if (tableName.equals("Users")){
+            boolean hasAccess = false;
 
+            if ((!tableName.equals("Papers")) && (!tableName.equals("Users")) && isAdmin != 1) {
+                System.out.println("Access Denied: Only Admins can do that!");
+            } else if (isAdmin == 1) {
+                hasAccess = true;
+            } else {
+                if (tableName.equals("Users")) {
+                    if (loginUserId == Integer.parseInt(pkData.get(0))) {
+                        hasAccess = true;
+                    }
+                } else {
+                    String query = "SELECT * FROM PaperAuthors WHERE paperId = ?;";
+                    ArrayList<String> paperIdHolder = new ArrayList<>();
+                    paperIdHolder.add(pkData.get(0));
+                    ArrayList<ArrayList<String>> fullResults = db.getData(query, paperIdHolder);
+                    ArrayList<ArrayList<String>> results = new ArrayList<>();
+                    for (int i = 2; i < fullResults.size(); i++) {
+                        results.add(fullResults.get(i));
+                    }
+                    for (int i = 0; i < results.size(); i++) {
+                        if (loginUserId == Integer.parseInt(results.get(i).get(0))) {
+                            hasAccess = true;
+                        }
+                    }
+                }
             }
-            else {
 
-            }
-        }
-
-        if(hasAccess) {
-            MySQLDatabase db = new MySQLDatabase(uName, uPass);
-            if (db.connect()) {
+            if (hasAccess) {
                 StringBuilder sql = new StringBuilder("SELECT * FROM " + tableName + " WHERE ");
                 System.out.println(pkNames.size());
                 System.out.println(pkData.size());
@@ -63,11 +75,12 @@ public class DLObject {
 
                 return db.getData(sql.toString(), pkData);
             } else {
+                System.out.println("Access Denied");
                 return new ArrayList<>();
             }
         }
         else {
-            System.out.println("Access");
+            System.out.println("Failed to connect!");
             return new ArrayList<>();
         }
     }
