@@ -213,8 +213,21 @@ public class Users extends DLObject{
      * @throws DLException custom exception that logs errors in a separate file
      */
     public void fetch() throws DLException {
-        ArrayList<ArrayList<String>> data = super.fetch("Users", "userId", Integer.toString(userId));
-        
+        // user checking needs to be added
+        try {
+            ArrayList<ArrayList<String>> data = super.fetch("Users", "userId", Integer.toString(userId));
+            setUserId(Integer.parseInt(data.get(2).get(0)));
+            setLastName(data.get(2).get(1));
+            setFirstName(data.get(2).get(2));
+            setEmail(data.get(2).get(3));
+            setPswd(data.get(2).get(4));
+            setExpiration(data.get(2).get(5));
+            setIsAdmin(Integer.parseInt(data.get(2).get(6)));
+            setAffiliationId(Integer.parseInt(data.get(2).get(7)));
+        } catch (Exception e) {
+            System.out.println("Information could not be fetched.");
+            throw new DLException(e);
+        }
     }
 
     /**
