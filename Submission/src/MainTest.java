@@ -22,33 +22,25 @@ public class MainTest {
             // newUser.resetPassword("luntb@byu.edu");
             // String tokenString = newUser.login("ckadlec@georgiasouthern.edu", "newPass");
 
-            // RUN TO RESET PASSWORD TO RANDOM THING
-            // newUser.resetPassword("jml7290@g.rit.edu");
-            // NEED TO HAVE PAPERCUT RUNNING, THATS WHAT GETS THE "EMAIL"
-
-            // RUN TO SET NEW PASSWORD
-            // newUser.login("jml7290@g.rit.edu", "randomly generated password "emailed" to you");
-            // newUser.setPass("testpass");
-
-            // RUN THAT GETS TOKEN
             String tokenString = newUser.login("jml7290@g.rit.edu", "testpass");
 
             Jws<Claims> info = newUser.decodeToken(tokenString);
 
-            Users testUser = new Users();
+            System.out.println(info);
 
-            System.out.println(testUser.getPapers(9999, tokenString));
-            System.out.println(testUser.getUser());
+            // Users testUser = new Users();
 
-            testUser.setUser("Long", "Jay", "jml7290@g.rit.edu", 0, tokenString);
+            // System.out.println(testUser.getPapers(9999, tokenString));
+            // System.out.println(testUser.getUser());
 
-            Papers testPaper = new Papers();
+            // testUser.setUser("Long", "Jay", "jml7290@g.rit.edu", 0, tokenString);
+            // Papers testPaper = new Papers();
 
-            System.out.println(testPaper.getPaper(99999, tokenString));
+            // System.out.println(testPaper.getPaper(99999, tokenString));
 
-            int[] subids = {1};
-            int[] coids = {1};
-            testPaper.setPaper(0, "Test", "Test", 1, "Test", subids, coids, tokenString);
+            // int[] subids = {1};
+            // int[] coids = {1};
+            // testPaper.setPaper(0, "Test", "Test", 1, "Test", subids, coids, tokenString);
 
         } catch (Exception e) {
             e.printStackTrace();
