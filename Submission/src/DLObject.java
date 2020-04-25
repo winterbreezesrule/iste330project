@@ -254,7 +254,7 @@ public class DLObject {
                     }
                 }
             }
-            if (hasAccess) {
+            if (db.connect()) {
                 StringBuilder sql = new StringBuilder("INSERT INTO " + tableName + " VALUES ( ");
                 for (int i = 0; i < columnNames.size(); i++) {
                     String column = columnNames.get(i);
@@ -286,38 +286,10 @@ public class DLObject {
      */
     public int delete(String tableName, ArrayList<String> pkNames, ArrayList<String> pkData, Jws<Claims> token) throws DLException{
         MySQLDatabase db = new MySQLDatabase(uName, uPass);
+        int isAdmin = Integer.parseInt((String) token.getBody().get("IsAdmin"));
+
         if (db.connect()) {
-            int isAdmin = Integer.parseInt((String) token.getBody().get("IsAdmin"));
-            int loginUserId = Integer.parseInt((String) token.getBody().get("UserID"));
-
-            boolean hasAccess = false;
-
-            if ((!tableName.equals("Papers")) && (!tableName.equals("Users")) && isAdmin != 1) {
-                System.out.println("Access Denied: Only Admins can do that!");
-            } else if (isAdmin == 1) {
-                hasAccess = true;
-            } else {
-                if (tableName.equals("Users")) {
-                    if (loginUserId == Integer.parseInt(pkData.get(0))) {
-                        hasAccess = true;
-                    }
-                } else {
-                    String query = "SELECT * FROM PaperAuthors WHERE paperId = ?;";
-                    ArrayList<String> paperIdHolder = new ArrayList<>();
-                    paperIdHolder.add(pkData.get(0));
-                    ArrayList<ArrayList<String>> fullResults = db.getData(query, paperIdHolder);
-                    ArrayList<ArrayList<String>> results = new ArrayList<>();
-                    for (int i = 2; i < fullResults.size(); i++) {
-                        results.add(fullResults.get(i));
-                    }
-                    for (int i = 0; i < results.size(); i++) {
-                        if (loginUserId == Integer.parseInt(results.get(i).get(0))) {
-                            hasAccess = true;
-                        }
-                    }
-                }
-            }
-            if (hasAccess) {
+            if (isAdmin == 1) {
                 StringBuilder sql = new StringBuilder("DELETE FROM " + tableName + " WHERE ");
                 for (int i = 0; i < pkNames.size(); i++) {
                     String pk = pkNames.get(i);
@@ -329,12 +301,13 @@ public class DLObject {
                 }
 
                 return db.setData(sql.toString(), pkData);
-            } else {
+            }
+            else {
+                System.out.println("Access Denied: Only Admins can do that!");
                 return -1;
             }
         }
         else {
-            System.out.println("Failed to connect!");
             return -1;
         }
     }
@@ -350,48 +323,21 @@ public class DLObject {
      */
     public int delete(String tableName, String pkName, String pkData, Jws<Claims> token) throws DLException{
         MySQLDatabase db = new MySQLDatabase(uName, uPass);
+        int isAdmin = Integer.parseInt((String) token.getBody().get("IsAdmin"));
+
         if (db.connect()) {
-            int isAdmin = Integer.parseInt((String) token.getBody().get("IsAdmin"));
-            int loginUserId = Integer.parseInt((String) token.getBody().get("UserID"));
-
-            boolean hasAccess = false;
-
-            if ((!tableName.equals("Papers")) && (!tableName.equals("Users")) && isAdmin != 1) {
-                System.out.println("Access Denied: Only Admins can do that!");
-            } else if (isAdmin == 1) {
-                hasAccess = true;
-            } else {
-                if (tableName.equals("Users")) {
-                    if (loginUserId == Integer.parseInt(pkData)) {
-                        hasAccess = true;
-                    }
-                } else {
-                    String query = "SELECT * FROM PaperAuthors WHERE paperId = ?;";
-                    ArrayList<String> paperIdHolder = new ArrayList<>();
-                    paperIdHolder.add(pkData);
-                    ArrayList<ArrayList<String>> fullResults = db.getData(query, paperIdHolder);
-                    ArrayList<ArrayList<String>> results = new ArrayList<>();
-                    for (int i = 2; i < fullResults.size(); i++) {
-                        results.add(fullResults.get(i));
-                    }
-                    for (int i = 0; i < results.size(); i++) {
-                        if (loginUserId == Integer.parseInt(results.get(i).get(0))) {
-                            hasAccess = true;
-                        }
-                    }
-                }
-            }
-            if (hasAccess) {
+            if (isAdmin == 1) {
                 String sql = "DELETE FROM " + tableName + " WHERE " + pkName + " = ?;";
                 ArrayList<String> values = new ArrayList<>();
                 values.add(pkData);
                 return db.setData(sql, values);
-            } else {
+            }
+            else {
+                System.out.println("Access Denied: Only Admins can do that!");
                 return -1;
             }
         }
         else {
-            System.out.println("Failed to connect!");
             return -1;
         }
     }
