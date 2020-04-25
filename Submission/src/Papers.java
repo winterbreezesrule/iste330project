@@ -451,7 +451,7 @@ public class Papers extends DLObject{
             // see if submitter is one of the authors of new paper
             for (int i = 0; i < coauthorIds.length; i++) {
                 if (loginUserId == coauthorIds[i]) {
-
+                    submitterIsCoauthor = true;
                 }
             }
 
