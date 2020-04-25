@@ -1,3 +1,6 @@
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jws;
+
 import java.util.ArrayList;
 
 /**
@@ -48,8 +51,8 @@ public class Types extends DLObject {
      *
      * @throws DLException custom exception that logs errors in a separate file
      */
-    public void fetch() throws DLException {
-        ArrayList<ArrayList<String>> data = super.fetch("_Types", "typeId", Integer.toString(typeId));
+    public void fetch(Jws<Claims> token) throws DLException {
+        ArrayList<ArrayList<String>> data = super.fetch("_Types", "typeId", Integer.toString(typeId), token);
      }
 
     /**
@@ -59,7 +62,7 @@ public class Types extends DLObject {
      * @return number of rows affected
      * @throws DLException custom exception that logs errors in a separate file
      */
-    public int put() throws DLException {
+    public int put(Jws<Claims> token) throws DLException {
         // putting all of the column names into an ArrayList for passing to the superclass method
         ArrayList<String> columnNames = new ArrayList<>();
         columnNames.add("typeName");
@@ -70,7 +73,7 @@ public class Types extends DLObject {
         values.add(typeName);
         values.add(Integer.toString(typeId));
 
-        return super.put("_Types", columnNames, values, 1);
+        return super.put("_Types", columnNames, values, 1, token);
     }
 
     /**
@@ -80,7 +83,7 @@ public class Types extends DLObject {
      * @return number of rows affected
      * @throws DLException custom exception that logs errors in a separate file
      */
-    public int post() throws DLException {
+    public int post(Jws<Claims> token) throws DLException {
         // putting all of the column names into an ArrayList for passing to the superclass method
         ArrayList<String> columnNames = new ArrayList<>();
         columnNames.add("typeId");
@@ -91,7 +94,7 @@ public class Types extends DLObject {
         values.add(Integer.toString(typeId));
         values.add(typeName);
 
-        return super.post("_Types", columnNames, values);
+        return super.post("_Types", columnNames, values, token);
     }
 
     /**
@@ -101,8 +104,8 @@ public class Types extends DLObject {
      * @return number of rows affected
      * @throws DLException custom exception that logs errors in a separate file
      */
-    public int delete() throws DLException {
-        return super.delete("_Types", "typeId", Integer.toString(typeId));
+    public int delete(Jws<Claims> token) throws DLException {
+        return super.delete("_Types", "typeId", Integer.toString(typeId), token);
     }
 
 } // end Types

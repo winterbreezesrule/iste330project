@@ -1,3 +1,6 @@
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jws;
+
 import java.util.ArrayList;
 
 /**
@@ -65,7 +68,7 @@ public class PaperAuthors extends DLObject {
      *
      * @throws DLException custom exception that logs errors in a separate file
      */
-    public void fetch() throws DLException {
+    public void fetch(Jws<Claims> token) throws DLException {
         // add primary key to ArrayList for passing into superclass method
         ArrayList<String> pkNames = new ArrayList<>();
         pkNames.add("paperId");
@@ -76,7 +79,7 @@ public class PaperAuthors extends DLObject {
         pkData.add(Integer.toString(paperId));
         pkData.add(Integer.toString(userId));
 
-        ArrayList<ArrayList<String>> data = super.fetch("PaperAuthors", pkNames, pkData);
+        ArrayList<ArrayList<String>> data = super.fetch("PaperAuthors", pkNames, pkData, token);
     }
 
     /**
@@ -86,7 +89,7 @@ public class PaperAuthors extends DLObject {
      * @return number of rows affected
      * @throws DLException custom exception that logs errors in a separate file
      */
-    public int put() throws DLException {
+    public int put(Jws<Claims> token) throws DLException {
         // putting all of the column names into an ArrayList for passing to the superclass method
         ArrayList<String> columnNames = new ArrayList<>();
         columnNames.add("displayOrder");
@@ -99,7 +102,7 @@ public class PaperAuthors extends DLObject {
         values.add(Integer.toString(paperId));
         values.add(Integer.toString(userId));
 
-        return super.put("PaperAuthors", columnNames, values, 2);
+        return super.put("PaperAuthors", columnNames, values, 2, token);
     }
 
     /**
@@ -109,7 +112,7 @@ public class PaperAuthors extends DLObject {
      * @return number of rows affected
      * @throws DLException custom exception that logs errors in a separate file
      */
-    public int post() throws DLException {
+    public int post(Jws<Claims> token) throws DLException {
         // putting all of the column names into an ArrayList for passing to the superclass method
         ArrayList<String> columnNames = new ArrayList<>();
         columnNames.add("paperId");
@@ -122,7 +125,7 @@ public class PaperAuthors extends DLObject {
         values.add(Integer.toString(userId));
         values.add(Integer.toString(displayOrder));
 
-        return super.post("PaperAuthors", columnNames, values);
+        return super.post("PaperAuthors", columnNames, values, token);
     }
 
     /**
@@ -132,7 +135,7 @@ public class PaperAuthors extends DLObject {
      * @return number of rows affected
      * @throws DLException custom exception that logs errors in a separate file
      */
-    public int delete() throws DLException {
+    public int delete(Jws<Claims> token) throws DLException {
         // add primary keys to ArrayList for passing into superclass method
         ArrayList<String> pkNames = new ArrayList<>();
         pkNames.add("paperId");
@@ -143,7 +146,7 @@ public class PaperAuthors extends DLObject {
         pkData.add(Integer.toString(paperId));
         pkData.add(Integer.toString(userId));
 
-        return super.delete("PaperAuthors", pkNames, pkData);
+        return super.delete("PaperAuthors", pkNames, pkData, token);
     }
 
 } // end PaperAuthors

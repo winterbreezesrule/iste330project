@@ -1,3 +1,6 @@
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jws;
+
 import java.util.ArrayList;
 
 /**
@@ -47,7 +50,7 @@ public class Subjects extends DLObject{
      *
      * @throws DLException custom exception that logs errors in a separate file
      */
-    public void fetch() throws DLException {
+    public void fetch(Jws<Claims> token) throws DLException {
         // add primary key to ArrayList for passing into superclass method
         ArrayList<String> pkNames = new ArrayList<>();
         pkNames.add("subjectId");
@@ -56,7 +59,7 @@ public class Subjects extends DLObject{
         ArrayList<String> pkData = new ArrayList<>();
         pkData.add(Integer.toString(subjectId));
 
-        ArrayList<ArrayList<String>> data = super.fetch("_Subjects", pkNames, pkData);
+        ArrayList<ArrayList<String>> data = super.fetch("_Subjects", pkNames, pkData, token);
     }
 
     /**
@@ -66,7 +69,7 @@ public class Subjects extends DLObject{
      * @return number of rows affected
      * @throws DLException custom exception that logs errors in a separate file
      */
-    public int put() throws DLException {
+    public int put(Jws<Claims> token) throws DLException {
         // putting all of the column names into an ArrayList for passing to the superclass method
         ArrayList<String> columnNames = new ArrayList<>();
         columnNames.add("subjectName");
@@ -77,7 +80,7 @@ public class Subjects extends DLObject{
         values.add(subjectName);
         values.add(Integer.toString(subjectId));
 
-        return super.put("_Subjects", columnNames, values, 1);
+        return super.put("_Subjects", columnNames, values, 1, token);
     }
 
     /**
@@ -87,7 +90,7 @@ public class Subjects extends DLObject{
      * @return number of rows affected
      * @throws DLException custom exception that logs errors in a separate file
      */
-    public int post() throws DLException {
+    public int post(Jws<Claims> token) throws DLException {
         // putting all of the column names into an ArrayList for passing to the superclass method
         ArrayList<String> columnNames = new ArrayList<>();
         columnNames.add("subjectId");
@@ -98,7 +101,7 @@ public class Subjects extends DLObject{
         values.add(Integer.toString(subjectId));
         values.add(subjectName);
 
-        return super.post("_Subjects", columnNames, values);
+        return super.post("_Subjects", columnNames, values, token);
     }
 
     /**
@@ -108,8 +111,8 @@ public class Subjects extends DLObject{
      * @return number of rows affected
      * @throws DLException custom exception that logs errors in a separate file
      */
-    public int delete() throws DLException {
-        return super.delete("_Subjects", "subjectId", Integer.toString(subjectId));
+    public int delete(Jws<Claims> token) throws DLException {
+        return super.delete("_Subjects", "subjectId", Integer.toString(subjectId), token);
     }
 
 } // end Subjects 

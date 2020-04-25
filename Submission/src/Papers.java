@@ -371,10 +371,13 @@ public class Papers extends DLObject{
                     paperInfo += "\nPaper status: " + results0.get(3);
 
                     paperInfo += "\nPaper submission type: ";
-                    Types tempType = new Types();
-                    tempType.setTypeId(Integer.parseInt(results0.get(4)));
-                    tempType.fetch();
-                    paperInfo += tempType.getTypeName();
+
+                    String sql2point5 = "select typeName from _types where typeId = ?;";
+                    ArrayList<String> values2point5 = new ArrayList<String>();
+                    values2point5.add(results0.get(4));
+
+                    ArrayList<ArrayList<String>> results2point5 = mysqld.getData(sql2point5, values2point5);
+                    paperInfo += results2point5.get(2).get(0);
 
 
                     paperInfo += "\nSubmitter: ";

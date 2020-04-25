@@ -1,3 +1,6 @@
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jws;
+
 import java.util.ArrayList;
 
 /**
@@ -48,8 +51,8 @@ public class Affiliations extends DLObject {
      *
      * @throws DLException custom exception that logs errors in a separate file
      */
-    public void fetch() throws DLException {
-        ArrayList<ArrayList<String>> data = super.fetch("_Affiliations", "affiliationId", Integer.toString(affiliationId));
+    public void fetch(Jws<Claims> token) throws DLException {
+        ArrayList<ArrayList<String>> data = super.fetch("_Affiliations", "affiliationId", Integer.toString(affiliationId), token);
     }
 
     /**
@@ -59,7 +62,7 @@ public class Affiliations extends DLObject {
      * @return number of rows affected
      * @throws DLException custom exception that logs errors in a separate file
      */
-    public int put() throws DLException {
+    public int put(Jws<Claims> token) throws DLException {
         return 1;
     }
 
@@ -70,7 +73,7 @@ public class Affiliations extends DLObject {
      * @return number of rows affected
      * @throws DLException custom exception that logs errors in a separate file
      */
-    public int post() throws DLException {
+    public int post(Jws<Claims> token) throws DLException {
         // putting all of the column names into an ArrayList for passing to the superclass method
         ArrayList<String> columnNames = new ArrayList<>();
         columnNames.add("affiliationId");
@@ -81,7 +84,7 @@ public class Affiliations extends DLObject {
         values.add(Integer.toString(affiliationId));
         values.add(affiliationName);
 
-        return super.post("_Affiliations", columnNames, values);
+        return super.post("_Affiliations", columnNames, values, token);
     }
 
     /**
@@ -91,8 +94,8 @@ public class Affiliations extends DLObject {
      * @return number of rows affected
      * @throws DLException custom exception that logs errors in a separate file
      */
-    public int delete() throws DLException {
-        return super.delete("_Affiliations", "affiliationId", Integer.toString(affiliationId));
+    public int delete(Jws<Claims> token) throws DLException {
+        return super.delete("_Affiliations", "affiliationId", Integer.toString(affiliationId), token);
     }
 
 } // end Affiliations 
