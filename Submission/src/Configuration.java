@@ -149,6 +149,8 @@ public class Configuration extends DLObject{
 
     public void fetch(Jws<Claims> token) throws DLException {
         ArrayList<ArrayList<String>> data = super.fetch("_Configuration", token);
+
+        // set data this didn't get implemented in time
     }
 
     public int put(Jws<Claims> token) throws DLException {
