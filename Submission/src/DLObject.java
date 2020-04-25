@@ -285,9 +285,9 @@ public class DLObject {
                 for (int i = 0; i < columnNames.size(); i++) {
                     String column = columnNames.get(i);
                     if (i == columnNames.size() - 1) {
-                        sql.append(column).append("?);");
+                        sql.append("?);");
                     } else {
-                        sql.append(column).append("?, ");
+                        sql.append("?, ");
                     }
                 }
                 return db.setData(sql.toString(), values);
