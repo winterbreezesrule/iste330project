@@ -33,8 +33,8 @@ import java.util.*;
 @SuppressWarnings({"unused", "UnnecessaryLocalVariable", "RedundantThrows", "SpellCheckingInspection", "DanglingJavadoc"})
 public class Users extends DLObject{
     //connection variables
-    private final String uName = "root";
-    private final String uPass = "USO800rubysky#1!";
+    private final String uName = "student";
+    private final String uPass = "student";
 
     //secret encryption key
     public static String SECRET_KEY;
@@ -221,8 +221,8 @@ public class Users extends DLObject{
             setFirstName(data.get(2).get(2));
             setEmail(data.get(2).get(3));
             setPswd(data.get(2).get(4));
-            setExpiration(data.get(2).get(5));
-            setIsAdmin(Integer.parseInt(data.get(2).get(6)));
+            setIsAdmin(Integer.parseInt(data.get(2).get(5)));
+            setExpiration(data.get(2).get(6));
             setAffiliationId(Integer.parseInt(data.get(2).get(7)));
         } catch (Exception e) {
             System.out.println("Information could not be applied to this object.");

@@ -1,8 +1,0 @@
-Exception info: 
-java.lang.IndexOutOfBoundsException: Index: 2, Size: 2
-	at java.util.ArrayList.rangeCheck(ArrayList.java:657)
-	at java.util.ArrayList.get(ArrayList.java:433)
-	at Users.login(Users.java:689)
-	at MainTest.main(MainTest.java:25)
-Current time: 2020-04-24 20:40:16.582
-

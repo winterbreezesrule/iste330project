@@ -8,8 +8,8 @@ import java.util.*;
 
 public class Papers extends DLObject{
     //connection variables
-    private final String uName = "root";
-    private final String uPass = "USO800rubysky#1!";
+    private final String uName = "student";
+    private final String uPass = "student";
 
     // table attributes
     private int paperId;
@@ -176,6 +176,9 @@ public class Papers extends DLObject{
      */
     public void fetch(Jws<Claims> token) throws DLException {
         ArrayList<ArrayList<String>> data = super.fetch("Papers", "paperId", Integer.toString(paperId), token);
+        if (data.isEmpty()) {
+            System.out.println("ur fucked lol");
+        }
         try {
             setPaperId(Integer.parseInt(data.get(2).get(0)));
             setTitle(data.get(2).get(1));

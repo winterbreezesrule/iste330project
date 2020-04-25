@@ -26,21 +26,14 @@ public class MainTest {
 
             Jws<Claims> info = newUser.decodeToken(tokenString);
 
-            System.out.println(info);
+            Users test = new Users();
 
-            // Users testUser = new Users();
+            test.setUserId(9);
 
-            // System.out.println(testUser.getPapers(9999, tokenString));
-            // System.out.println(testUser.getUser());
-
-            // testUser.setUser("Long", "Jay", "jml7290@g.rit.edu", 0, tokenString);
-            // Papers testPaper = new Papers();
-
-            // System.out.println(testPaper.getPaper(99999, tokenString));
-
-            // int[] subids = {1};
-            // int[] coids = {1};
-            // testPaper.setPaper(0, "Test", "Test", 1, "Test", subids, coids, tokenString);
+            // test.fetch(info);
+            // test.post(info);
+            test.put(info);
+            test.delete(info);
 
         } catch (Exception e) {
             e.printStackTrace();

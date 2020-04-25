@@ -13,8 +13,8 @@ import java.util.ArrayList;
  */
 
 public class DLObject {
-    private final String uName = "root";
-    private final String uPass = "USO800rubysky#1!";
+    private final String uName = "student";
+    private final String uPass = "student";
 
     /**
      * Fetch method for objects that have more than one primary key

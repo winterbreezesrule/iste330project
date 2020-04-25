@@ -152,15 +152,15 @@ public class Configuration extends DLObject{
     }
 
     public int put() throws DLException {
-        return "Hi.";
+        return 1;
     }
 
     public int post() throws DLException {
-        return "Hi.";
+        return 1;
     }
 
     public int delete() throws DLException {
-        return "Hi.";
+        return 1;
     }
 
 } // end Configuration
