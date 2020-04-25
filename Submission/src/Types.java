@@ -53,6 +53,14 @@ public class Types extends DLObject {
      */
     public void fetch(Jws<Claims> token) throws DLException {
         ArrayList<ArrayList<String>> data = super.fetch("_Types", "typeId", Integer.toString(typeId), token);
+
+        try {
+            setTypeId(Integer.parseInt(data.get(2).get(0)));
+            setTypeName(data.get(2).get(1));
+        } catch (Exception e) {
+            System.out.println("Information could not be applied to this object.");
+            throw new DLException(e);
+        }
      }
 
     /**

@@ -176,6 +176,20 @@ public class Papers extends DLObject{
      */
     public void fetch(Jws<Claims> token) throws DLException {
         ArrayList<ArrayList<String>> data = super.fetch("Papers", "paperId", Integer.toString(paperId), token);
+        try {
+            setPaperId(Integer.parseInt(data.get(2).get(0)));
+            setTitle(data.get(2).get(1));
+            setPaperAbstract(data.get(2).get(2));
+            setTrack(data.get(2).get(3));
+            setStatus(data.get(2).get(4));
+            setSubmissionType(Integer.parseInt(data.get(2).get(5)));
+            setSubmitterId(Integer.parseInt(data.get(2).get(6)));
+            setFileId(data.get(2).get(7));
+            setTentativeStatus(data.get(2).get(8));
+        } catch (Exception e) {
+            System.out.println("Information could not be applied to this object.");
+            throw new DLException(e);
+        }
     }
 
     /**

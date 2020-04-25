@@ -80,6 +80,15 @@ public class PaperAuthors extends DLObject {
         pkData.add(Integer.toString(userId));
 
         ArrayList<ArrayList<String>> data = super.fetch("PaperAuthors", pkNames, pkData, token);
+
+        try {
+            setPaperId(Integer.parseInt(data.get(2).get(0)));
+            setUserId(Integer.parseInt(data.get(2).get(1)));
+            setDisplayOrder(Integer.parseInt(data.get(2).get(2)));
+        } catch (Exception e) {
+            System.out.println("Information could not be applied to this object.");
+            throw new DLException(e);
+        }
     }
 
     /**

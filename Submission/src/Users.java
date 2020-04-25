@@ -214,8 +214,8 @@ public class Users extends DLObject{
      */
     public void fetch(Jws<Claims> token) throws DLException {
         // user checking needs to be added
+        ArrayList<ArrayList<String>> data = super.fetch("Users", "userId", Integer.toString(userId), token);
         try {
-            ArrayList<ArrayList<String>> data = super.fetch("Users", "userId", Integer.toString(userId), token);
             setUserId(Integer.parseInt(data.get(2).get(0)));
             setLastName(data.get(2).get(1));
             setFirstName(data.get(2).get(2));
@@ -225,7 +225,7 @@ public class Users extends DLObject{
             setIsAdmin(Integer.parseInt(data.get(2).get(6)));
             setAffiliationId(Integer.parseInt(data.get(2).get(7)));
         } catch (Exception e) {
-            System.out.println("Information could not be fetched.");
+            System.out.println("Information could not be applied to this object.");
             throw new DLException(e);
         }
     }

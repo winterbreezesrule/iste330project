@@ -60,6 +60,14 @@ public class Subjects extends DLObject{
         pkData.add(Integer.toString(subjectId));
 
         ArrayList<ArrayList<String>> data = super.fetch("_Subjects", pkNames, pkData, token);
+
+        try {
+            setSubjectId(Integer.parseInt(data.get(2).get(0)));
+            setSubjectName(data.get(2).get(1));
+        } catch (Exception e) {
+            System.out.println("Information could not be applied to this object.");
+            throw new DLException(e);
+        }
     }
 
     /**

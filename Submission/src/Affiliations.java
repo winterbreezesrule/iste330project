@@ -52,12 +52,12 @@ public class Affiliations extends DLObject {
      * @throws DLException custom exception that logs errors in a separate file
      */
     public void fetch(Jws<Claims> token) throws DLException {
+        ArrayList<ArrayList<String>> data = super.fetch("_Affiliations", "affiliationId", Integer.toString(affiliationId), token);
         try {
-            ArrayList<ArrayList<String>> data = super.fetch("_Affiliations", "affiliationId", Integer.toString(affiliationId), token);
             setAffiliationId(Integer.parseInt(data.get(2).get(0)));
             setAffiliationName(data.get(2).get(1));
         } catch (Exception e) {
-            System.out.println("Information could not be fetched.");
+            System.out.println("Information could not be applied to this object..");
             throw new DLException(e);
         }
     }

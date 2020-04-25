@@ -56,6 +56,14 @@ public class PaperSubjects extends DLObject{
         pkData.add(Integer.toString(subjectId));
 
         ArrayList<ArrayList<String>> data = super.fetch("PaperSubjects", pkNames, pkData, token);
+
+        try {
+            setPaperId(Integer.parseInt(data.get(2).get(0)));
+            setSubjectId(Integer.parseInt(data.get(2).get(1)));
+        } catch (Exception e) {
+            System.out.println("Information could not be applied to this object.");
+            throw new DLException(e);
+        }
     }
 
     public int put(Jws<Claims> token) throws DLException {
