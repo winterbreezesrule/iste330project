@@ -24,7 +24,7 @@ newUser.setPass("testpass");
 At this point, the user will be able to use the various features implemented within the code. The password will be valid for the next six months. The code to log-in at this point is as follows:
 
 Users newUser = new User();
-String tokenString = newUser.login("jml7290@g.rit.edu", "testpass");
+String tokenString = newUser.login("test@email.com", "testpass");
 
 The String that is returned when a user logs in is a token containing relevant info, and it's what is used to determine if a user has the rights to do various things.
 
