@@ -2,17 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7823ad02-25d1-4d6b-9097-39eaf607c4f9" name="Default Changelist" comment="Merge remote-tracking branch 'origin/master'&#10;&#10;# Conflicts:&#10;#&#9;Submission/src/Configuration.java">
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/errors.log" beforeDir="false" afterPath="$PROJECT_DIR$/errors.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Submission/Configuration.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Submission/Configuration.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Submission/DLObject.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Submission/DLObject.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Submission/MainTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Submission/MainTest.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Submission/Papers.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Submission/Papers.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Submission/Users.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Submission/Users.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DLObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/DLObject.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/MainTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/MainTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Papers.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Papers.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Users.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Users.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Configuration.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Configuration.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,22 +46,38 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="530" y="46" key="CommitChangelistDialog2/0.0.1920.1040@0.0.1920.1040" timestamp="1587786714755" />
-    <state width="1877" height="270" key="GridCell.Tab.0.bottom" timestamp="1587784736902">
+    <state width="1877" height="348" key="GridCell.Tab.0.bottom" timestamp="1587786984229">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="270" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1587784736902" />
-    <state width="1877" height="270" key="GridCell.Tab.0.center" timestamp="1587784736902">
+    <state width="1877" height="348" key="GridCell.Tab.0.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1587786984229" />
+    <state width="1877" height="348" key="GridCell.Tab.0.center" timestamp="1587786984228">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="270" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1587784736902" />
-    <state width="1877" height="270" key="GridCell.Tab.0.left" timestamp="1587784736902">
+    <state width="1877" height="348" key="GridCell.Tab.0.center/0.0.1920.1040@0.0.1920.1040" timestamp="1587786984228" />
+    <state width="1877" height="348" key="GridCell.Tab.0.left" timestamp="1587786984228">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="270" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1587784736902" />
-    <state width="1877" height="270" key="GridCell.Tab.0.right" timestamp="1587784736902">
+    <state width="1877" height="348" key="GridCell.Tab.0.left/0.0.1920.1040@0.0.1920.1040" timestamp="1587786984228" />
+    <state width="1877" height="348" key="GridCell.Tab.0.right" timestamp="1587786984229">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
-    <state width="1877" height="270" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1587784736902" />
+    <state width="1877" height="348" key="GridCell.Tab.0.right/0.0.1920.1040@0.0.1920.1040" timestamp="1587786984229" />
+    <state width="1877" height="348" key="GridCell.Tab.1.bottom" timestamp="1587786984229">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="348" key="GridCell.Tab.1.bottom/0.0.1920.1040@0.0.1920.1040" timestamp="1587786984229" />
+    <state width="1877" height="348" key="GridCell.Tab.1.center" timestamp="1587786984229">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="348" key="GridCell.Tab.1.center/0.0.1920.1040@0.0.1920.1040" timestamp="1587786984229" />
+    <state width="1877" height="348" key="GridCell.Tab.1.left" timestamp="1587786984229">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="348" key="GridCell.Tab.1.left/0.0.1920.1040@0.0.1920.1040" timestamp="1587786984229" />
+    <state width="1877" height="348" key="GridCell.Tab.1.right" timestamp="1587786984229">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state width="1877" height="348" key="GridCell.Tab.1.right/0.0.1920.1040@0.0.1920.1040" timestamp="1587786984229" />
     <state x="848" y="387" width="389" height="265" key="MultipleFileMergeDialog" timestamp="1587786721157">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
