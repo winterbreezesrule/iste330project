@@ -214,6 +214,7 @@ public class Users extends DLObject{
      */
     public void fetch() throws DLException {
         ArrayList<ArrayList<String>> data = super.fetch("Users", "userId", Integer.toString(userId));
+        
     }
 
     /**

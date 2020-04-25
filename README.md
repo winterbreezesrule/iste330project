@@ -2,7 +2,7 @@
 
 This is a (hopefully brief) guide on the basics of our project.
 
-First things first, the work was divided between the three of us. Hansel worked on the user authentication methods. Aaron worked on the CRUD. Jay worked on implementing the get/set paper/user methods, as well as managing the project and making sure everything was kept up to speed. They also worked on the bulk of this ReadMe file. All three of them worked on debugging.
+First things first, the work was divided between the three of us. Hansel worked on the user authentication methods. Aaron worked on the CRUD. Jay worked on implementing the get/set paper/user methods, implementing the MySQLDatabase class, and general management and housekeeping affairs. They also worked on the bulk of this ReadMe file. All three of them worked on debugging.
 
 We made one modification to the CSM database--we changed the possible length of a User's password from varChar(45) to varChar(60).
 
