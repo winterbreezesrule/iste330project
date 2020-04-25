@@ -1,10 +1,13 @@
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jws;
+
 import java.util.*;
 
 /**
  * Used to represent the _Configuration table in the CSM database.
  */
 
-public class Configuration {
+public class Configuration extends DLObject{
       
     // table attributes
     private Date submissionOpen;
@@ -144,19 +147,19 @@ public class Configuration {
         this.logoFile = logoFile;
     }
 
-    public void fetch() throws DLException {
-        // table name is _Configuration, not Configuration
+    public void fetch(Jws<Claims> token) throws DLException {
+        ArrayList<ArrayList<String>> data = super.fetch("_Configuration", token);
     }
 
-    public String put() throws DLException {
+    public int put() throws DLException {
         return "Hi.";
     }
 
-    public String post() throws DLException {
+    public int post() throws DLException {
         return "Hi.";
     }
 
-    public String delete() throws DLException {
+    public int delete() throws DLException {
         return "Hi.";
     }
 

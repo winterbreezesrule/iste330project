@@ -144,6 +144,32 @@ public class DLObject {
     }
 
     /**
+     * Fetch method for _Configuration table
+     *
+     * @param tableName name of the table to get data from
+     * @return 2D ArrayList containing the selected data
+     * @throws DLException custom exception that logs errors in a separate file
+     */
+    public ArrayList<ArrayList<String>> fetch(String tableName, Jws<Claims> token) throws DLException{
+        MySQLDatabase db = new MySQLDatabase(uName, uPass);
+        if (db.connect()) {
+            int isAdmin = Integer.parseInt((String) token.getBody().get("IsAdmin"));
+
+            if (isAdmin == 1) {
+                String sql = "SELECT * FROM " + tableName + ";";
+                ArrayList<String> values = new ArrayList<>();
+                return db.getData(sql, values);
+            } else {
+                return new ArrayList<>();
+            }
+        }
+        else {
+            System.out.println("Failed to connect!");
+            return new ArrayList<>();
+        }
+    }
+
+    /**
      * Put method
      *
      * @param tableName name of the table to update data in
@@ -254,7 +280,7 @@ public class DLObject {
                     }
                 }
             }
-            if (db.connect()) {
+            if (hasAccess) {
                 StringBuilder sql = new StringBuilder("INSERT INTO " + tableName + " VALUES ( ");
                 for (int i = 0; i < columnNames.size(); i++) {
                     String column = columnNames.get(i);
