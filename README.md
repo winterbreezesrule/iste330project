@@ -6,6 +6,8 @@ First things first, the work was divided between the three of us. Hansel worked 
 
 We made one modification to the CSM database--we changed the possible length of a User's password from varChar(45) to varChar(60).
 
+Please note that we are also making an assumption about the _Configuration table of the database--that it can only hold one entry. Because it does not have any keys, we were uncertain on how to proceed with CRUD without making this assumption.
+
 ## Basics
 
 The first major feature of this project is the process by which a user "logs in." The first time they use this application, even if they are a returning user, they will have to reset their password. This is because the new encryption system that has been applied to this database has not been applied to every user--and therefore, they must reset their passwords in order to keep that information truly secure.. The code to do this is as follows:
